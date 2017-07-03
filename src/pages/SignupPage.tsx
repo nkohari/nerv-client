@@ -4,22 +4,24 @@ import { Button, InputGroup, Intent } from '@blueprintjs/core';
 import { Link } from 'react-router';
 import { replace, LocationAction } from 'react-router-redux';
 import { Action, AuthState, connect, userLoggedIn } from '../data';
-import { login } from '../api';
+import { createUser } from '../api';
 import { getRedirectUrl } from '../utils';
 import './Modal.styl';
 
-interface LoginPageProps {
+interface SignupPageProps {
   auth: AuthState;
   replace: LocationAction;
   userLoggedIn: Action;
 }
 
-interface LoginPageState {
+interface SignupPageState {
   username: string;
   password: string;
+  passwordConfirm: string;
+  passwordsMatch: boolean;
 }
 
-class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
+class SignupPage extends React.Component<SignupPageProps, SignupPageState> {
 
   static actionsToProps = {
     replace,
@@ -34,28 +36,26 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      passwordConfirm: '',
+      passwordsMatch: true
     };
   }
 
   onFormSubmit = event => {
     const { username, password } = this.state;
 
-    login({ username, password })
+    createUser({ username, password })
     .then(result => {
       this.props.userLoggedIn({ token: result.token, user: result.user });
       this.props.replace(getRedirectUrl());
     })
     .catch(err => {
-      Toaster.error('Error during log in. Please check your username and password and try again.');
+      Toaster.error('There was an error creating your account. Please try again.');
     });
 
     event.preventDefault();
     return false;
-  }
-
-  onSignUpClicked = event => {
-    this.props.replace('/signup');
   }
 
   onChange = property => (
@@ -64,14 +64,15 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
         ...this.state,
         [property]: event.target.value
       };
+      state.passwordsMatch = (state.password === state.passwordConfirm);
       this.setState(state);
     }
   )
 
   render() {
-    const { username, password } = this.state;
+    const { username, password, passwordConfirm } = this.state;
     return (
-      <div className='login modal page'>
+      <div className='signup modal page'>
         <main className='pt-card pt-dark pt-elevation-3'>
           <form onSubmit={this.onFormSubmit}>
             <label className='pt-label'>
@@ -94,12 +95,22 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
                 required
               />
             </label>
-            <Button type='submit' intent={Intent.SUCCESS} iconName='log-in'>
-              Log In
+            <label className='pt-label'>
+              Password <span className='pt-text-muted'> (confirm)</span>
+              <InputGroup
+                type='password'
+                leftIconName='lock'
+                value={passwordConfirm}
+                onChange={this.onChange('passwordConfirm')}
+                required
+              />
+            </label>
+            <Button type='submit' intent={Intent.SUCCESS} iconName='tick'>
+              Create my account
             </Button>
           </form>
           <div className='modal-footer'>
-            Don't have an account? <Link to='/signup'>Sign up for free →</Link>
+            Already registered? <Link to='/login'>Log in instead →</Link>
           </div>
         </main>
       </div>
@@ -108,4 +119,4 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
 
 }
 
-export default connect(LoginPage);
+export default connect(SignupPage);

@@ -1,19 +1,25 @@
 import * as React from 'react';
-import { AuthState, connect } from './data';
+import { Action, AuthState, connect, userLoggedOut } from './data';
+import { Header } from './components';
 import './Shell.styl';
 
 interface ShellProps {
   auth: AuthState;
+  userLoggedOut: Action;
 }
 
 class Shell extends React.Component<ShellProps> {
+
+  static actionsToProps = {
+    userLoggedOut
+  };
 
   static stateToProps = (state) => ({
     auth: state.auth
   })
 
   render() {
-    const { children, auth } = this.props;
+    const { children, auth, userLoggedOut } = this.props;
 
     let content;
     if (children) {
@@ -22,6 +28,7 @@ class Shell extends React.Component<ShellProps> {
 
     return (
       <div className='shell'>
+        <Header auth={auth} userLoggedOut={userLoggedOut} />
         {content}
       </div>
     );

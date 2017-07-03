@@ -2,14 +2,14 @@ import * as React from 'react';
 import { replace, LocationAction } from 'react-router-redux';
 import { AuthState, connect } from '../data';
 
-interface AuthorizationWrapperProps {
+interface RedirectWrapperProps {
   auth: AuthState;
   location: object;
   replace: LocationAction;
 }
 
-export default function authorize(InnerComponent) { // tslint:disable-line:variable-name
-  class AuthorizationWrapper extends React.Component<AuthorizationWrapperProps> {
+export default function redirectIfNotAuthenticated(InnerComponent) { // tslint:disable-line:variable-name
+  class RedirectWrapper extends React.Component<RedirectWrapperProps> {
 
     static actionsToProps = {
       replace
@@ -29,15 +29,19 @@ export default function authorize(InnerComponent) { // tslint:disable-line:varia
 
     redirectIfNotAuthenticated(props) {
       const { auth, location } = props;
-      if (!auth.token || !auth.user) {
+      if (!this.isAuthenticated(auth)) {
         this.props.replace(`/login?r=${location.pathname}`);
       }
+    }
+
+    isAuthenticated(auth) {
+      return auth && auth.token && auth.user;
     }
 
     render() {
       const { auth } = this.props;
 
-      if (auth && auth.token && auth.user) {
+      if (this.isAuthenticated(auth)) {
         return <InnerComponent {...this.props} />;
       }
 
@@ -45,5 +49,5 @@ export default function authorize(InnerComponent) { // tslint:disable-line:varia
     }
   }
 
-  return connect(AuthorizationWrapper);
+  return connect(RedirectWrapper);
 }
