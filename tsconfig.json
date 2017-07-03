@@ -1,21 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "outDir": ".build",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "alwaysStrict": true,
+    "importHelpers": true,
+    "experimentalDecorators": true,
+    "jsx": "react",
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": false,
-    "allowSyntheticDefaultImports": true,
-    "jsx": "react",
-    "allowJs": true,
-    "importHelpers": true,
-    "noUnusedLocals": true,
     "noImplicitThis": true,
-    "alwaysStrict": true
+    "noUnusedLocals": true,
+    "outDir": ".build",
+    "target": "es6"
   },
-  "lib": [
-    "dom"
-  ],
   "include": [
     "src/**/*"
   ]

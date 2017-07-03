@@ -1,9 +1,12 @@
 import * as path from 'path';
 import * as webpack from 'webpack';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as nconf from 'nconf';
+import '../config';
 
 const env = {
-  NODE_ENV: process.env.NODE_ENV
+  NODE_ENV: process.env.NODE_ENV,
+  API_HOST: nconf.get('API_HOST')
 };
 
 export const output = {

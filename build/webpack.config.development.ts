@@ -31,6 +31,7 @@ const config: webpack.Configuration = {
   },
 
   plugins: [
+    new webpack.NamedModulesPlugin(),
     ...common.plugins
   ],
 
