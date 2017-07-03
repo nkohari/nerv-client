@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "outDir": ".build",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "allowJs": true,
+    "importHelpers": true,
+    "noUnusedLocals": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true
+  },
+  "lib": [
+    "dom"
+  ],
+  "include": [
+    "src/**/*"
+  ]
+}
