@@ -1,10 +1,11 @@
-class User {
+import Model from './Model';
 
-  id: string;
+class User extends Model {
+
   username: string;
 
-  constructor(data = <any> {}) {
-    this.id = data.id;
+  constructor(data: any = {}) {
+    super(data);
     this.username = data.username;
   }
 

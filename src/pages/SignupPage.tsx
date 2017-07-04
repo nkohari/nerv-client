@@ -1,8 +1,9 @@
 import * as React from 'react';
 import Toaster from '../Toaster';
-import { Button, InputGroup, Intent } from '@blueprintjs/core';
+import { InputGroup } from '@blueprintjs/core';
 import { Link } from 'react-router';
 import { replace, LocationAction } from 'react-router-redux';
+import { SubmitButton } from '../components';
 import { Action, AuthState, connect, userLoggedIn } from '../data';
 import { createUser } from '../api';
 import { getRedirectUrl } from '../utils';
@@ -19,6 +20,7 @@ interface SignupPageState {
   password: string;
   passwordConfirm: string;
   passwordsMatch: boolean;
+  submitting: boolean;
 }
 
 class SignupPage extends React.Component<SignupPageProps, SignupPageState> {
@@ -32,25 +34,36 @@ class SignupPage extends React.Component<SignupPageProps, SignupPageState> {
     auth: state.auth
   })
 
+  usernameElement: HTMLInputElement;
+
   constructor(props) {
     super(props);
     this.state = {
       username: '',
       password: '',
       passwordConfirm: '',
-      passwordsMatch: true
+      passwordsMatch: true,
+      submitting: false
     };
+  }
+
+  componentDidMount() {
+    this.usernameElement.focus();
   }
 
   onFormSubmit = event => {
     const { username, password } = this.state;
 
+    this.setState({ submitting: true });
+
     createUser({ username, password })
     .then(result => {
+      this.setState({ submitting: false });
       this.props.userLoggedIn({ token: result.token, user: result.user });
       this.props.replace(getRedirectUrl());
     })
     .catch(err => {
+      this.setState({ submitting: false });
       Toaster.error('There was an error creating your account. Please try again.');
     });
 
@@ -70,7 +83,7 @@ class SignupPage extends React.Component<SignupPageProps, SignupPageState> {
   )
 
   render() {
-    const { username, password, passwordConfirm } = this.state;
+    const { username, password, passwordConfirm, submitting } = this.state;
     return (
       <div className='signup modal page'>
         <main className='pt-card pt-dark pt-elevation-3'>
@@ -82,6 +95,7 @@ class SignupPage extends React.Component<SignupPageProps, SignupPageState> {
                 leftIconName='user'
                 value={username}
                 onChange={this.onChange('username')}
+                inputRef={el => this.usernameElement = el}
                 required
               />
             </label>
@@ -105,9 +119,9 @@ class SignupPage extends React.Component<SignupPageProps, SignupPageState> {
                 required
               />
             </label>
-            <Button type='submit' intent={Intent.SUCCESS} iconName='tick'>
+            <SubmitButton iconName='tick' submitting={submitting}>
               Create my account
-            </Button>
+            </SubmitButton>
           </form>
           <div className='modal-footer'>
             Already registered? <Link to='/login'>Log in instead →</Link>

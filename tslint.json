@@ -28,7 +28,7 @@
       * Common Bugs and Correctness. The following rules should be turned on because they find
       * common bug patterns in the code or enforce type safety.
       */
-    "forin": true,
+    "forin": false,
     "no-any": false,
     "no-arg": true,
     "no-bitwise": true,

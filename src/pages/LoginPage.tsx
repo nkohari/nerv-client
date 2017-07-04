@@ -1,8 +1,9 @@
 import * as React from 'react';
 import Toaster from '../Toaster';
-import { Button, InputGroup, Intent } from '@blueprintjs/core';
+import { InputGroup } from '@blueprintjs/core';
 import { Link } from 'react-router';
 import { replace, LocationAction } from 'react-router-redux';
+import { SubmitButton } from '../components';
 import { Action, AuthState, connect, userLoggedIn } from '../data';
 import { login } from '../api';
 import { getRedirectUrl } from '../utils';
@@ -17,6 +18,7 @@ interface LoginPageProps {
 interface LoginPageState {
   username: string;
   password: string;
+  submitting: boolean;
 }
 
 class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
@@ -30,23 +32,34 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
     auth: state.auth
   })
 
+  usernameElement: HTMLInputElement;
+
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      submitting: false
     };
+  }
+
+  componentDidMount() {
+    this.usernameElement.focus();
   }
 
   onFormSubmit = event => {
     const { username, password } = this.state;
 
+    this.setState({ submitting: true });
+
     login({ username, password })
     .then(result => {
+      this.setState({ submitting: false });
       this.props.userLoggedIn({ token: result.token, user: result.user });
       this.props.replace(getRedirectUrl());
     })
     .catch(err => {
+      this.setState({ submitting: false });
       Toaster.error('Error during log in. Please check your username and password and try again.');
     });
 
@@ -69,7 +82,7 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
   )
 
   render() {
-    const { username, password } = this.state;
+    const { username, password, submitting } = this.state;
     return (
       <div className='login modal page'>
         <main className='pt-card pt-dark pt-elevation-3'>
@@ -81,6 +94,7 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
                 leftIconName='user'
                 value={username}
                 onChange={this.onChange('username')}
+                inputRef={el => this.usernameElement = el}
                 required
               />
             </label>
@@ -94,9 +108,9 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
                 required
               />
             </label>
-            <Button type='submit' intent={Intent.SUCCESS} iconName='log-in'>
+            <SubmitButton iconName='log-in' submitting={submitting}>
               Log In
-            </Button>
+            </SubmitButton>
           </form>
           <div className='modal-footer'>
             Don't have an account? <Link to='/signup'>Sign up for free →</Link>
