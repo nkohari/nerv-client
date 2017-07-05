@@ -72,7 +72,7 @@
     "arrow-parens": false, // for simple functions the parens on arrow functions are not needed
     "callable-types": true,
     "class-name": true,
-    "comment-format": [true, "check-space", "check-uppercase"],
+    "comment-format": [true, "check-space"],
     "export-name": false,
     "function-name": false,
     "import-name": false,
@@ -98,7 +98,7 @@
     "no-relative-imports": false,
     "no-require-imports": true,
     "no-shadowed-variable": true,
-    "no-suspicious-comment": true,
+    "no-suspicious-comment": false,
     "no-typeof-undefined": true,
     "no-unnecessary-field-initialization": true,
     "no-unnecessary-local-variable": true,

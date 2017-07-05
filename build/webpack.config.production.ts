@@ -7,7 +7,7 @@ const config = {
   devtool: 'cheap-module-source-map',
 
   entry: {
-    mineboss: path.resolve(__dirname, '../src')
+    ...common.entry
   },
 
   output: {

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { omit } from 'lodash';
 import { Button, Intent } from '@blueprintjs/core';
 
 interface SubmitButtonProps {
@@ -13,7 +14,7 @@ class SubmitButton extends React.Component<SubmitButtonProps> {
     return (
       <Button
         intent={Intent.SUCCESS}
-        {...this.props}
+        {...omit(this.props, 'submitting')}
         type='submit'
         disabled={submitting}
         iconName={submitting ? 'refresh' : this.props.iconName}

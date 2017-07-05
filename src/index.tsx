@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { FocusStyleManager } from '@blueprintjs/core';
 import configureStore from './data/store';
+import 'whatwg-fetch';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 

@@ -9,6 +9,13 @@ const env = {
   API_HOST: nconf.get('API_HOST')
 };
 
+export const entry = {
+  mineboss: [
+    'whatwg-fetch',
+    path.resolve(__dirname, '../src')
+  ]
+};
+
 export const output = {
   path: path.resolve(__dirname, '../dist'),
   publicPath: '/',

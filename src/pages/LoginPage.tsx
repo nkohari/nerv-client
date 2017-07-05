@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Toaster from '../Toaster';
+import Toaster from '../services/Toaster';
 import { InputGroup } from '@blueprintjs/core';
 import { Link } from 'react-router';
 import { replace, LocationAction } from 'react-router-redux';

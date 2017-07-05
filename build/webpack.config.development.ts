@@ -8,7 +8,7 @@ const config: webpack.Configuration = {
   stats: 'minimal',
 
   entry: {
-    mineboss: path.resolve(__dirname, '../src')
+    ...common.entry
   },
 
   output: {

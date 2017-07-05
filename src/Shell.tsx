@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Action, AuthState, connect, userLoggedOut } from './data';
-import { Header } from './components';
+import { Action, AuthState, SocketState, connect, userLoggedOut } from './data';
+import { Header, SocketManager } from './components';
 import './Shell.styl';
 
 interface ShellProps {
   auth: AuthState;
+  socket: SocketState;
   userLoggedOut: Action;
 }
 
@@ -15,11 +16,12 @@ class Shell extends React.Component<ShellProps> {
   };
 
   static stateToProps = (state) => ({
-    auth: state.auth
+    auth: state.auth,
+    socket: state.socket
   })
 
   render() {
-    const { children, auth, userLoggedOut } = this.props;
+    const { children, auth, socket, userLoggedOut } = this.props;
 
     let content;
     if (children) {
@@ -28,8 +30,9 @@ class Shell extends React.Component<ShellProps> {
 
     return (
       <div className='shell'>
-        <Header auth={auth} userLoggedOut={userLoggedOut} />
+        <Header auth={auth} socket={socket} userLoggedOut={userLoggedOut} />
         {content}
+        <SocketManager auth={auth} socket={socket} />
       </div>
     );
   }

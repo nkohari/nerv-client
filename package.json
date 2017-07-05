@@ -8,8 +8,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "NODE_ENV=production ts-node ./node_modules/.bin/webpack --progress --config ./build/webpack.config.production.ts",
-    "dev": "NODE_ENV=development ts-node ./node_modules/.bin/webpack-dev-server --hot --history-api-fallback --config ./build/webpack.config.development.ts",
+    "build": "NODE_ENV=production node -r ts-node/register ./node_modules/.bin/webpack --progress --config ./build/webpack.config.production.ts",
+    "dev": "NODE_ENV=development node -r ts-node/register ./node_modules/.bin/webpack-dev-server --hot --history-api-fallback --config ./build/webpack.config.development.ts",
     "clean": "rimraf dist",
     "deploy": "npm run build && s3-deploy './dist/**' --cwd './dist/' --gzip --region us-east-1 --bucket retrium-customer-success.enkari.com"
   },
@@ -22,6 +22,7 @@
     "joi": "^10.6.0",
     "moment": "^2.18.1",
     "nconf": "^0.8.4",
+    "nes": "^6.4.2",
     "react": "^15.3.2",
     "react-addons-css-transition-group": "^15.6.0",
     "react-dom": "^15.3.2",
@@ -37,7 +38,8 @@
     "redux-localstorage": "^0.4.1",
     "redux-logger": "^3.0.6",
     "ts-node": "^3.1.0",
-    "typescript": "2.3.3"
+    "typescript": "2.3.3",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "@types/joi": "^10.4.0",

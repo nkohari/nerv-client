@@ -1,4 +1,4 @@
-const getUrl = path => `${document.location.protocol}//${process.env.API_HOST}${path}`;
+import { getApiUrl } from '../utils';
 
 const createHeaders = (token: string) => {
   const headers = new Headers();
@@ -14,7 +14,7 @@ const createHeaders = (token: string) => {
 };
 
 function request<T>(path: string, options: object): Promise<T> {
-  return fetch(getUrl(path), options).then(res => {
+  return fetch(getApiUrl(path), options).then(res => {
     const json = res.json();
     if (res.status >= 200 && res.status <= 299) {
       return json;
