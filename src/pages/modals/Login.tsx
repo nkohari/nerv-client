@@ -1,27 +1,25 @@
 import * as React from 'react';
-import Toaster from '../services/Toaster';
+import Toaster from '../../services/Toaster';
 import { InputGroup } from '@blueprintjs/core';
 import { Link } from 'react-router';
 import { replace, LocationAction } from 'react-router-redux';
-import { SubmitButton } from '../components';
-import { Action, AuthState, connect, userLoggedIn } from '../data';
-import { login } from '../api';
-import { getRedirectUrl } from '../utils';
-import './Modal.styl';
+import { SubmitButton } from '../../components';
+import { api, Action, AuthState, connect, userLoggedIn } from '../../data';
+import { getRedirectUrl } from '../../utils';
 
-interface LoginPageProps {
+interface LoginModalProps {
   auth: AuthState;
   replace: LocationAction;
   userLoggedIn: Action;
 }
 
-interface LoginPageState {
+interface LoginModalState {
   username: string;
   password: string;
   submitting: boolean;
 }
 
-class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
+class LoginModal extends React.Component<LoginModalProps, LoginModalState> {
 
   static actionsToProps = {
     replace,
@@ -52,7 +50,7 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
 
     this.setState({ submitting: true });
 
-    login({ username, password })
+    api.users.login({ username, password })
     .then(result => {
       this.setState({ submitting: false });
       this.props.userLoggedIn({ token: result.token, user: result.user });
@@ -122,4 +120,4 @@ class LoginPage extends React.Component<LoginPageProps, LoginPageState> {
 
 }
 
-export default connect(LoginPage);
+export default connect(LoginModal);

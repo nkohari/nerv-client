@@ -7,7 +7,7 @@ export interface AuthState {
   user: User;
 }
 
-const defaultState = {
+const defaultState: AuthState = {
   token: null,
   user: null
 };

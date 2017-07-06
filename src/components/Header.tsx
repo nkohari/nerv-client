@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Button } from '@blueprintjs/core';
 import { Action, AuthState, SocketState } from '../data';
-import SocketStatus from './SocketStatus';
+import Breadcrumbs from './Breadcrumbs';
+import SocketIndicator from './SocketIndicator';
 import './Header.styl';
 
 interface HeaderProps {
@@ -26,9 +27,11 @@ class Header extends React.Component<HeaderProps> {
               <span className='pt-icon-large pt-icon-build' />
               <span className='navbar-heading-text'>Mineboss</span>
             </div>
+            <span className='pt-navbar-divider' />
+            <Breadcrumbs />
           </div>
           <div className='pt-navbar-group pt-align-right'>
-            <SocketStatus socket={socket} />
+            <SocketIndicator socket={socket} />
             <span className='pt-navbar-divider' />
             <Button iconName='cog' className='pt-minimal' />
             <Button iconName='log-out' className='pt-minimal' onClick={this.onLogOutClicked} />

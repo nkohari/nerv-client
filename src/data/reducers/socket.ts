@@ -1,7 +1,6 @@
 import { Action, handleActions } from 'redux-actions';
 import { SocketErrorPayload } from '../actions/socket';
-
-export type SocketStatus = 'disconnected' | 'connected' | 'error';
+import { SocketStatus } from '../models/SocketStatus';
 
 export interface SocketState {
   status: SocketStatus;
@@ -9,22 +8,22 @@ export interface SocketState {
 }
 
 const defaultState: SocketState = {
-  status: 'disconnected',
+  status: SocketStatus.Disconnected,
   error: null
 };
 
 const authReducer = handleActions<SocketState>({
   SOCKET_CONNECTED: state => ({
     ...state,
-    status: 'connected'
+    status: SocketStatus.Connected
   }),
   SOCKET_DISCONNECTED: state => ({
     ...state,
-    status: 'disconnected'
+    status: SocketStatus.Disconnected
   }),
   SOCKET_ERROR: (state, action: Action<SocketErrorPayload>) => ({
     ...state,
-    status: 'error',
+    status: SocketStatus.Error,
     error: action.payload.error
   })
 },

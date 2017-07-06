@@ -1,29 +1,28 @@
 import * as React from 'react';
-import Toaster from '../services/Toaster';
+import Toaster from '../../services/Toaster';
 import { InputGroup } from '@blueprintjs/core';
 import { Link } from 'react-router';
 import { replace, LocationAction } from 'react-router-redux';
-import { SubmitButton } from '../components';
-import { Action, AuthState, connect, userLoggedIn } from '../data';
-import { createUser } from '../api';
-import { getRedirectUrl } from '../utils';
-import './Modal.styl';
+import { SubmitButton } from '../../components';
+import { api, Action, AuthState, connect, userLoggedIn } from '../../data';
+import { getRedirectUrl } from '../../utils';
 
-interface SignupPageProps {
+interface LoginProps {
   auth: AuthState;
   replace: LocationAction;
   userLoggedIn: Action;
 }
 
-interface SignupPageState {
+interface LoginState {
   username: string;
+  email: string;
   password: string;
   passwordConfirm: string;
   passwordsMatch: boolean;
   submitting: boolean;
 }
 
-class SignupPage extends React.Component<SignupPageProps, SignupPageState> {
+class Login extends React.Component<LoginProps, LoginState> {
 
   static actionsToProps = {
     replace,
@@ -40,6 +39,7 @@ class SignupPage extends React.Component<SignupPageProps, SignupPageState> {
     super(props);
     this.state = {
       username: '',
+      email: '',
       password: '',
       passwordConfirm: '',
       passwordsMatch: true,
@@ -52,11 +52,11 @@ class SignupPage extends React.Component<SignupPageProps, SignupPageState> {
   }
 
   onFormSubmit = event => {
-    const { username, password } = this.state;
+    const { username, password, email } = this.state;
 
     this.setState({ submitting: true });
 
-    createUser({ username, password })
+    api.users.create({ username, password, email, agentid: null }) // TODO: Allow agent claim during signup
     .then(result => {
       this.setState({ submitting: false });
       this.props.userLoggedIn({ token: result.token, user: result.user });
@@ -83,7 +83,7 @@ class SignupPage extends React.Component<SignupPageProps, SignupPageState> {
   )
 
   render() {
-    const { username, password, passwordConfirm, submitting } = this.state;
+    const { username, email, password, passwordConfirm, submitting } = this.state;
     return (
       <div className='signup modal page'>
         <main className='pt-card pt-dark pt-elevation-3'>
@@ -97,6 +97,15 @@ class SignupPage extends React.Component<SignupPageProps, SignupPageState> {
                 onChange={this.onChange('username')}
                 inputRef={el => this.usernameElement = el}
                 required
+              />
+            </label>
+            <label className='pt-label'>
+              Email <span className='pt-text-muted'> (optional)</span>
+              <InputGroup
+                type='email'
+                leftIconName='envelope'
+                value={email}
+                onChange={this.onChange('email')}
               />
             </label>
             <label className='pt-label'>
@@ -133,4 +142,4 @@ class SignupPage extends React.Component<SignupPageProps, SignupPageState> {
 
 }
 
-export default connect(SignupPage);
+export default connect(Login);

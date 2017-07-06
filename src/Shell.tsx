@@ -15,7 +15,7 @@ class Shell extends React.Component<ShellProps> {
     userLoggedOut
   };
 
-  static stateToProps = (state) => ({
+  static stateToProps = state => ({
     auth: state.auth,
     socket: state.socket
   })
