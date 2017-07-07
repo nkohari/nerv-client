@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router';
 import { Group } from '../data';
 
 interface GroupListProps {
@@ -11,7 +12,9 @@ class GroupList extends React.Component<GroupListProps> {
     const { groups } = this.props;
 
     const items = groups.map(group => (
-      <li key={group.id}>{group.name}</li>
+      <li key={group.id}>
+        <Link to={`/${group.id}`}>{group.name}</Link>
+      </li>
     ));
 
     return (

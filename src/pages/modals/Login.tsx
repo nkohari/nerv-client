@@ -50,7 +50,7 @@ class LoginModal extends React.Component<LoginModalProps, LoginModalState> {
 
     this.setState({ submitting: true });
 
-    api.users.login({ username, password })
+    api.auth.login({ username, password })
     .then(result => {
       this.setState({ submitting: false });
       this.props.userLoggedIn({ token: result.token, user: result.user });
@@ -83,7 +83,7 @@ class LoginModal extends React.Component<LoginModalProps, LoginModalState> {
     const { username, password, submitting } = this.state;
     return (
       <div className='login modal page'>
-        <main className='pt-card pt-dark pt-elevation-3'>
+        <div className='modal-content pt-card pt-dark pt-elevation-3'>
           <form onSubmit={this.onFormSubmit}>
             <label className='pt-label'>
               Username
@@ -113,7 +113,7 @@ class LoginModal extends React.Component<LoginModalProps, LoginModalState> {
           <div className='modal-footer'>
             Don't have an account? <Link to='/signup'>Sign up for free →</Link>
           </div>
-        </main>
+        </div>
       </div>
     );
   }

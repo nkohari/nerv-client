@@ -1,44 +1,28 @@
 import { Action, handleActions } from 'redux-actions';
-import { GroupsLoadedPayload, GroupsErrorPayload } from '../actions/groups';
+import { Collection, merge } from '../framework';
 import Group from '../models/Group';
-import { LoadStatus } from '../models/LoadStatus';
-import { hashBy } from '../../utils';
 
-export interface GroupsState {
-  items: Group[];
-  byId: { [groupid: string]: Group };
-  status: LoadStatus;
-  error: Error;
-}
-
-const defaultState: GroupsState = {
+const defaultState: Collection<Group> = {
   items: [],
-  byId: {},
-  status: LoadStatus.Ready,
+  isLoading: false,
   error: null
 };
 
-function merge(oldItemsById, newItems) {
-  const byId = { ...oldItemsById, ...hashBy(newItems, 'id') };
-  const items = Object.keys(byId).map(id => byId[id]);
-  return { byId, items };
-}
-
-const authReducer = handleActions<GroupsState>({
+const authReducer = handleActions<Collection<Group>>({
   GROUPS_LOADING: state => ({
     ...state,
-    status: LoadStatus.Loading,
+    isLoading: true,
     error: null
   }),
-  GROUPS_LOADED: (state, action: Action<GroupsLoadedPayload>) => ({
+  GROUPS_LOADED: (state, action: Action<Group[]>) => ({
     ...state,
-    status: LoadStatus.Ready,
-    ...merge(state.byId, action.payload.groups)
+    isLoading: false,
+    items: merge(state.items, action.payload)
   }),
-  GROUPS_ERROR: (state, action: Action<GroupsErrorPayload>) => ({
+  GROUPS_ERROR: (state, action: Action<Error>) => ({
     ...state,
-    status: LoadStatus.Error,
-    error: action.payload.error
+    isLoading: false,
+    error: action.payload
   })
 },
 defaultState);

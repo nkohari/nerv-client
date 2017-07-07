@@ -8,7 +8,7 @@ class GroupApi extends Api {
   }
 
   get(id: string, token: string): Promise<Group> {
-    return this.getRequest(`/groups/${id}`, token).then(result => new Group(result));
+    return this.getRequest(`/groups/${id}`, token).then(result => new Group(result.group));
   }
 
 }

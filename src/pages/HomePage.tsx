@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
 import { GroupList } from '../components';
-import { Action, GroupsState, LoadStatus, loadGroups, connect } from '../data';
+import { Action, Collection, Group, loadAllGroups, connect } from '../data';
 
 interface HomePageProps {
-  groups: GroupsState;
-  loadGroups: Action;
+  groups: Collection<Group>;
+  loadAllGroups: Action;
 }
 
 class HomePage extends React.Component<HomePageProps> {
 
   static actionsToProps = {
-    loadGroups
+    loadAllGroups
   };
 
   static stateToProps = state => ({
@@ -19,19 +19,21 @@ class HomePage extends React.Component<HomePageProps> {
   })
 
   componentWillMount() {
-    this.props.loadGroups();
+    this.props.loadAllGroups();
   }
 
   render() {
     const { groups } = this.props;
 
-    if (groups.status === LoadStatus.Loading) {
+    if (groups.isLoading) {
       return <Spinner />;
     }
 
     return (
       <div className='page home-page'>
-        <GroupList groups={groups.items} />
+        <div className='page-content'>
+          <GroupList groups={groups.items} />
+        </div>
       </div>
     );
   }

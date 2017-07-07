@@ -56,7 +56,7 @@ class Login extends React.Component<LoginProps, LoginState> {
 
     this.setState({ submitting: true });
 
-    api.users.create({ username, password, email, agentid: null }) // TODO: Allow agent claim during signup
+    api.auth.createUser({ username, password, email, agentid: null }) // TODO: Allow agent claim during signup
     .then(result => {
       this.setState({ submitting: false });
       this.props.userLoggedIn({ token: result.token, user: result.user });
@@ -86,7 +86,7 @@ class Login extends React.Component<LoginProps, LoginState> {
     const { username, email, password, passwordConfirm, submitting } = this.state;
     return (
       <div className='signup modal page'>
-        <main className='pt-card pt-dark pt-elevation-3'>
+        <div className='modal-content pt-card pt-dark pt-elevation-3'>
           <form onSubmit={this.onFormSubmit}>
             <label className='pt-label'>
               Username
@@ -135,7 +135,7 @@ class Login extends React.Component<LoginProps, LoginState> {
           <div className='modal-footer'>
             Already registered? <Link to='/login'>Log in instead →</Link>
           </div>
-        </main>
+        </div>
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import Model from './Model';
+import Model from '../framework/Model';
 
 class User extends Model {
 

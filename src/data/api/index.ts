@@ -1,7 +1,7 @@
 import GroupApi from './GroupApi';
-import UserApi from './UserApi';
+import AuthApi from './AuthApi';
 
 export default {
-  groups: new GroupApi(),
-  users: new UserApi()
+  auth: new AuthApi(),
+  groups: new GroupApi()
 };
