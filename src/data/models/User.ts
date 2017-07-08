@@ -1,6 +1,6 @@
-import Model from '../framework/Model';
+import { Model } from 'data/framework/Model';
 
-class User extends Model {
+export class User extends Model {
 
   username: string;
   email: string;
@@ -12,5 +12,3 @@ class User extends Model {
   }
 
 }
-
-export default User;

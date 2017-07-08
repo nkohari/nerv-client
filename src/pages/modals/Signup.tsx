@@ -3,12 +3,13 @@ import Toaster from '../../services/Toaster';
 import { InputGroup } from '@blueprintjs/core';
 import { Link } from 'react-router';
 import { replace, LocationAction } from 'react-router-redux';
-import { SubmitButton } from '../../components';
-import { api, Action, AuthState, connect, userLoggedIn } from '../../data';
-import { getRedirectUrl } from '../../utils';
+import { SubmitButton } from 'components';
+import { Action, userLoggedIn } from 'actions';
+import { API, AuthContext, connect } from 'data';
+import { getRedirectUrl } from 'utils';
 
 interface LoginProps {
-  auth: AuthState;
+  auth: AuthContext;
   replace: LocationAction;
   userLoggedIn: Action;
 }
@@ -24,12 +25,12 @@ interface LoginState {
 
 class Login extends React.Component<LoginProps, LoginState> {
 
-  static actionsToProps = {
+  static useActions = {
     replace,
     userLoggedIn
   };
 
-  static stateToProps = (state) => ({
+  static readPropsFromState = (state) => ({
     auth: state.auth
   })
 
@@ -56,7 +57,7 @@ class Login extends React.Component<LoginProps, LoginState> {
 
     this.setState({ submitting: true });
 
-    api.auth.createUser({ username, password, email, agentid: null }) // TODO: Allow agent claim during signup
+    API.auth.createUser({ username, password, email, agentid: null }) // TODO: Allow agent claim during signup
     .then(result => {
       this.setState({ submitting: false });
       this.props.userLoggedIn({ token: result.token, user: result.user });

@@ -1,4 +1,4 @@
-abstract class Model {
+export abstract class Model {
 
   id: string;
   created: Date;
@@ -11,5 +11,3 @@ abstract class Model {
   }
 
 }
-
-export default Model;

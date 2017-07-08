@@ -1,15 +1,14 @@
-import { connect } from 'react-redux';
+import * as React from 'react';
+import { connect as reduxConnect } from 'react-redux';
 
-/**
- * This is just a simple bit of syntactic sugar that allows component
- * classes to define stateToProps() and actionsToProps() as static
- * properties instead of calling them after the class is defined.
- */
-const connectUsingStaticProperties = (component) => (
-  connect(
-    component.stateToProps || (state => state),
-    component.actionsToProps || null
-  )(component)
-);
+interface ProviderComponentClass extends React.ComponentClass {
+  readPropsFromState?: any;
+  useActions?: any;
+}
 
-export default connectUsingStaticProperties;
+export function connect<T extends ProviderComponentClass>(component: T): any {
+  return reduxConnect(
+    component.readPropsFromState || (state => state),
+    component.useActions || null
+  )(component);
+}

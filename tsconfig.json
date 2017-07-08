@@ -3,6 +3,7 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,
+    "baseUrl": ".",
     "importHelpers": true,
     "experimentalDecorators": true,
     "jsx": "react",
@@ -12,6 +13,9 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "outDir": ".build",
+    "paths": {
+      "*": ["*", "src/*"]
+    },
     "target": "es6"
   },
   "include": [

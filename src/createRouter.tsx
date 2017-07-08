@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 import Shell from './Shell';
-import { HomePage, GroupPage, Login, Signup } from './pages';
-import { redirectIfAuthenticated, redirectIfNotAuthenticated } from './utils';
+import { HomePage, GroupPage, Login, Signup } from 'pages';
+import { redirectIfAuthenticated, redirectIfNotAuthenticated } from 'utils';
 
 const createRouter = history => (
   <Router history={history}>

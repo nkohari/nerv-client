@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as NesClient from 'nes/client';
-import { Action, AuthState, SocketState, SocketStatus, connect, socketConnected, socketDisconnected, socketError, changeMessageReceived } from '../data';
+import { Action, socketConnected, socketDisconnected, socketError, changeMessageReceived } from 'actions';
+import { AuthContext, SocketState, SocketStatus, connect } from 'data';
 
 interface SocketManagerProps {
-  auth: AuthState;
+  auth: AuthContext;
   socket: SocketState;
   socketConnected: Action;
   socketDisconnected: Action;
@@ -17,7 +18,7 @@ const getAuthHeaders = token => ({
 
 class SocketManager extends React.Component<SocketManagerProps> {
 
-  static actionsToProps = {
+  static useActions = {
     socketConnected,
     socketDisconnected,
     socketError,

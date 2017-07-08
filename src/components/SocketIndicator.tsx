@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
-import { SocketState, SocketStatus } from '../data';
+import { SocketState, SocketStatus } from 'data';
 import './SocketIndicator.styl';
 
 interface SocketIndicatorProps {

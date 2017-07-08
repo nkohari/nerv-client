@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { replace, LocationAction } from 'react-router-redux';
-import { AuthState, connect } from '../data';
-import getRedirectUrl from './getRedirectUrl';
+import { AuthContext, connect } from 'data';
+import { getRedirectUrl } from 'utils';
 
 interface RedirectWrapperProps {
-  auth: AuthState;
+  auth: AuthContext;
   location: object;
   replace: LocationAction;
 }
@@ -12,11 +12,11 @@ interface RedirectWrapperProps {
 export default function redirectIfAuthenticated(InnerComponent) { // tslint:disable-line:variable-name
   class RedirectWrapper extends React.Component<RedirectWrapperProps> {
 
-    static actionsToProps = {
+    static useActions = {
       replace
     };
 
-    static stateToProps = state => ({
+    static readPropsFromState = state => ({
       auth: state.auth
     })
 

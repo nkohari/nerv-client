@@ -1,38 +1,44 @@
 import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
-import { GroupList } from '../components';
-import { Action, Collection, Group, loadAllGroups, connect } from '../data';
+import { GroupCardList } from 'components';
+import { Action, loadAgentsByUser, loadGroupsByUser } from 'actions';
+import { Collection, Agent, Group, connect } from 'data';
 
 interface HomePageProps {
+  agents: Collection<Agent>;
   groups: Collection<Group>;
-  loadAllGroups: Action;
+  loadAgentsByUser: Action;
+  loadGroupsByUser: Action;
 }
 
 class HomePage extends React.Component<HomePageProps> {
 
-  static actionsToProps = {
-    loadAllGroups
+  static useActions = {
+    loadAgentsByUser,
+    loadGroupsByUser
   };
 
-  static stateToProps = state => ({
+  static readPropsFromState = state => ({
+    agents: state.agents,
     groups: state.groups
   })
 
-  componentWillMount() {
-    this.props.loadAllGroups();
+  componentDidMount() {
+    this.props.loadAgentsByUser();
+    this.props.loadGroupsByUser();
   }
 
   render() {
-    const { groups } = this.props;
+    const { agents, groups } = this.props;
 
-    if (groups.isLoading) {
+    if (agents.isLoading || groups.isLoading) {
       return <Spinner />;
     }
 
     return (
       <div className='page home-page'>
         <div className='page-content'>
-          <GroupList groups={groups.items} />
+          <GroupCardList groups={groups.items} />
         </div>
       </div>
     );

@@ -1,21 +1,22 @@
 import * as React from 'react';
-import { Action, AuthState, SocketState, connect, userLoggedOut } from './data';
-import { Header, SocketManager } from './components';
+import { Action, userLoggedOut } from 'actions';
+import { AuthContext, SocketState, connect } from 'data';
+import { Header, SocketManager } from 'components';
 import './Shell.styl';
 
 interface ShellProps {
-  auth: AuthState;
+  auth: AuthContext;
   socket: SocketState;
   userLoggedOut: Action;
 }
 
 class Shell extends React.Component<ShellProps> {
 
-  static actionsToProps = {
+  static useActions = {
     userLoggedOut
   };
 
-  static stateToProps = state => ({
+  static readPropsFromState = state => ({
     auth: state.auth,
     socket: state.socket
   })

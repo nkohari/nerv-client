@@ -1,10 +1,5 @@
 import { Action, handleActions } from 'redux-actions';
-import { SocketStatus } from '../models/SocketStatus';
-
-export interface SocketState {
-  status: SocketStatus;
-  error: Error;
-}
+import { SocketState, SocketStatus } from '..';
 
 const defaultState: SocketState = {
   status: SocketStatus.Disconnected,

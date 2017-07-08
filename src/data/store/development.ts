@@ -4,9 +4,9 @@ import { browserHistory } from 'react-router';
 import { routerMiddleware, routerReducer } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import * as persistState from 'redux-localstorage';
-import * as reducers from '../reducers';
+import { reducers } from 'data';
 
-export default function configureStore(initialState = {}) {
+export function configureStoreForDevelopment(initialState = {}) {
   const store = createStore(
     combineReducers({
       ...reducers,
@@ -24,8 +24,8 @@ export default function configureStore(initialState = {}) {
   );
 
   if (module.hot) {
-    module.hot.accept('../reducers', () => {
-      const newRootReducer = require('../reducers').default; // tslint:disable-line:no-require-imports
+    module.hot.accept('data', () => {
+      const newRootReducer = require('data').reducers; // tslint:disable-line:no-require-imports
       store.replaceReducer(newRootReducer);
     });
   }

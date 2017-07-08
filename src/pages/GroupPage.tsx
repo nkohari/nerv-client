@@ -1,39 +1,46 @@
 import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
-import { Action, Collection, Group, loadGroup, connect } from '../data';
+import { AgentList } from 'components';
+import { Action, loadGroup, loadAgentsByGroup } from 'actions';
+import { Group, Agent, connect } from 'data';
 
 interface GroupPageProps {
-  groups: Collection<Group>;
   params: { [name: string]: string };
+  group: Group;
+  agents: Agent[];
   loadGroup: Action<string>;
+  loadAgentsByGroup: Action<string>;
 }
 
 class GroupPage extends React.Component<GroupPageProps> {
 
-  static actionsToProps = {
-    loadGroup
+  static useActions = {
+    loadGroup,
+    loadAgentsByGroup
   };
 
-  static stateToProps = state => ({
-    groups: state.groups
+  static readPropsFromState = (state, props) => ({
+    group: state.groups.items.find(g => g.id === props.params.groupid),
+    agents: state.agents.items.filter(a => a.groupid === props.params.groupid)
   })
 
-  componentWillMount() {
+  componentDidMount() {
     const { groupid } = this.props.params;
     this.props.loadGroup(groupid);
+    this.props.loadAgentsByGroup(groupid);
   }
 
   componentWillReceiveProps(newProps) {
-    const oldId = this.props.params.groupid;
-    const newId = newProps.params.groupid;
-    if (oldId !== newId) {
-      this.props.loadGroup(newId);
+    const oldParams = this.props.params;
+    const newParams = newProps.params;
+    if (oldParams.groupid !== newParams.groupid) {
+      this.props.loadGroup(newParams.groupid);
+      this.props.loadAgentsByGroup(newParams.groupid);
     }
   }
 
   render() {
-    const { groups, params } = this.props;
-    const group = groups.items.find(g => g.id === params.groupid);
+    const { group, agents } = this.props;
 
     if (!group) {
       return <Spinner />;
@@ -42,7 +49,8 @@ class GroupPage extends React.Component<GroupPageProps> {
     return (
       <div className='page group-page'>
         <div className='page-content'>
-          This is group {group.name}
+          <h5>{group.name}</h5>
+          <AgentList agents={agents} />
         </div>
       </div>
     );

@@ -1,4 +1,4 @@
-import Model from './Model';
+import { Model } from 'data';
 
 /**
  * Merges two arrays of models by selecting the models with the highest version number.
@@ -7,7 +7,7 @@ import Model from './Model';
  * @param newItems The new items which have been received.
  * @returns The merged array of items.
  */
-export default function merge<T extends Model>(oldItems: T[], newItems: T[]): T[] {
+export function merge<T extends Model>(oldItems: T[], newItems: T[]): T[] {
   if (oldItems.length === 0) {
     return [...newItems];
   }

@@ -1,6 +1,6 @@
-import Model from '../framework/Model';
+import { Model } from 'data/framework/Model';
 
-class Group extends Model {
+export class Group extends Model {
 
   name: string;
 
@@ -10,5 +10,3 @@ class Group extends Model {
   }
 
 }
-
-export default Group;
