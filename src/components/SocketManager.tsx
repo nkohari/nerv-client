@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as NesClient from 'nes/client';
-import { Action, AuthState, SocketState, SocketStatus, connect, socketConnected, socketDisconnected, socketError, messageReceived } from '../data';
+import { Action, AuthState, SocketState, SocketStatus, connect, socketConnected, socketDisconnected, socketError, changeMessageReceived } from '../data';
 
 interface SocketManagerProps {
   auth: AuthState;
@@ -8,7 +8,7 @@ interface SocketManagerProps {
   socketConnected: Action;
   socketDisconnected: Action;
   socketError: Action<Error>;
-  messageReceived: Action;
+  changeMessageReceived: Action;
 }
 
 const getAuthHeaders = token => ({
@@ -21,7 +21,7 @@ class SocketManager extends React.Component<SocketManagerProps> {
     socketConnected,
     socketDisconnected,
     socketError,
-    messageReceived
+    changeMessageReceived
   };
 
   client: any;
@@ -82,7 +82,7 @@ class SocketManager extends React.Component<SocketManagerProps> {
   }
 
   onSocketConnected = () => {
-    this.client.subscribe('/events', this.onSocketMessage, err => {
+    this.client.subscribe('/changes', this.onChangeMessage, err => {
       if (err) {
         this.props.socketError(err);
         return;
@@ -103,8 +103,8 @@ class SocketManager extends React.Component<SocketManagerProps> {
     }
   }
 
-  onSocketMessage = message => {
-    this.props.messageReceived(message);
+  onChangeMessage = message => {
+    this.props.changeMessageReceived(message);
   }
 
   render() {

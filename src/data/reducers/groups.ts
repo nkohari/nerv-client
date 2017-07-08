@@ -1,6 +1,7 @@
 import { Action, handleActions } from 'redux-actions';
 import { Collection, merge } from '../framework';
 import Group from '../models/Group';
+import { SocketMessage, ChangeEvent } from '../models';
 
 const defaultState: Collection<Group> = {
   items: [],
@@ -23,7 +24,18 @@ const authReducer = handleActions<Collection<Group>>({
     ...state,
     isLoading: false,
     error: action.payload
-  })
+  }),
+  CHANGE_MESSAGE_RECEIVED: (state, action: Action<SocketMessage<ChangeEvent>>) => {
+    const event = action.payload.body;
+    if (event.type !== 'Group') {
+      return state;
+    } else {
+      return {
+        ...state,
+        items: merge(state.items, [new Group(event.model)])
+      };
+    }
+  }
 },
 defaultState);
 
