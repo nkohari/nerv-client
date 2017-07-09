@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
-import { GroupCardList } from 'components';
+import { Breadcrumbs, GroupCardList } from 'components';
 import { Action, loadAgentsByUser, loadGroupsByUser } from 'actions';
 import { Collection, Agent, Group, connect } from 'data';
 
@@ -37,6 +37,7 @@ class HomePage extends React.Component<HomePageProps> {
 
     return (
       <div className='page home-page'>
+        <Breadcrumbs />
         <div className='page-content'>
           <GroupCardList groups={groups.items} />
         </div>

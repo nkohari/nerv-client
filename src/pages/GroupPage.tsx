@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
-import { AgentList } from 'components';
+import { AgentList, Breadcrumbs } from 'components';
 import { Action, loadGroup, loadAgentsByGroup } from 'actions';
 import { Group, Agent, connect } from 'data';
 
@@ -48,6 +48,7 @@ class GroupPage extends React.Component<GroupPageProps> {
 
     return (
       <div className='page group-page'>
+        <Breadcrumbs group={group} />
         <div className='page-content'>
           <h5>{group.name}</h5>
           <AgentList agents={agents} />

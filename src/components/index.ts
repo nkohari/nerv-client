@@ -1,5 +1,6 @@
 export { default as AgentList } from './AgentList';
 export { default as Breadcrumbs } from './Breadcrumbs';
+export { default as DebugDialog } from './DebugDialog';
 export { default as GroupCard } from './GroupCard';
 export { default as GroupCardList } from './GroupCardList';
 export { default as Header } from './Header';

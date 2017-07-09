@@ -11,10 +11,13 @@ body, html, #app, .shell, .page
   background-image: url('../assets/background.png')
 
 .page
+  display: flex
+  flex-direction: column
   margin-top: 50px
+  padding: 15px
 
   .page-content
-    padding: 15px
+    padding-top: 15px
 
 .modal
   align-items: center
@@ -33,3 +36,11 @@ ul
 
 li
   list-style-type: none
+
+.pt-dialog-body
+  display: flex
+
+  .pt-label
+    width: 100%
+    display: flex
+    flex-direction: column

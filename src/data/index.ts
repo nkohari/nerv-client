@@ -1,7 +1,7 @@
 // API
-import { default as agentsApi } from './api/agents';
-import { default as authApi } from './api/auth';
-import { default as groupsApi } from './api/groups';
+import * as agentsApi from './api/agents';
+import * as authApi from './api/auth';
+import * as groupsApi from './api/groups';
 
 export const API = {
   agents: agentsApi,
