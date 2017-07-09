@@ -9,7 +9,7 @@ interface GroupCardProps {
 
 class GroupCard extends React.Component<GroupCardProps> {
 
-  static readPropsFromState = (state, props) => ({
+  static readPropsFromRedux = (state, props) => ({
     agents: state.agents.items.filter(a => a.groupid === props.group.id)
   })
 

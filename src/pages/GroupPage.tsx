@@ -1,25 +1,27 @@
 import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
-import { AgentList, Breadcrumbs } from 'components';
-import { Action, loadGroup, loadAgentsByGroup } from 'actions';
+import { AgentCardList, Breadcrumbs } from 'components';
+import { Action, loadGroup, loadAgentsByGroup, loadDevicesByGroup } from 'actions';
 import { Group, Agent, connect } from 'data';
 
 interface GroupPageProps {
   params: { [name: string]: string };
   group: Group;
   agents: Agent[];
-  loadGroup: Action<string>;
-  loadAgentsByGroup: Action<string>;
+  loadGroup: Action;
+  loadAgentsByGroup: Action;
+  loadDevicesByGroup: Action;
 }
 
 class GroupPage extends React.Component<GroupPageProps> {
 
-  static useActions = {
+  static connectedActions = {
     loadGroup,
-    loadAgentsByGroup
+    loadAgentsByGroup,
+    loadDevicesByGroup
   };
 
-  static readPropsFromState = (state, props) => ({
+  static readPropsFromRedux = (state, props) => ({
     group: state.groups.items.find(g => g.id === props.params.groupid),
     agents: state.agents.items.filter(a => a.groupid === props.params.groupid)
   })
@@ -28,6 +30,7 @@ class GroupPage extends React.Component<GroupPageProps> {
     const { groupid } = this.props.params;
     this.props.loadGroup(groupid);
     this.props.loadAgentsByGroup(groupid);
+    this.props.loadDevicesByGroup(groupid);
   }
 
   componentWillReceiveProps(newProps) {
@@ -36,6 +39,7 @@ class GroupPage extends React.Component<GroupPageProps> {
     if (oldParams.groupid !== newParams.groupid) {
       this.props.loadGroup(newParams.groupid);
       this.props.loadAgentsByGroup(newParams.groupid);
+      this.props.loadDevicesByGroup(newParams.groupid);
     }
   }
 
@@ -50,8 +54,7 @@ class GroupPage extends React.Component<GroupPageProps> {
       <div className='page group-page'>
         <Breadcrumbs group={group} />
         <div className='page-content'>
-          <h5>{group.name}</h5>
-          <AgentList agents={agents} />
+          <AgentCardList agents={agents} />
         </div>
       </div>
     );

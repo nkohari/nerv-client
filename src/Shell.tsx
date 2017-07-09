@@ -12,11 +12,11 @@ interface ShellProps {
 
 class Shell extends React.Component<ShellProps> {
 
-  static useActions = {
+  static connectedActions = {
     userLoggedOut
   };
 
-  static readPropsFromState = state => ({
+  static readPropsFromRedux = state => ({
     auth: state.auth,
     socket: state.socket
   })

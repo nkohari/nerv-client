@@ -1,46 +1,53 @@
 import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
 import { Breadcrumbs } from 'components';
-import { Action, loadAgent, loadGroup } from 'actions';
-import { Agent, Group, connect } from 'data';
+import { Action, loadAgent, loadGroup, loadDevicesByAgent } from 'actions';
+import { Agent, Device, Group, connect } from 'data';
 
 interface AgentPageProps {
   params: { [name: string]: string };
   agent: Agent;
   group: Group;
-  loadAgent: Action<string>;
-  loadGroup: Action<string>;
+  devices: Device[];
+  loadAgent: Action;
+  loadGroup: Action;
+  loadDevicesByAgent: Action;
 }
 
 class AgentPage extends React.Component<AgentPageProps> {
 
-  static useActions = {
+  static connectedActions = {
     loadAgent,
-    loadGroup
+    loadGroup,
+    loadDevicesByAgent
   };
 
-  static readPropsFromState = (state, props) => ({
-    agent: state.agents.find(a => a.id === props.params.agentid),
-    group: state.groups.find(g => g.id === props.params.groupid)
+  static readPropsFromRedux = (state, props) => ({
+    group: state.groups.items.find(g => g.id === props.params.groupid),
+    agent: state.agents.items.find(a => a.id === props.params.agentid),
+    devices: state.devices.items.filter(d => d.agentid === props.params.agentid)
   })
 
   componentDidMount() {
     const { groupid, agentid } = this.props.params;
     this.props.loadAgent(groupid, agentid);
     this.props.loadGroup(groupid);
+    this.props.loadDevicesByAgent(groupid, agentid);
   }
 
   componentWillReceiveProps(newProps) {
     const oldParams = this.props.params;
     const newParams = newProps.params;
-    if (oldParams.agentid !== newParams.agentId) {
-      this.props.loadAgent(newParams.groupid, newParams.agentId);
+    if (oldParams.agentid !== newParams.agentid) {
+      this.props.loadAgent(newParams.groupid, newParams.agentid);
       this.props.loadGroup(newParams.groupid);
+      this.props.loadDevicesByAgent(newParams.groupid, newParams.agentid);
     }
   }
 
   render() {
-    const { agent, group } = this.props;
+    const { agent, group, devices } = this.props;
+    console.log(this.props);
 
     if (!agent || !group) {
       return <Spinner />;
@@ -50,7 +57,7 @@ class AgentPage extends React.Component<AgentPageProps> {
       <div className='page agent-page'>
         <Breadcrumbs group={group} agent={agent} />
         <div className='page-content'>
-          <h5>{agent.name}</h5>
+          {devices.length} devices
         </div>
       </div>
     );

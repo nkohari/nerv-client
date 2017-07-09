@@ -7,8 +7,8 @@ export const loadAgent = (groupid: string, agentid: string) => (
     if (!agents.items.find(a => a.id === agentid)) {
       dispatch(agentsLoading());
       API.agents.get(groupid, agentid, auth.token)
-      .then(group => {
-        dispatch(agentsLoaded([group]));
+      .then(agent => {
+        dispatch(agentsLoaded([agent]));
       })
       .catch(error => {
         dispatch(agentsError(error));

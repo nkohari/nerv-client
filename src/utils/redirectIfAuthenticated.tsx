@@ -12,11 +12,11 @@ interface RedirectWrapperProps {
 export default function redirectIfAuthenticated(InnerComponent) { // tslint:disable-line:variable-name
   class RedirectWrapper extends React.Component<RedirectWrapperProps> {
 
-    static useActions = {
+    static connectedActions = {
       replace
     };
 
-    static readPropsFromState = state => ({
+    static readPropsFromRedux = state => ({
       auth: state.auth
     })
 

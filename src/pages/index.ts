@@ -1,3 +1,4 @@
+export { default as AgentPage } from './AgentPage';
 export { default as HomePage } from './HomePage';
 export { default as GroupPage } from './GroupPage';
 

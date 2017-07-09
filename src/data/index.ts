@@ -1,16 +1,19 @@
 // API
 import * as agentsApi from './api/agents';
 import * as authApi from './api/auth';
+import * as devicesApi from './api/devices';
 import * as groupsApi from './api/groups';
 
 export const API = {
   agents: agentsApi,
   auth: authApi,
+  devices: devicesApi,
   groups: groupsApi
 };
 
 // Models
 export { Agent } from './models/Agent';
+export { Device } from './models/Device';
 export { Group } from './models/Group';
 export { User } from './models/User';
 
@@ -30,12 +33,14 @@ export { SocketMessage } from './framework/SocketMessage';
 
 // Reducers
 import { default as agentsReducer } from './reducers/agents';
+import { default as devicesReducer } from './reducers/devices';
 import { default as authReducer } from './reducers/auth';
 import { default as groupsReducer } from './reducers/groups';
 import { default as socketReducer } from './reducers/socket';
 
 export const reducers = {
   agents: agentsReducer,
+  devices: devicesReducer,
   auth: authReducer,
   groups: groupsReducer,
   socket: socketReducer

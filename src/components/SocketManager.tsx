@@ -18,7 +18,7 @@ const getAuthHeaders = token => ({
 
 class SocketManager extends React.Component<SocketManagerProps> {
 
-  static useActions = {
+  static connectedActions = {
     socketConnected,
     socketDisconnected,
     socketError,

@@ -22,12 +22,12 @@ interface LoginModalState {
 
 class LoginModal extends React.Component<LoginModalProps, LoginModalState> {
 
-  static useActions = {
+  static connectedActions = {
     replace,
     userLoggedIn
   };
 
-  static readPropsFromState = (state) => ({
+  static readPropsFromRedux = (state) => ({
     auth: state.auth
   })
 

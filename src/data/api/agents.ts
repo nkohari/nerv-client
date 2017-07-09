@@ -2,7 +2,7 @@ import { Agent, request } from 'data';
 
 export function get(groupid: string, agentid: string, token: string): Promise<Agent> {
   return request.get(`/groups/${groupid}/agents/${agentid}`, token).then(result => (
-    new Agent(result.group)
+    new Agent(result.agent)
   ));
 }
 

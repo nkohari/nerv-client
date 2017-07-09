@@ -15,6 +15,15 @@ export {
 } from './agents';
 
 export {
+  loadDevice,
+  loadDevicesByAgent,
+  loadDevicesByGroup,
+  devicesLoading,
+  devicesLoaded,
+  devicesError
+} from './devices';
+
+export {
   loadGroup,
   loadGroupsByUser,
   groupsLoading,

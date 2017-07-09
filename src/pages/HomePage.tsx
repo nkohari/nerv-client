@@ -13,12 +13,12 @@ interface HomePageProps {
 
 class HomePage extends React.Component<HomePageProps> {
 
-  static useActions = {
+  static connectedActions = {
     loadAgentsByUser,
     loadGroupsByUser
   };
 
-  static readPropsFromState = state => ({
+  static readPropsFromRedux = state => ({
     agents: state.agents,
     groups: state.groups
   })

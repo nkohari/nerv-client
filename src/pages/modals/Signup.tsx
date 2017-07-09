@@ -25,12 +25,12 @@ interface LoginState {
 
 class Login extends React.Component<LoginProps, LoginState> {
 
-  static useActions = {
+  static connectedActions = {
     replace,
     userLoggedIn
   };
 
-  static readPropsFromState = (state) => ({
+  static readPropsFromRedux = (state) => ({
     auth: state.auth
   })
 
