@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Agent, Group, connect } from 'data';
+import { Agent, Group, connect } from 'src/data';
 import './GroupCard.styl';
 
 interface GroupCardProps {

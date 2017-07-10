@@ -1,4 +1,4 @@
-import { Agent, createCollectionReducer } from 'data';
+import { Agent, createCollectionReducer } from 'src/data';
 
 const agentsReducer = createCollectionReducer<Agent>(Agent);
 

@@ -1,4 +1,4 @@
-import { Model } from 'data';
+import { Model } from 'src/data';
 
 export interface ChangeEvent {
   op: 'create' | 'update';

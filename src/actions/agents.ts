@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { API, Agent } from 'data';
+import { API, Agent } from 'src/data';
 
 export const loadAgent = (groupid: string, agentid: string) => (
   (dispatch, getState) => {

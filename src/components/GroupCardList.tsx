@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router';
-import { GroupCard } from 'components';
-import { Group } from 'data';
+import { GroupCard } from 'src/components';
+import { Group } from 'src/data';
 import './GroupCardList.styl';
 
 interface GroupCardListProps {

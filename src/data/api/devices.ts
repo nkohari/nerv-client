@@ -1,4 +1,4 @@
-import { Device, request } from 'data';
+import { Device, request } from 'src/data';
 
 export function get(groupid: string, agentid: string, deviceid: string, token: string): Promise<Device> {
   return request.get(`/groups/${groupid}/agents/${agentid}/devices/${deviceid}`, token).then(result => (

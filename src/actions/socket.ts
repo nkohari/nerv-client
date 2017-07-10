@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { SocketMessage, ChangeEvent } from 'data';
+import { SocketMessage, ChangeEvent } from 'src/data';
 
 export const socketConnected = createAction('SOCKET_CONNECTED');
 export const socketDisconnected = createAction('SOCKET_DISCONNECTED');

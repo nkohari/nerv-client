@@ -1,4 +1,4 @@
-import { SocketStatus } from 'data';
+import { SocketStatus } from 'src/data';
 
 export interface SocketState {
   status: SocketStatus;

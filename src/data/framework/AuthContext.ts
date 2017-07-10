@@ -1,4 +1,4 @@
-import { User } from 'data';
+import { User } from 'src/data';
 
 export interface AuthContext {
   token: string;

@@ -1,5 +1,5 @@
 import { Action, handleActions } from 'redux-actions';
-import { AuthContext } from 'data';
+import { AuthContext } from 'src/data';
 
 const defaultState: AuthContext = {
   token: null,

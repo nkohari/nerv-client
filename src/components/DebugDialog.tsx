@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Dialog, Intent } from '@blueprintjs/core';
-import { AuthContext } from 'data';
+import { AuthContext } from 'src/data';
 
 interface DebugDialogProps {
   auth: AuthContext;

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
-import { Breadcrumbs, GroupCardList } from 'components';
-import { Action, loadAgentsByUser, loadGroupsByUser } from 'actions';
-import { Collection, Agent, Group, connect } from 'data';
+import { Breadcrumbs, GroupCardList } from 'src/components';
+import { Action, loadAgentsByUser, loadGroupsByUser } from 'src/actions';
+import { Collection, Agent, Group, connect } from 'src/data';
 
 interface HomePageProps {
   agents: Collection<Agent>;

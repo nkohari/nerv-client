@@ -53,6 +53,6 @@ export const resolve = {
   extensions: ['.js', '.jsx', '.ts', '.tsx'],
   modules: [
     'node_modules',
-    'src'
+    '.' // Supports paths beginning with src/ to match tsconfig path resolution
   ]
 };

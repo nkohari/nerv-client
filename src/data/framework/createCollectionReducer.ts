@@ -1,5 +1,5 @@
 import { Action, handleActions } from 'redux-actions';
-import { ChangeEvent, Collection, merge, Model, ModelClass, SocketMessage } from 'data';
+import { ChangeEvent, Collection, merge, Model, ModelClass, SocketMessage } from 'src/data';
 
 export function createCollectionReducer<T extends Model>(modelClass: ModelClass<T>) {
   const actionPrefix = `${modelClass.name.toUpperCase()}S`;

@@ -1,4 +1,4 @@
-import { Agent, request } from 'data';
+import { Agent, request } from 'src/data';
 
 export function get(groupid: string, agentid: string, token: string): Promise<Agent> {
   return request.get(`/groups/${groupid}/agents/${agentid}`, token).then(result => (

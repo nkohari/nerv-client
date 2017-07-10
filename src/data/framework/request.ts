@@ -1,4 +1,4 @@
-import { getApiUrl } from 'utils';
+import { getApiUrl } from 'src/utils';
 
 function get(path: string, token?: string): Promise<any> {
   return request(path, {

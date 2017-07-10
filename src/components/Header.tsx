@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { IndexLink } from 'react-router';
 import { Button } from '@blueprintjs/core';
-import { DebugDialog, SocketIndicator } from 'components';
-import { Action, userLoggedOut } from 'actions';
-import { AuthContext, SocketState, connect } from 'data';
+import { DebugDialog, SocketIndicator } from 'src/components';
+import { Action, userLoggedOut } from 'src/actions';
+import { AuthContext, SocketState, connect } from 'src/data';
 import './Header.styl';
 
 interface HeaderProps {

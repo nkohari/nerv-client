@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
-import { AgentCardList, Breadcrumbs } from 'components';
-import { Action, loadGroup, loadAgentsByGroup, loadDevicesByGroup } from 'actions';
-import { Group, Agent, connect } from 'data';
+import { AgentCardList, Breadcrumbs } from 'src/components';
+import { Action, loadGroup, loadAgentsByGroup, loadDevicesByGroup } from 'src/actions';
+import { Group, Agent, connect } from 'src/data';
 
 interface GroupPageProps {
   params: { [name: string]: string };

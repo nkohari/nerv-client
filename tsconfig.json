@@ -14,7 +14,7 @@
     "noUnusedLocals": true,
     "outDir": ".build",
     "paths": {
-      "*": ["*", "src/*"]
+      "src": ["src/*"]
     },
     "target": "es6"
   },

@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { API, Group } from 'data';
+import { API, Group } from 'src/data';
 
 export const loadGroup = (groupid: string) => (
   (dispatch, getState) => {

@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { API, Device } from 'data';
+import { API, Device } from 'src/data';
 
 export const loadDevice = (groupid: string, agentid: string, deviceid: string) => (
   (dispatch, getState) => {

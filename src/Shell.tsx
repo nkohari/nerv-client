@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Action, userLoggedOut } from 'actions';
-import { AuthContext, SocketState, connect } from 'data';
-import { Header, SocketManager } from 'components';
+import { Action, userLoggedOut } from 'src/actions';
+import { AuthContext, SocketState, connect } from 'src/data';
+import { Header, SocketManager } from 'src/components';
 import './Shell.styl';
 
 interface ShellProps {

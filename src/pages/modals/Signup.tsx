@@ -3,10 +3,10 @@ import Toaster from '../../services/Toaster';
 import { InputGroup } from '@blueprintjs/core';
 import { Link } from 'react-router';
 import { replace, LocationAction } from 'react-router-redux';
-import { SubmitButton } from 'components';
-import { Action, userLoggedIn } from 'actions';
-import { API, AuthContext, connect } from 'data';
-import { getRedirectUrl } from 'utils';
+import { SubmitButton } from 'src/components';
+import { Action, userLoggedIn } from 'src/actions';
+import { API, AuthContext, connect } from 'src/data';
+import { getRedirectUrl } from 'src/utils';
 
 interface LoginProps {
   auth: AuthContext;

@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import { routerMiddleware, routerReducer } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import * as persistState from 'redux-localstorage';
-import { reducers } from 'data';
+import { reducers } from 'src/data';
 
 export function configureStoreForDevelopment(initialState = {}) {
   const store = createStore(

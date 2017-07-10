@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as NesClient from 'nes/client';
-import { Action, socketConnected, socketDisconnected, socketError, changeMessageReceived } from 'actions';
-import { AuthContext, SocketState, SocketStatus, connect } from 'data';
+import { Action, socketConnected, socketDisconnected, socketError, changeMessageReceived } from 'src/actions';
+import { AuthContext, SocketState, SocketStatus, connect } from 'src/data';
 
 interface SocketManagerProps {
   auth: AuthContext;

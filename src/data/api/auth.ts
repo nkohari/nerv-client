@@ -1,4 +1,4 @@
-import { AuthContext, request, User } from 'data';
+import { AuthContext, request, User } from 'src/data';
 
 interface LoginPayload {
   username: string;

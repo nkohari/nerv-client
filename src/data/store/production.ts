@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { browserHistory } from 'react-router';
 import { routerMiddleware, routerReducer } from 'react-router-redux';
 import * as persistState from 'redux-localstorage';
-import { reducers } from 'data';
+import { reducers } from 'src/data';
 
 export function configureStoreForProduction(initialState = {}) {
   return createStore(

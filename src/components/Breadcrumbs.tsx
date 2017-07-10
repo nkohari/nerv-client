@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IndexLink, Link } from 'react-router';
-import { Agent, Group } from 'data';
+import { Agent, Group } from 'src/data';
 import './Breadcrumbs.styl';
 
 interface BreadcrumbsProps {

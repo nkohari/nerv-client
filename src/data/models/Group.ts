@@ -1,4 +1,4 @@
-import { Model } from 'data/framework/Model';
+import { Model } from 'src/data/framework/Model';
 
 export class Group extends Model {
 

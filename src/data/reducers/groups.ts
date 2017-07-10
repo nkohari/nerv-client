@@ -1,4 +1,4 @@
-import { Group, createCollectionReducer } from 'data';
+import { Group, createCollectionReducer } from 'src/data';
 
 const groupsReducer = createCollectionReducer<Group>(Group);
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router';
-import { AgentCard } from 'components';
-import { Agent } from 'data';
+import { AgentCard } from 'src/components';
+import { Agent } from 'src/data';
 import './AgentCardList.styl';
 
 interface AgentCardListProps {

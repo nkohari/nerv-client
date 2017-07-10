@@ -1,4 +1,4 @@
-import { Model } from 'data';
+import { Model } from 'src/data';
 
 /**
  * Merges two arrays of models by selecting the models with the highest version number.

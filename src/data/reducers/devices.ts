@@ -1,4 +1,4 @@
-import { Device, createCollectionReducer } from 'data';
+import { Device, createCollectionReducer } from 'src/data';
 
 const devicesReducer = createCollectionReducer<Device>(Device);
 

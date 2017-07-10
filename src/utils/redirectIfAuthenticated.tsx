@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { replace, LocationAction } from 'react-router-redux';
-import { AuthContext, connect } from 'data';
-import { getRedirectUrl } from 'utils';
+import { AuthContext, connect } from 'src/data';
+import { getRedirectUrl } from 'src/utils';
 
 interface RedirectWrapperProps {
   auth: AuthContext;
