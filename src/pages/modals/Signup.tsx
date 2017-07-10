@@ -1,20 +1,19 @@
 import * as React from 'react';
 import Toaster from '../../services/Toaster';
 import { InputGroup } from '@blueprintjs/core';
-import { Link } from 'react-router';
-import { replace, LocationAction } from 'react-router-redux';
+import { Link, push, replace } from 'redux-little-router';
 import { SubmitButton } from 'src/components';
 import { Action, userLoggedIn } from 'src/actions';
 import { API, AuthContext, connect } from 'src/data';
-import { getRedirectUrl } from 'src/utils';
 
-interface LoginProps {
+interface SignupProps {
   auth: AuthContext;
-  replace: LocationAction;
+  push: Action;
+  replace: Action;
   userLoggedIn: Action;
 }
 
-interface LoginState {
+interface SignupState {
   username: string;
   email: string;
   password: string;
@@ -23,9 +22,10 @@ interface LoginState {
   submitting: boolean;
 }
 
-class Login extends React.Component<LoginProps, LoginState> {
+class Signup extends React.Component<SignupProps, SignupState> {
 
   static connectedActions = {
+    push,
     replace,
     userLoggedIn
   };
@@ -49,7 +49,12 @@ class Login extends React.Component<LoginProps, LoginState> {
   }
 
   componentDidMount() {
-    this.usernameElement.focus();
+    const { auth } = this.props;
+    if (auth.token && auth.user) {
+      this.props.replace('/');
+    } else {
+      this.usernameElement.focus();
+    }
   }
 
   onFormSubmit = event => {
@@ -61,7 +66,7 @@ class Login extends React.Component<LoginProps, LoginState> {
     .then(result => {
       this.setState({ submitting: false });
       this.props.userLoggedIn({ token: result.token, user: result.user });
-      this.props.replace(getRedirectUrl());
+      this.props.push('/');
     })
     .catch(err => {
       this.setState({ submitting: false });
@@ -134,7 +139,7 @@ class Login extends React.Component<LoginProps, LoginState> {
             </SubmitButton>
           </form>
           <div className='modal-footer'>
-            Already registered? <Link to='/login'>Log in instead →</Link>
+            Already registered? <Link href='/login' persistQuery>Log in instead →</Link>
           </div>
         </div>
       </div>
@@ -143,4 +148,4 @@ class Login extends React.Component<LoginProps, LoginState> {
 
 }
 
-export default connect(Login);
+export default connect(Signup);

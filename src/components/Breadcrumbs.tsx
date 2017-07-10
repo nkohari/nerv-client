@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { IndexLink, Link } from 'react-router';
-import { Agent, Group } from 'src/data';
+import { Link } from 'redux-little-router';
+import { Agent, Group, connect } from 'src/data';
 import './Breadcrumbs.styl';
 
 interface BreadcrumbsProps {
@@ -10,22 +10,31 @@ interface BreadcrumbsProps {
 
 class Breadcrumbs extends React.Component<BreadcrumbsProps> {
 
+  static readPropsFromRedux = (state, props) => {
+    const { groupid, agentid } = state.router.params;
+    return {
+      group: groupid ? state.groups.items.find(g => g.id === groupid) : null,
+      agent: agentid ? state.agents.items.find(a => a.id === agentid) : null
+    };
+  }
+
   render() {
     const { group, agent } = this.props;
 
     const items = [
       <li key='home'>
-        <IndexLink to='/' className='pt-breadcrumb'>
-          <span className='pt-icon-standard pt-icon-home' />
-          Groups
-        </IndexLink>
+        <Link href='/' className='pt-breadcrumb'>
+          <span className='pt-icon-large pt-icon-build' />
+          Mineboss
+        </Link>
       </li>
     ];
 
     if (group) {
       items.push(
         <li key='group'>
-          <Link to={`/${group.id}`} className='pt-breadcrumb'>
+          <Link href={`/${group.id}`} className='pt-breadcrumb'>
+            <span className='pt-icon-standard pt-icon-layout-auto' />
             {group.name}
           </Link>
         </li>
@@ -34,7 +43,7 @@ class Breadcrumbs extends React.Component<BreadcrumbsProps> {
       if (agent) {
         items.push(
           <li key='agent'>
-            <Link to={`/${group.id}/agents/${agent.id}`} className='pt-breadcrumb'>
+            <Link href={`/${group.id}/${agent.id}`} className='pt-breadcrumb'>
               <span className='pt-icon-standard pt-icon-desktop' />
               {agent.name}
             </Link>
@@ -52,4 +61,4 @@ class Breadcrumbs extends React.Component<BreadcrumbsProps> {
 
 }
 
-export default Breadcrumbs;
+export default connect(Breadcrumbs);

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { IndexLink } from 'react-router';
+import { push } from 'redux-little-router';
 import { Button } from '@blueprintjs/core';
-import { DebugDialog, SocketIndicator } from 'src/components';
+import { Breadcrumbs, DebugDialog, SocketIndicator } from 'src/components';
 import { Action, userLoggedOut } from 'src/actions';
 import { AuthContext, SocketState, connect } from 'src/data';
 import './Header.styl';
@@ -9,6 +9,7 @@ import './Header.styl';
 interface HeaderProps {
   auth: AuthContext;
   socket: SocketState;
+  push: Action;
   userLoggedOut: Action;
 }
 
@@ -18,13 +19,24 @@ interface HeaderState {
 
 class Header extends React.Component<HeaderProps, HeaderState> {
 
-  static actionsFromProps = {
+  static connectedActions = {
+    push,
     userLoggedOut
   };
+
+  static readPropsFromRedux = state => ({
+    auth: state.auth,
+    socket: state.socket
+  })
 
   constructor(props) {
     super(props);
     this.state = { isDebugDialogOpen: false };
+  }
+
+  onLogOutClicked = event => {
+    this.props.userLoggedOut();
+    this.props.push('/login');
   }
 
   toggleDebugDialog = event => {
@@ -39,18 +51,13 @@ class Header extends React.Component<HeaderProps, HeaderState> {
       <header className='header'>
         <nav className='pt-navbar pt-fixed-top pt-dark'>
           <div className='pt-navbar-group pt-align-left'>
-            <div className='pt-navbar-heading'>
-              <IndexLink to='/' className='navbar-heading'>
-                <span className='pt-icon-large pt-icon-build' />
-                Mineboss
-              </IndexLink>
-            </div>
+            <Breadcrumbs />
           </div>
           <div className='pt-navbar-group pt-align-right'>
             <SocketIndicator socket={socket} />
             <span className='pt-navbar-divider' />
             <Button iconName='wrench' className='pt-minimal' onClick={this.toggleDebugDialog} />
-            <Button iconName='log-out' className='pt-minimal' onClick={this.props.userLoggedOut} />
+            <Button iconName='log-out' className='pt-minimal' onClick={this.onLogOutClicked} />
           </div>
         </nav>
         <DebugDialog isOpen={isDebugDialogOpen} auth={auth} onDialogClosed={this.toggleDebugDialog} />

@@ -25,6 +25,11 @@ class SocketManager extends React.Component<SocketManagerProps> {
     changeMessageReceived
   };
 
+  static readPropsFromRedux = state => ({
+    auth: state.auth,
+    socket: state.socket
+  })
+
   client: any;
 
   constructor(props: SocketManagerProps) {

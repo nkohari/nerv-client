@@ -1,4 +1,10 @@
-.breadcrumbs
+.breadcrumbs.pt-breadcrumbs
+
   .pt-breadcrumb
-    .pt-icon-standard
-      padding-right: 10px
+    .pt-icon-standard, .pt-icon-large
+      padding-right: 6px
+
+  & > li::after
+    opacity: 0.5
+    padding: 0 10px
+    content: "/"

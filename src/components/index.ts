@@ -8,3 +8,4 @@ export { default as Header } from './Header';
 export { default as SubmitButton } from './SubmitButton';
 export { default as SocketIndicator } from './SocketIndicator';
 export { default as SocketManager } from './SocketManager';
+export { default as RestrictedFragment } from './RestrictedFragment';

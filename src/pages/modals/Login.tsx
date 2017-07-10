@@ -1,34 +1,36 @@
 import * as React from 'react';
 import Toaster from '../../services/Toaster';
 import { InputGroup } from '@blueprintjs/core';
-import { Link } from 'react-router';
-import { replace, LocationAction } from 'react-router-redux';
+import { Link, push, replace } from 'redux-little-router';
 import { SubmitButton } from 'src/components';
 import { Action, userLoggedIn } from 'src/actions';
 import { API, AuthContext, connect } from 'src/data';
-import { getRedirectUrl } from 'src/utils';
 
-interface LoginModalProps {
+interface LoginProps {
   auth: AuthContext;
-  replace: LocationAction;
+  redirectUrl: string;
+  push: Action;
+  replace: Action;
   userLoggedIn: Action;
 }
 
-interface LoginModalState {
+interface LoginState {
   username: string;
   password: string;
   submitting: boolean;
 }
 
-class LoginModal extends React.Component<LoginModalProps, LoginModalState> {
+class Login extends React.Component<LoginProps, LoginState> {
 
   static connectedActions = {
+    push,
     replace,
     userLoggedIn
   };
 
   static readPropsFromRedux = (state) => ({
-    auth: state.auth
+    auth: state.auth,
+    redirectUrl: state.router.query.r || '/'
   })
 
   usernameElement: HTMLInputElement;
@@ -43,7 +45,12 @@ class LoginModal extends React.Component<LoginModalProps, LoginModalState> {
   }
 
   componentDidMount() {
-    this.usernameElement.focus();
+    const { auth, redirectUrl } = this.props;
+    if (auth.token && auth.user) {
+      this.props.replace(redirectUrl);
+    } else {
+      this.usernameElement.focus();
+    }
   }
 
   onFormSubmit = event => {
@@ -55,7 +62,7 @@ class LoginModal extends React.Component<LoginModalProps, LoginModalState> {
     .then(result => {
       this.setState({ submitting: false });
       this.props.userLoggedIn({ token: result.token, user: result.user });
-      this.props.replace(getRedirectUrl());
+      this.props.push(this.props.redirectUrl);
     })
     .catch(err => {
       this.setState({ submitting: false });
@@ -64,10 +71,6 @@ class LoginModal extends React.Component<LoginModalProps, LoginModalState> {
 
     event.preventDefault();
     return false;
-  }
-
-  onSignUpClicked = event => {
-    this.props.replace('/signup');
   }
 
   onChange = property => (
@@ -112,7 +115,7 @@ class LoginModal extends React.Component<LoginModalProps, LoginModalState> {
             </SubmitButton>
           </form>
           <div className='modal-footer'>
-            Don't have an account? <Link to='/signup'>Sign up for free →</Link>
+            Don't have an account? <Link href='/signup' persistQuery>Sign up for free →</Link>
           </div>
         </div>
       </div>
@@ -121,4 +124,4 @@ class LoginModal extends React.Component<LoginModalProps, LoginModalState> {
 
 }
 
-export default connect(LoginModal);
+export default connect(Login);

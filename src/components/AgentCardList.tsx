@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'redux-little-router';
 import { AgentCard } from 'src/components';
 import { Agent } from 'src/data';
 import './AgentCardList.styl';
@@ -15,7 +15,7 @@ class AgentCardList extends React.Component<AgentCardListProps> {
 
     const items = agents.map(agent => (
       <li key={agent.id}>
-        <Link to={`/${agent.groupid}/${agent.id}`}>
+        <Link href={`/${agent.groupid}/${agent.id}`}>
           <AgentCard agent={agent} />
         </Link>
       </li>

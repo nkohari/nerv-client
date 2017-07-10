@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
-import { AgentCardList, Breadcrumbs } from 'src/components';
+import { AgentCardList } from 'src/components';
 import { Action, loadGroup, loadAgentsByGroup, loadDevicesByGroup } from 'src/actions';
 import { Group, Agent, connect } from 'src/data';
 
 interface GroupPageProps {
-  params: { [name: string]: string };
+  groupid: string;
   group: Group;
   agents: Agent[];
   loadGroup: Action;
@@ -21,26 +21,30 @@ class GroupPage extends React.Component<GroupPageProps> {
     loadDevicesByGroup
   };
 
-  static readPropsFromRedux = (state, props) => ({
-    group: state.groups.items.find(g => g.id === props.params.groupid),
-    agents: state.agents.items.filter(a => a.groupid === props.params.groupid)
-  })
+  static readPropsFromRedux = (state, props) => {
+    const { groupid } = state.router.params;
+    return {
+      groupid,
+      group: state.groups.items.find(g => g.id === groupid),
+      agents: state.agents.items.filter(a => a.groupid === groupid)
+    };
+  }
 
   componentDidMount() {
-    const { groupid } = this.props.params;
-    this.props.loadGroup(groupid);
-    this.props.loadAgentsByGroup(groupid);
-    this.props.loadDevicesByGroup(groupid);
+    this.loadData(this.props.groupid);
   }
 
   componentWillReceiveProps(newProps) {
-    const oldParams = this.props.params;
-    const newParams = newProps.params;
-    if (oldParams.groupid !== newParams.groupid) {
-      this.props.loadGroup(newParams.groupid);
-      this.props.loadAgentsByGroup(newParams.groupid);
-      this.props.loadDevicesByGroup(newParams.groupid);
+    const { groupid } = newProps;
+    if (this.props.groupid !== groupid) {
+      this.loadData(groupid);
     }
+  }
+
+  loadData(groupid: string) {
+    this.props.loadGroup(groupid);
+    this.props.loadAgentsByGroup(groupid);
+    this.props.loadDevicesByGroup(groupid);
   }
 
   render() {
@@ -52,7 +56,6 @@ class GroupPage extends React.Component<GroupPageProps> {
 
     return (
       <div className='page group-page'>
-        <Breadcrumbs group={group} />
         <div className='page-content'>
           <AgentCardList agents={agents} />
         </div>

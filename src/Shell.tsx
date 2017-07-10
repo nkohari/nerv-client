@@ -1,43 +1,20 @@
 import * as React from 'react';
-import { Action, userLoggedOut } from 'src/actions';
-import { AuthContext, SocketState, connect } from 'src/data';
 import { Header, SocketManager } from 'src/components';
 import './Shell.styl';
 
-interface ShellProps {
-  auth: AuthContext;
-  socket: SocketState;
-  userLoggedOut: Action;
-}
-
-class Shell extends React.Component<ShellProps> {
-
-  static connectedActions = {
-    userLoggedOut
-  };
-
-  static readPropsFromRedux = state => ({
-    auth: state.auth,
-    socket: state.socket
-  })
+class Shell extends React.Component {
 
   render() {
-    const { children, auth, socket, userLoggedOut } = this.props;
-
-    let content;
-    if (children) {
-      content = React.cloneElement(React.Children.only(children), { auth });
-    }
-
+    const { children } = this.props;
     return (
       <div className='shell'>
-        <Header auth={auth} socket={socket} userLoggedOut={userLoggedOut} />
-        {content}
-        <SocketManager auth={auth} socket={socket} />
+        <Header />
+        {children}
+        <SocketManager />
       </div>
     );
   }
 
 }
 
-export default connect(Shell);
+export default Shell;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'redux-little-router';
 import { GroupCard } from 'src/components';
 import { Group } from 'src/data';
 import './GroupCardList.styl';
@@ -15,7 +15,7 @@ class GroupCardList extends React.Component<GroupCardListProps> {
 
     const items = groups.map(group => (
       <li key={group.id}>
-        <Link to={`/${group.id}`}>
+        <Link href={`/${group.id}`}>
           <GroupCard group={group} />
         </Link>
       </li>

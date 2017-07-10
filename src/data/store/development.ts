@@ -1,22 +1,24 @@
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import { applyMiddleware, combineReducers, compose, createStore, StoreEnhancer } from 'redux';
 import thunk from 'redux-thunk';
-import { browserHistory } from 'react-router';
-import { routerMiddleware, routerReducer } from 'react-router-redux';
+import { routerForBrowser } from 'redux-little-router';
 import { createLogger } from 'redux-logger';
 import * as persistState from 'redux-localstorage';
 import { reducers } from 'src/data';
 
-export function configureStoreForDevelopment(initialState = {}) {
+export function configureStoreForDevelopment(routes, initialState) {
+  const router = routerForBrowser({ routes });
+
   const store = createStore(
     combineReducers({
-      ...reducers,
-      routing: routerReducer
+      router: router.reducer,
+      ...reducers
     }),
     initialState,
     compose(
+      router.enhancer as StoreEnhancer<any>,
       applyMiddleware(
         thunk,
-        routerMiddleware(browserHistory),
+        router.middleware,
         createLogger()
       ),
       persistState('auth')

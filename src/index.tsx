@@ -1,24 +1,28 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { initializeCurrentLocation } from 'redux-little-router';
 import { FocusStyleManager } from '@blueprintjs/core';
 import { configureStore } from 'src/data';
+import routes from './routes';
 import 'whatwg-fetch';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
-const store = configureStore();
-const history = syncHistoryWithStore(browserHistory, store);
+const store = configureStore(routes, {});
+
+const initialLocation = store.getState().router;
+if (initialLocation) {
+  store.dispatch(initializeCurrentLocation(initialLocation));
+}
 
 const render = () => {
-  const createRouter = require('./createRouter').default; // tslint:disable-line:no-require-imports
+  const App = require('./App').default; // tslint:disable-line
   ReactDOM.render((
     <Provider store={store}>
-      {createRouter(history)}
+      <App />
     </Provider>
-  ), document.getElementById('app'));
+  ), document.getElementById('root'));
 };
 
 render();
