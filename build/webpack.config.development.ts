@@ -19,7 +19,7 @@ const config: webpack.Configuration = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: [ 'react-hot-loader', 'ts-loader' ],
+        use: ['react-hot-loader', 'ts-loader'],
         include: path.resolve(__dirname, '../src')
       },
       {

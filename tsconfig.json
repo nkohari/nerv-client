@@ -14,11 +14,13 @@
     "noUnusedLocals": true,
     "outDir": ".build",
     "paths": {
+      "assets": ["assets/*"],
       "src": ["src/*"]
     },
     "target": "es6"
   },
   "include": [
+    "assets/**/*",
     "src/**/*"
   ]
 }

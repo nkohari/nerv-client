@@ -21,7 +21,7 @@ export function createCollectionReducer<T extends Model>(modelClass: ModelClass<
       isLoading: false,
       items: merge(state.items, action.payload)
     }),
-    [`${actionPrefix}_ERROR`]: (state, action: Action<Error>) => ({
+    [`${actionPrefix}_ERROR`]: (state, action: Action<FetchError>) => ({
       ...state,
       isLoading: false,
       error: action.payload

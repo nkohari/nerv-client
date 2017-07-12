@@ -47,4 +47,4 @@ export const loadDevicesByGroup = (groupid: string) => (
 
 export const devicesLoading = createAction('DEVICES_LOADING');
 export const devicesLoaded = createAction<Device[]>('DEVICES_LOADED');
-export const devicesError = createAction<Error>('DEVICES_ERROR');
+export const devicesError = createAction<FetchError>('DEVICES_ERROR');

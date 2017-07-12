@@ -47,4 +47,4 @@ export const loadAgentsByUser = () => (
 
 export const agentsLoading = createAction('AGENTS_LOADING');
 export const agentsLoaded = createAction<Agent[]>('AGENTS_LOADED');
-export const agentsError = createAction<Error>('AGENTS_ERROR');
+export const agentsError = createAction<FetchError>('AGENTS_ERROR');

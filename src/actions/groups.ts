@@ -33,4 +33,4 @@ export const loadGroupsByUser = () => (
 
 export const groupsLoading = createAction('GROUPS_LOADING');
 export const groupsLoaded = createAction<Group[]>('GROUPS_LOADED');
-export const groupsError = createAction<Error>('GROUPS_ERROR');
+export const groupsError = createAction<FetchError>('GROUPS_ERROR');

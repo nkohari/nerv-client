@@ -28,5 +28,5 @@ const render = () => {
 render();
 
 if (module.hot) {
-  module.hot.accept(render);
+  module.hot.accept('./App', render);
 }

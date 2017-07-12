@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'redux-little-router';
+import { Icon } from 'src/components';
 import { Agent, Group, connect } from 'src/data';
 import './Breadcrumbs.styl';
 
@@ -24,7 +25,7 @@ class Breadcrumbs extends React.Component<BreadcrumbsProps> {
     const items = [
       <li key='home'>
         <Link href='/' className='pt-breadcrumb'>
-          <span className='pt-icon-large pt-icon-build' />
+          <Icon name='build' size='large' />
           Mineboss
         </Link>
       </li>
@@ -34,7 +35,7 @@ class Breadcrumbs extends React.Component<BreadcrumbsProps> {
       items.push(
         <li key='group'>
           <Link href={`/${group.id}`} className='pt-breadcrumb'>
-            <span className='pt-icon-standard pt-icon-layout-auto' />
+            <Icon name='layout-auto' />
             {group.name}
           </Link>
         </li>
@@ -44,7 +45,7 @@ class Breadcrumbs extends React.Component<BreadcrumbsProps> {
         items.push(
           <li key='agent'>
             <Link href={`/${group.id}/${agent.id}`} className='pt-breadcrumb'>
-              <span className='pt-icon-standard pt-icon-desktop' />
+              <Icon name='desktop' />
               {agent.name}
             </Link>
           </li>

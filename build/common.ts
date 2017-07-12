@@ -24,9 +24,13 @@ export const output = {
 
 export const rules = [
   {
-    test: /\.(png|ttf|svg|jpg|gif|woff|woff2|eot)$/,
+    test: /\.(png|ttf|jpg|gif|woff|woff2|eot)$/,
     loader: 'url-loader',
     options: { limit: 10000 }
+  },
+  {
+    test: /\.svg$/,
+    use: ['react-hot-loader', 'svg-react-loader']
   }
 ];
 
