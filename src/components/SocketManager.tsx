@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as NesClient from 'nes/client';
-import { Action, socketConnected, socketDisconnected, socketError, changeMessageReceived } from 'src/actions';
+import { Action, socketConnected, socketDisconnected, socketError, modelEventReceived, measureEventReceived } from 'src/actions';
 import { AuthContext, SocketState, SocketStatus, connect } from 'src/data';
 
 interface SocketManagerProps {
@@ -9,7 +9,8 @@ interface SocketManagerProps {
   socketConnected: Action;
   socketDisconnected: Action;
   socketError: Action<Error>;
-  changeMessageReceived: Action;
+  modelEventReceived: Action;
+  measureEventReceived: Action;
 }
 
 const getAuthHeaders = token => ({
@@ -22,7 +23,8 @@ class SocketManager extends React.Component<SocketManagerProps> {
     socketConnected,
     socketDisconnected,
     socketError,
-    changeMessageReceived
+    modelEventReceived,
+    measureEventReceived
   };
 
   static readPropsFromRedux = state => ({
@@ -88,12 +90,18 @@ class SocketManager extends React.Component<SocketManagerProps> {
   }
 
   onSocketConnected = () => {
-    this.client.subscribe('/changes', this.onChangeMessage, err => {
+    this.client.subscribe('/changes', this.onModelEventMessage, err => {
       if (err) {
         this.props.socketError(err);
         return;
       }
-      this.props.socketConnected();
+      this.client.subscribe('/data', this.onMeasureEventMessage, err2 => {
+        if (err2) {
+          this.props.socketError(err2);
+          return;
+        }
+        this.props.socketConnected();
+      });
     });
   }
 
@@ -109,8 +117,12 @@ class SocketManager extends React.Component<SocketManagerProps> {
     }
   }
 
-  onChangeMessage = message => {
-    this.props.changeMessageReceived(message);
+  onModelEventMessage = message => {
+    this.props.modelEventReceived(message.body);
+  }
+
+  onMeasureEventMessage = message => {
+    this.props.measureEventReceived(message.body);
   }
 
   render() {

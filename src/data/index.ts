@@ -15,14 +15,16 @@ export const API = {
 export { Agent } from './models/Agent';
 export { Device } from './models/Device';
 export { Group } from './models/Group';
+export { Measure } from './models/Measure';
 export { User } from './models/User';
 
 // Framework
 export { AuthContext } from './framework/AuthContext';
-export { ChangeEvent } from './framework/ChangeEvent';
 export { Collection } from './framework/Collection';
 export { connect } from './framework/connect';
 export { createCollectionReducer } from './framework/createCollectionReducer';
+export { MeasureEvent } from './framework/MeasureEvent';
+export { ModelEvent } from './framework/ModelEvent';
 export { merge } from './framework/merge';
 export { Model } from './framework/Model';
 export { ModelClass } from './framework/ModelClass';
@@ -36,6 +38,7 @@ import { default as agentsReducer } from './reducers/agents';
 import { default as devicesReducer } from './reducers/devices';
 import { default as authReducer } from './reducers/auth';
 import { default as groupsReducer } from './reducers/groups';
+import { default as measuresReducer } from './reducers/measures';
 import { default as socketReducer } from './reducers/socket';
 
 export const reducers = {
@@ -43,6 +46,7 @@ export const reducers = {
   devices: devicesReducer,
   auth: authReducer,
   groups: groupsReducer,
+  measures: measuresReducer,
   socket: socketReducer
 };
 

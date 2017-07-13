@@ -1,5 +1,5 @@
 import { Action, handleActions } from 'redux-actions';
-import { ChangeEvent, Collection, merge, Model, ModelClass, SocketMessage } from 'src/data';
+import { Collection, merge, Model, ModelClass, ModelEvent } from 'src/data';
 
 export function createCollectionReducer<T extends Model>(modelClass: ModelClass<T>) {
   const actionPrefix = `${modelClass.name.toUpperCase()}S`;
@@ -26,8 +26,8 @@ export function createCollectionReducer<T extends Model>(modelClass: ModelClass<
       isLoading: false,
       error: action.payload
     }),
-    CHANGE_MESSAGE_RECEIVED: (state, action: Action<SocketMessage<ChangeEvent>>) => {
-      const event = action.payload.body;
+    MODEL_EVENT_RECEIVED: (state, action: Action<ModelEvent>) => {
+      const event = action.payload;
       if (event.type !== modelClass.name) {
         return state;
       } else {

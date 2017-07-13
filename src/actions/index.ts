@@ -35,5 +35,6 @@ export {
   socketConnected,
   socketDisconnected,
   socketError,
-  changeMessageReceived
+  modelEventReceived,
+  measureEventReceived
 } from './socket';

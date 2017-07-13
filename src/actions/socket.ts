@@ -1,8 +1,9 @@
 import { createAction } from 'redux-actions';
-import { SocketMessage, ChangeEvent } from 'src/data';
+import { MeasureEvent, ModelEvent } from 'src/data';
 
 export const socketConnected = createAction('SOCKET_CONNECTED');
 export const socketDisconnected = createAction('SOCKET_DISCONNECTED');
 export const socketError = createAction<Error>('SOCKET_ERROR');
 
-export const changeMessageReceived = createAction<SocketMessage<ChangeEvent>>('CHANGE_MESSAGE_RECEIVED');
+export const measureEventReceived = createAction<MeasureEvent>('MEASURE_EVENT_RECEIVED');
+export const modelEventReceived = createAction<ModelEvent>('MODEL_EVENT_RECEIVED');
