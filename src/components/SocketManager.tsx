@@ -38,7 +38,7 @@ class SocketManager extends React.Component<SocketManagerProps> {
     super(props);
     // NB: This weird typecast is a result of requiring nes/client instead of nes
     // directly, which screws with the typings.
-    this.client = new (NesClient as any).Client(`ws://${process.env.API_HOST}`);
+    this.client = new (NesClient as any).Client(`wss://${process.env.API_HOST}`);
     this.client.onDisconnect = this.onSocketDisconnected;
     this.client.onError = this.onSocketError;
   }
