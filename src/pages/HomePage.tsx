@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Spinner } from '@blueprintjs/core';
-import { GroupCardList } from 'src/components';
+import { GroupCardList, Loading } from 'src/components';
 import { Action, loadAgentsByUser, loadGroupsByUser } from 'src/actions';
 import { Collection, Agent, Group, connect } from 'src/data';
 
@@ -32,7 +31,7 @@ class HomePage extends React.Component<HomePageProps> {
     const { agents, groups } = this.props;
 
     if (agents.isLoading || groups.isLoading) {
-      return <Spinner />;
+      return <Loading />;
     }
 
     return (

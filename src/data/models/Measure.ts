@@ -1,7 +1,7 @@
 export class Measure {
 
   id: string;
-  timestamp: string;
+  time: Date;
   groupid: string;
   agentid: string;
   deviceid: string;
@@ -17,7 +17,7 @@ export class Measure {
 
   constructor(data: Partial<Measure> = {}) {
     this.id = data.id;
-    this.timestamp = data.timestamp;
+    this.time = data.time;
     this.groupid = data.groupid;
     this.agentid = data.agentid;
     this.deviceid = data.deviceid;
@@ -35,7 +35,7 @@ export class Measure {
   toJSON() {
     return {
       id: this.id,
-      timestamp: this.timestamp,
+      time: this.time,
       groupid: this.groupid,
       agentid: this.agentid,
       deviceid: this.deviceid,

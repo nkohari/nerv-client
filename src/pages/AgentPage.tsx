@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Spinner } from '@blueprintjs/core';
+import { Loading } from 'src/components';
 import { Action, loadAgent, loadGroup, loadDevicesByAgent } from 'src/actions';
 import { Agent, Device, Group, connect } from 'src/data';
 
@@ -55,7 +55,7 @@ class AgentPage extends React.Component<AgentPageProps> {
     const { agent, group, devices } = this.props;
 
     if (!agent || !group) {
-      return <Spinner />;
+      return <Loading />;
     }
 
     return (

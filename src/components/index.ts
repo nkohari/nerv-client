@@ -9,6 +9,7 @@ export { default as GroupCardList } from './GroupCardList';
 export { default as Header } from './Header';
 export { default as Icon } from './Icon';
 export { default as IndicatorLight } from './IndicatorLight';
+export { default as Loading } from './Loading';
 export { default as SubmitButton } from './SubmitButton';
 export { default as SocketIndicator } from './SocketIndicator';
 export { default as SocketManager } from './SocketManager';
