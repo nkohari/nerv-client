@@ -1,27 +1,31 @@
 import { Action, handleActions } from 'redux-actions';
-import { Collection, merge, Model, ModelClass, ModelEvent } from 'src/data';
+import { Collection, Model, ModelEvent, merge, highestVersionWins } from 'src/data';
 
-export function createCollectionReducer<T extends Model>(modelClass: ModelClass<T>) {
+interface ModelClass<T extends Model> {
+  new(data?: any): T;
+}
+
+interface CollectionClass<T extends Model> {
+  new(data?: any): Collection<T>;
+}
+
+export function createCollectionReducer<T extends Model>(modelClass: ModelClass<T>, collectionClass: CollectionClass<T>) {
   const actionPrefix = `${modelClass.name.toUpperCase()}S`;
 
-  const defaultState: Collection<T> = {
-    items: [],
-    isLoading: false,
-    error: null
-  };
+  const defaultState = new collectionClass();
 
   return handleActions<Collection<T>>({
-    [`${actionPrefix}_LOADING`]: state => ({
+    [`${actionPrefix}_LOADING`]: state => new collectionClass({
       ...state,
       isLoading: true,
       error: null
     }),
-    [`${actionPrefix}_LOADED`]: (state, action: Action<T[]>) => ({
+    [`${actionPrefix}_LOADED`]: (state, action: Action<T[]>) => new collectionClass({
       ...state,
       isLoading: false,
-      items: merge(state.items, action.payload)
+      items: merge(state.items, action.payload, highestVersionWins)
     }),
-    [`${actionPrefix}_ERROR`]: (state, action: Action<FetchError>) => ({
+    [`${actionPrefix}_ERROR`]: (state, action: Action<FetchError>) => new collectionClass({
       ...state,
       isLoading: false,
       error: action.payload
@@ -31,10 +35,10 @@ export function createCollectionReducer<T extends Model>(modelClass: ModelClass<
       if (event.type !== modelClass.name) {
         return state;
       } else {
-        return {
+        return new collectionClass({
           ...state,
-          items: merge(state.items, [new modelClass(event.model)])
-        };
+          items: merge(state.items, [new modelClass(event.model)], highestVersionWins)
+        });
       }
     }
   },

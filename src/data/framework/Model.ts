@@ -1,4 +1,6 @@
-export abstract class Model {
+import { Identifiable } from './Identifiable';
+
+export abstract class Model implements Identifiable {
 
   id: string;
   created: Date;

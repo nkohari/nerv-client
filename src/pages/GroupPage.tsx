@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AgentCardList, Loading } from 'src/components';
+import { Page, Sidebar, AgentCardList, Loading } from 'src/components';
 import { Action, loadGroup, loadAgentsByGroup, loadDevicesByGroup } from 'src/actions';
 import { Group, Agent, connect } from 'src/data';
 
@@ -24,8 +24,8 @@ class GroupPage extends React.Component<GroupPageProps> {
     const { groupid } = state.router.params;
     return {
       groupid,
-      group: state.groups.items.find(g => g.id === groupid),
-      agents: state.agents.items.filter(a => a.groupid === groupid)
+      group: state.groups.get(groupid),
+      agents: state.agents.forGroup(groupid)
     };
   }
 
@@ -54,11 +54,12 @@ class GroupPage extends React.Component<GroupPageProps> {
     }
 
     return (
-      <div className='page group-page'>
+      <Page className='group-page'>
+        <Sidebar title={group.name} iconName='build' />
         <div className='page-content'>
           <AgentCardList agents={agents} />
         </div>
-      </div>
+      </Page>
     );
   }
 

@@ -20,7 +20,7 @@ function createAuthContext(data: any): AuthContext {
 }
 
 export function login(payload: LoginPayload): Promise<AuthContext> {
-  return request.post('/auth', payload).then(result => createAuthContext(result));
+  return request.post('/auth', { data: payload }).then(result => createAuthContext(result));
 }
 
 export function getToken(): Promise<AuthContext> {
@@ -28,5 +28,5 @@ export function getToken(): Promise<AuthContext> {
 }
 
 export function createUser(payload: CreateUserPayload): Promise<AuthContext> {
-  return request.post('/users', payload).then(result => createAuthContext(result));
+  return request.post('/users', { data: payload }).then(result => createAuthContext(result));
 }

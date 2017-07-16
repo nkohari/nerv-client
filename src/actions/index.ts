@@ -15,6 +15,16 @@ export {
 } from './agents';
 
 export {
+  loadAggregatesByAgent,
+  loadAggregatesByDevice,
+  loadAggregatesByGroup,
+  loadAggregatesByUser,
+  aggregatesLoading,
+  aggregatesLoaded,
+  aggregatesError
+} from './aggregates';
+
+export {
   loadDevice,
   loadDevicesByAgent,
   loadDevicesByGroup,
@@ -30,6 +40,14 @@ export {
   groupsLoaded,
   groupsError
 } from './groups';
+
+export {
+  loadMeasuresByAgent,
+  loadMeasuresByDevice,
+  measuresLoading,
+  measuresLoaded,
+  measuresError
+} from './measures';
 
 export {
   socketConnected,

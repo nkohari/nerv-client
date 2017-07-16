@@ -11,7 +11,6 @@ const env = {
 
 export const entry = {
   mineboss: [
-    'whatwg-fetch',
     path.resolve(__dirname, '../src')
   ]
 };

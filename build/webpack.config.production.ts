@@ -26,7 +26,15 @@ const config = {
         use: ExtractTextPlugin.extract({
           disable: (process.env.NODE_ENV === 'development'),
           fallback: 'style-loader',
-          use: ['css-loader', 'stylus-loader']
+          use: [
+            'css-loader',
+            {
+              loader: 'stylus-loader',
+              options: {
+                import: [path.resolve(__dirname, '../src/vars.styl')]
+              }
+            }
+          ]
         })
       },
       ...common.rules

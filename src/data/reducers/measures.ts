@@ -1,39 +1,27 @@
 import { Action, handleActions } from 'redux-actions';
-import { Collection, Measure, MeasureEvent } from 'src/data';
+import { Measure, MeasureCollection, MeasureEvent, merge } from 'src/data';
 
-const defaultState: Collection<Measure> = {
-  items: [],
-  isLoading: false,
-  error: null
-};
+const defaultState = new MeasureCollection();
 
-const mergeMeasures = (oldItems: Measure[], newItems: Measure[]): Measure[] => {
-  const hash = [...oldItems, ...newItems].reduce((items, item) => {
-    items[item.id] = item;
-    return items;
-  }, {});
-  return Object.keys(hash).map(id => hash[id]);
-};
-
-const measuresReducer = handleActions<Collection<Measure>>({
-  MEASURES_LOADING: state => ({
+const measuresReducer = handleActions<MeasureCollection>({
+  MEASURES_LOADING: state => new MeasureCollection({
     ...state,
     isLoading: true,
     error: null
   }),
-  MEASURES_LOADED: (state, action: Action<Measure[]>) => ({
+  MEASURES_LOADED: (state, action: Action<Measure[]>) => new MeasureCollection({
     ...state,
     isLoading: false,
-    items: mergeMeasures(state.items, action.payload)
+    items: merge(state.items, action.payload)
   }),
-  MEASURES_ERROR: (state, action: Action<FetchError>) => ({
+  MEASURES_ERROR: (state, action: Action<FetchError>) => new MeasureCollection({
     ...state,
     isLoading: false,
     error: action.payload
   }),
-  MEASURE_EVENT_RECEIVED: (state, action: Action<MeasureEvent>) => ({
+  MEASURE_EVENT_RECEIVED: (state, action: Action<MeasureEvent>) => new MeasureCollection({
     ...state,
-    items: mergeMeasures(state.items, action.payload.measures.map(datum => new Measure(datum)))
+    items: merge(state.items, action.payload.measures.map(datum => new Measure(datum)))
   })
 },
 defaultState);

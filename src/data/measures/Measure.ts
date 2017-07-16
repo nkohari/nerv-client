@@ -1,11 +1,13 @@
-export class Measure {
+import { Identifiable } from 'src/data';
+
+export class Measure implements Identifiable {
 
   id: string;
   time: Date;
   groupid: string;
   agentid: string;
   deviceid: string;
-  coin: string;
+  symbol: string;
   hashrate: number;
   load: number;
   power: number;
@@ -21,7 +23,7 @@ export class Measure {
     this.groupid = data.groupid;
     this.agentid = data.agentid;
     this.deviceid = data.deviceid;
-    this.coin = data.coin;
+    this.symbol = data.symbol;
     this.hashrate = data.hashrate;
     this.load = data.load;
     this.power = data.power;
@@ -39,7 +41,7 @@ export class Measure {
       groupid: this.groupid,
       agentid: this.agentid,
       deviceid: this.deviceid,
-      coin: this.coin,
+      symbol: this.symbol,
       hashrate: this.hashrate,
       load: this.load,
       power: this.power,

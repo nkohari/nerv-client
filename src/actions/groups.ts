@@ -4,7 +4,7 @@ import { API, Group } from 'src/data';
 export const loadGroup = (groupid: string) => (
   (dispatch, getState) => {
     const { auth, groups } = getState();
-    if (!groups.items.find(g => g.id === groupid)) {
+    if (!groups.has(groupid)) {
       dispatch(groupsLoading());
       API.groups.get(groupid, auth.token)
       .then(group => {

@@ -21,7 +21,7 @@ const DUMMY_DATA = [
 class AgentCard extends React.Component<AgentCardProps> {
 
   static readPropsFromRedux = (state, props) => ({
-    devices: state.devices.items.filter(d => d.agentid === props.agent.id)
+    devices: state.devices.forAgent(props.agent.id)
   })
 
   render() {

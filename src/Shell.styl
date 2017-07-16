@@ -1,7 +1,7 @@
 @import '~@blueprintjs/core/dist/blueprint.css'
 @import '~react-virtualized/styles.css'
 
-body, html, #root, .app, .shell, .page
+body, html, #root, .app, .shell
   width: 100%
   height: 100%
   margin: 0
@@ -9,14 +9,7 @@ body, html, #root, .app, .shell, .page
   overflow: hidden
   display: flex
   background-image: url('../assets/background.png')
-
-.page
-  display: flex
-  flex-direction: column
-  margin-top: 50px
-
-  .page-content
-    padding: 15px
+  font-family: 'Open Sans', sans-serif;
 
 .modal
   align-items: center
@@ -43,3 +36,8 @@ li
     width: 100%
     display: flex
     flex-direction: column
+
+h5
+  font-family: 'Open Sans Condensed', sans-serif
+  font-weight: 700
+  text-transform: uppercase

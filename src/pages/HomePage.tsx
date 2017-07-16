@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { GroupCardList, Loading } from 'src/components';
+import { Page, GroupCardList, Loading } from 'src/components';
 import { Action, loadAgentsByUser, loadGroupsByUser } from 'src/actions';
 import { Collection, Agent, Group, connect } from 'src/data';
 
@@ -35,11 +35,11 @@ class HomePage extends React.Component<HomePageProps> {
     }
 
     return (
-      <div className='page home-page'>
+      <Page className='home-page'>
         <div className='page-content'>
-          <GroupCardList groups={groups.items} />
+          <GroupCardList groups={groups.all()} />
         </div>
-      </div>
+      </Page>
     );
   }
 

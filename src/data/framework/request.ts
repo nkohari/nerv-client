@@ -1,42 +1,40 @@
+import axios from 'axios';
 import { getApiUrl } from 'src/utils';
 
-function get(path: string, token?: string): Promise<any> {
-  return request(path, {
+interface GetRequestConfig {
+  params?: { [name: string]: any };
+  token?: string;
+}
+
+interface PostRequestConfig {
+  data: any;
+  token?: string;
+}
+
+function get(path: string, config?: GetRequestConfig): Promise<any> {
+  return axios({
     method: 'get',
-    headers: createHeaders(token)
-  });
+    url: getApiUrl(path),
+    headers: createHeaders(config.token),
+    params: config.params
+  }).then(response => response.data);
 }
 
-function post(path: string, body: any, token?: string): Promise<any> {
-  return request(path, {
+function post(path: string, config?: PostRequestConfig): Promise<any> {
+  return axios({
     method: 'post',
-    headers: createHeaders(token),
-    body: JSON.stringify(body)
-  });
-}
-
-function request(path: string, options: object): Promise<any> {
-  return fetch(getApiUrl(path), options).then(res => {
-    const json = res.json();
-    if (res.status >= 200 && res.status <= 299) {
-      return json;
-    } else {
-      return json.then(err => { throw err; });
-    }
-  });
+    url: getApiUrl(path),
+    headers: createHeaders(config.token),
+    data: config.data
+  }).then(response => response.data);
 }
 
 function createHeaders(token: string) {
-  const headers = new Headers();
-
-  headers.append('Accept', 'application/json');
-  headers.append('Content-Type', 'application/json');
-
-  if (token) {
-    headers.append('Authorization', `Bearer ${token}`);
-  }
-
-  return headers;
+  return {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    Authorization: token ? `Bearer ${token}` : null
+  };
 }
 
 export default {

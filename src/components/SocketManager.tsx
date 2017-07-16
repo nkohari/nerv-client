@@ -95,7 +95,7 @@ class SocketManager extends React.Component<SocketManagerProps> {
         this.props.socketError(err);
         return;
       }
-      this.client.subscribe('/data', this.onMeasureEventMessage, err2 => {
+      this.client.subscribe('/measures', this.onMeasureEventMessage, err2 => {
         if (err2) {
           this.props.socketError(err2);
           return;

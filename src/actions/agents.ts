@@ -4,7 +4,7 @@ import { API, Agent } from 'src/data';
 export const loadAgent = (groupid: string, agentid: string) => (
   (dispatch, getState) => {
     const { auth, agents } = getState();
-    if (!agents.items.find(a => a.id === agentid)) {
+    if (!agents.has(agentid)) {
       dispatch(agentsLoading());
       API.agents.get(groupid, agentid, auth.token)
       .then(agent => {

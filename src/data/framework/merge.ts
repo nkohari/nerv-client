@@ -1,25 +1,21 @@
 import { Model } from 'src/data';
 
-/**
- * Merges two arrays of models by selecting the models with the highest version number.
- * Called by reducers when new data is loaded from the API.
- * @param oldItems The items which were already stored in state.
- * @param newItems The new items which have been received.
- * @returns The merged array of items.
- */
-export function merge<T extends Model>(oldItems: T[], newItems: T[]): T[] {
-  if (oldItems.length === 0) {
-    return [...newItems];
-  }
+interface HasIdentifier {
+  id: string;
+}
 
-  const hash = {};
-  const items = [...oldItems, ...newItems];
+type Comparator<T> = (a: T, b: T) => boolean;
 
-  items.forEach(item => {
-    if (!hash[item.id] || item.version > hash[item.id].version) {
-      hash[item.id] = item;
+export const lastWriteWins = (a: any, b: any) => true;
+export const highestVersionWins = (a: Model, b: Model) => a.version > b.version;
+
+export function merge<T extends HasIdentifier>(oldItems: T[], newItems: T[], compare: Comparator<T> = lastWriteWins): T[] {
+  const hash = [...oldItems, ...newItems].reduce((items, item) => {
+    const existing = items[item.id];
+    if (!existing || compare(item, existing)) {
+      items[item.id] = item;
     }
-  });
-
+    return items;
+  }, {});
   return Object.keys(hash).map(id => hash[id]);
 }

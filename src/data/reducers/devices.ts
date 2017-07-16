@@ -1,5 +1,5 @@
-import { Device, createCollectionReducer } from 'src/data';
+import { Device, DeviceCollection, createCollectionReducer } from 'src/data';
 
-const devicesReducer = createCollectionReducer<Device>(Device);
+const devicesReducer = createCollectionReducer<Device>(Device, DeviceCollection);
 
 export default devicesReducer;

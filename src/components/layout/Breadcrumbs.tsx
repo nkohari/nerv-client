@@ -14,8 +14,8 @@ class Breadcrumbs extends React.Component<BreadcrumbsProps> {
   static readPropsFromRedux = (state, props) => {
     const { groupid, agentid } = state.router.params;
     return {
-      group: groupid ? state.groups.items.find(g => g.id === groupid) : null,
-      agent: agentid ? state.agents.items.find(a => a.id === agentid) : null
+      group: groupid ? state.groups.get(groupid) : null,
+      agent: agentid ? state.agents.get(agentid) : null
     };
   }
 
@@ -25,7 +25,7 @@ class Breadcrumbs extends React.Component<BreadcrumbsProps> {
     const items = [
       <li key='home'>
         <Link href='/' className='pt-breadcrumb'>
-          <Icon name='build' size='large' />
+          <Icon name='home' />
           Mineboss
         </Link>
       </li>
@@ -35,7 +35,7 @@ class Breadcrumbs extends React.Component<BreadcrumbsProps> {
       items.push(
         <li key='group'>
           <Link href={`/${group.id}`} className='pt-breadcrumb'>
-            <Icon name='layout-auto' />
+            <Icon name='build' />
             {group.name}
           </Link>
         </li>

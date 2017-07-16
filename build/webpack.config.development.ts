@@ -36,7 +36,16 @@ const config: webpack.Configuration = {
       },
       {
         test: /\.(css|styl)$/,
-        use: ['style-loader', 'css-loader', 'stylus-loader']
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'stylus-loader',
+            options: {
+              import: [path.resolve(__dirname, '../src/vars.styl')]
+            }
+          }
+        ]
       },
       ...common.rules
     ]

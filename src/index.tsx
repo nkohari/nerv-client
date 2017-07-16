@@ -1,13 +1,15 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import * as moment from 'moment-timezone';
 import { Provider } from 'react-redux';
 import { initializeCurrentLocation } from 'redux-little-router';
 import { FocusStyleManager } from '@blueprintjs/core';
 import { configureStore } from 'src/data';
 import routes from './routes';
-import 'whatwg-fetch';
 
 FocusStyleManager.onlyShowFocusOnTabs();
+
+moment.locale(window.navigator.language || (window.navigator as any).userLanguage);
 
 const store = configureStore(routes, {});
 

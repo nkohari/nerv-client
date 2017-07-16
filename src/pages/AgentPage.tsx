@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Loading } from 'src/components';
-import { Action, loadAgent, loadGroup, loadDevicesByAgent } from 'src/actions';
+import { Page, Loading, Sidebar, SidebarItem, Time } from 'src/components';
+import { Action, loadAgent, loadGroup, loadDevicesByAgent, loadMeasuresByAgent } from 'src/actions';
 import { Agent, Device, Group, connect } from 'src/data';
 
 interface AgentPageProps {
@@ -12,6 +12,7 @@ interface AgentPageProps {
   loadAgent: Action;
   loadGroup: Action;
   loadDevicesByAgent: Action;
+  loadMeasuresByAgent: Action;
 }
 
 class AgentPage extends React.Component<AgentPageProps> {
@@ -19,7 +20,8 @@ class AgentPage extends React.Component<AgentPageProps> {
   static connectedActions = {
     loadAgent,
     loadGroup,
-    loadDevicesByAgent
+    loadDevicesByAgent,
+    loadMeasuresByAgent
   };
 
   static readPropsFromRedux = (state, props) => {
@@ -27,9 +29,10 @@ class AgentPage extends React.Component<AgentPageProps> {
     return {
       groupid,
       agentid,
-      group: state.groups.items.find(g => g.id === groupid),
-      agent: state.agents.items.find(a => a.id === agentid),
-      devices: state.devices.items.filter(d => d.agentid === agentid)
+      group: state.groups.get(groupid),
+      agent: state.agents.get(agentid),
+      devices: state.devices.forAgent(agentid),
+      measures: state.measures.forAgent(agentid)
     };
   }
 
@@ -49,6 +52,7 @@ class AgentPage extends React.Component<AgentPageProps> {
     this.props.loadAgent(groupid, agentid);
     this.props.loadGroup(groupid);
     this.props.loadDevicesByAgent(groupid, agentid);
+    this.props.loadMeasuresByAgent(groupid, agentid);
   }
 
   render() {
@@ -59,11 +63,16 @@ class AgentPage extends React.Component<AgentPageProps> {
     }
 
     return (
-      <div className='page agent-page'>
+      <Page className='agent-page'>
+        <Sidebar title={agent.name} iconName='desktop'>
+          <SidebarItem title='Last Seen'>
+            <Time value={new Date()} />
+          </SidebarItem>
+        </Sidebar>
         <div className='page-content'>
           {devices.length} devices
         </div>
-      </div>
+      </Page>
     );
   }
 

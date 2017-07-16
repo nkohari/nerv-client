@@ -17,10 +17,11 @@
   "license": "MIT",
   "dependencies": {
     "@blueprintjs/core": "1.19.0",
+    "axios": "^0.16.2",
     "classnames": "^2.2.5",
     "copy-to-clipboard": "^3.0.6",
     "joi": "^10.6.0",
-    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
     "nconf": "^0.8.4",
     "nes": "^6.4.2",
     "react": "^15.3.2",
@@ -38,8 +39,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "ts-node": "^3.1.0",
-    "typescript": "2.3.3",
-    "whatwg-fetch": "^2.0.3"
+    "typescript": "2.3.3"
   },
   "devDependencies": {
     "@types/joi": "^10.4.0",
