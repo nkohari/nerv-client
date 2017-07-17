@@ -16,7 +16,7 @@ export class Aggregate implements Identifiable {
 
   constructor(data: Partial<Aggregate> = {}) {
     this.id = data.id;
-    this.time = data.time;
+    this.time = new Date(data.time);
     this.groupid = data.groupid;
     this.agentid = data.agentid;
     this.deviceid = data.deviceid;

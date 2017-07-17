@@ -19,7 +19,7 @@ export class Measure implements Identifiable {
 
   constructor(data: Partial<Measure> = {}) {
     this.id = data.id;
-    this.time = data.time;
+    this.time = new Date(data.time);
     this.groupid = data.groupid;
     this.agentid = data.agentid;
     this.deviceid = data.deviceid;

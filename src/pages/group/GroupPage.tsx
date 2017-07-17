@@ -1,15 +1,19 @@
 import * as React from 'react';
-import { Page, Sidebar, AgentCardList, Loading } from 'src/components';
-import { Action, loadGroup, loadAgentsByGroup, loadDevicesByGroup } from 'src/actions';
-import { Group, Agent, connect } from 'src/data';
+import { Page, AgentCardList, Loading } from 'src/components';
+import { Action, loadGroup, loadAgentsByGroup, loadDevicesByGroup, loadMeasuresByGroup } from 'src/actions';
+import { Group, Agent, Device, Measure, connect } from 'src/data';
+import GroupPageSidebar from './GroupPageSidebar';
 
 interface GroupPageProps {
   groupid: string;
   group: Group;
   agents: Agent[];
+  devices: Device[];
+  measures: Measure[];
   loadGroup: Action;
   loadAgentsByGroup: Action;
   loadDevicesByGroup: Action;
+  loadMeasuresByGroup: Action;
 }
 
 class GroupPage extends React.Component<GroupPageProps> {
@@ -17,7 +21,8 @@ class GroupPage extends React.Component<GroupPageProps> {
   static connectedActions = {
     loadGroup,
     loadAgentsByGroup,
-    loadDevicesByGroup
+    loadDevicesByGroup,
+    loadMeasuresByGroup
   };
 
   static readPropsFromRedux = (state, props) => {
@@ -25,7 +30,9 @@ class GroupPage extends React.Component<GroupPageProps> {
     return {
       groupid,
       group: state.groups.get(groupid),
-      agents: state.agents.forGroup(groupid)
+      agents: state.agents.forGroup(groupid),
+      devices: state.devices.forGroup(groupid),
+      measures: state.measures.forGroup(groupid)
     };
   }
 
@@ -44,10 +51,11 @@ class GroupPage extends React.Component<GroupPageProps> {
     this.props.loadGroup(groupid);
     this.props.loadAgentsByGroup(groupid);
     this.props.loadDevicesByGroup(groupid);
+    this.props.loadMeasuresByGroup(groupid);
   }
 
   render() {
-    const { group, agents } = this.props;
+    const { group, agents, devices, measures } = this.props;
 
     if (!group) {
       return <Loading />;
@@ -55,7 +63,7 @@ class GroupPage extends React.Component<GroupPageProps> {
 
     return (
       <Page className='group-page'>
-        <Sidebar title={group.name} iconName='build' />
+        <GroupPageSidebar group={group} agents={agents} devices={devices} measures={measures} />
         <div className='page-content'>
           <AgentCardList agents={agents} />
         </div>

@@ -44,6 +44,7 @@ export {
 export {
   loadMeasuresByAgent,
   loadMeasuresByDevice,
+  loadMeasuresByGroup,
   measuresLoading,
   measuresLoaded,
   measuresError

@@ -1,6 +1,6 @@
-export { default as AgentPage } from './AgentPage';
 export { default as HomePage } from './HomePage';
-export { default as GroupPage } from './GroupPage';
+export { default as AgentPage } from './agent/AgentPage';
+export { default as GroupPage } from './group/GroupPage';
 
 export { default as Login } from './modals/Login';
 export { default as Signup } from './modals/Signup';

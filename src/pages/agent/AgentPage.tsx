@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Page, Loading, Sidebar, SidebarItem, Time } from 'src/components';
+import { Page, Loading } from 'src/components';
 import { Action, loadAgent, loadGroup, loadDevicesByAgent, loadMeasuresByAgent } from 'src/actions';
-import { Agent, Device, Group, connect } from 'src/data';
+import { Agent, Device, Group, Measure, connect } from 'src/data';
+import AgentPageSidebar from './AgentPageSidebar';
 
 interface AgentPageProps {
   groupid: string;
@@ -9,6 +10,7 @@ interface AgentPageProps {
   agent: Agent;
   group: Group;
   devices: Device[];
+  measures: Measure[];
   loadAgent: Action;
   loadGroup: Action;
   loadDevicesByAgent: Action;
@@ -56,7 +58,7 @@ class AgentPage extends React.Component<AgentPageProps> {
   }
 
   render() {
-    const { agent, group, devices } = this.props;
+    const { agent, group, devices, measures } = this.props;
 
     if (!agent || !group) {
       return <Loading />;
@@ -64,11 +66,7 @@ class AgentPage extends React.Component<AgentPageProps> {
 
     return (
       <Page className='agent-page'>
-        <Sidebar title={agent.name} iconName='desktop'>
-          <SidebarItem title='Last Seen'>
-            <Time value={new Date()} />
-          </SidebarItem>
-        </Sidebar>
+        <AgentPageSidebar agent={agent} devices={devices} measures={measures} />
         <div className='page-content'>
           {devices.length} devices
         </div>

@@ -41,4 +41,10 @@ export class Collection<T extends Identifiable> {
     return result;
   }
 
+  best(compare: CompareFunction<T>): T {
+    return this.items.reduce((winner, item) => {
+      return (!winner || compare(item, winner) > 0) ? item : winner;
+    }, null);
+  }
+
 }
