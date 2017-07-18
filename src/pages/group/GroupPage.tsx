@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Page, AgentCardList, Loading } from 'src/components';
-import { Action, loadGroup, loadAgentsByGroup, loadDevicesByGroup, loadMeasuresByGroup } from 'src/actions';
-import { Group, Agent, Device, Measure, connect } from 'src/data';
+import { Action, loadGroup, loadAgentsByGroup, loadDevicesByGroup, loadSamplesByGroup } from 'src/actions';
+import { Group, Agent, Device, Sample, connect } from 'src/data';
 import GroupPageSidebar from './GroupPageSidebar';
 
 interface GroupPageProps {
@@ -9,11 +9,11 @@ interface GroupPageProps {
   group: Group;
   agents: Agent[];
   devices: Device[];
-  measures: Measure[];
+  samples: Sample[];
   loadGroup: Action;
   loadAgentsByGroup: Action;
   loadDevicesByGroup: Action;
-  loadMeasuresByGroup: Action;
+  loadSamplesByGroup: Action;
 }
 
 class GroupPage extends React.Component<GroupPageProps> {
@@ -22,7 +22,7 @@ class GroupPage extends React.Component<GroupPageProps> {
     loadGroup,
     loadAgentsByGroup,
     loadDevicesByGroup,
-    loadMeasuresByGroup
+    loadSamplesByGroup
   };
 
   static readPropsFromRedux = (state, props) => {
@@ -32,7 +32,7 @@ class GroupPage extends React.Component<GroupPageProps> {
       group: state.groups.get(groupid),
       agents: state.agents.forGroup(groupid),
       devices: state.devices.forGroup(groupid),
-      measures: state.measures.forGroup(groupid)
+      samples: state.samples.forGroup(groupid)
     };
   }
 
@@ -51,11 +51,11 @@ class GroupPage extends React.Component<GroupPageProps> {
     this.props.loadGroup(groupid);
     this.props.loadAgentsByGroup(groupid);
     this.props.loadDevicesByGroup(groupid);
-    this.props.loadMeasuresByGroup(groupid);
+    this.props.loadSamplesByGroup(groupid);
   }
 
   render() {
-    const { group, agents, devices, measures } = this.props;
+    const { group, agents, devices, samples } = this.props;
 
     if (!group) {
       return <Loading />;
@@ -63,7 +63,7 @@ class GroupPage extends React.Component<GroupPageProps> {
 
     return (
       <Page className='group-page'>
-        <GroupPageSidebar group={group} agents={agents} devices={devices} measures={measures} />
+        <GroupPageSidebar group={group} agents={agents} devices={devices} samples={samples} />
         <div className='page-content'>
           <AgentCardList agents={agents} />
         </div>

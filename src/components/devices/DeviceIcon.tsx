@@ -14,7 +14,7 @@ interface DeviceIconProps {
 class DeviceIcon extends React.Component<DeviceIconProps> {
 
   static defaultProps = {
-    size: 40
+    size: 80
   };
 
   render() {
@@ -29,9 +29,9 @@ class DeviceIcon extends React.Component<DeviceIconProps> {
 
     switch (device.type) {
       case 'cpu':
-        return <CpuIcon { ...props } />;
+        return <CpuIcon {...props} />;
       case 'gpu':
-        return <GpuIcon { ...props } />;
+        return <GpuIcon {...props} />;
       default:
         throw new Error(`Unknown device type ${device.type}`);
     }

@@ -1,37 +1,36 @@
 export { Action } from 'react-redux';
 
 export {
-  userLoggedIn,
-  userLoggedOut
-} from './auth';
-
-export {
   loadAgent,
   loadAgentsByGroup,
   loadAgentsByUser,
+  updateAgent,
   agentsLoading,
   agentsLoaded,
   agentsError
 } from './agents';
 
 export {
-  loadAggregatesByAgent,
-  loadAggregatesByDevice,
-  loadAggregatesByGroup,
-  loadAggregatesByUser,
-  aggregatesLoading,
-  aggregatesLoaded,
-  aggregatesError
-} from './aggregates';
+  userLoggedIn,
+  userLoggedOut
+} from './auth';
 
 export {
   loadDevice,
   loadDevicesByAgent,
   loadDevicesByGroup,
+  updateDevice,
   devicesLoading,
   devicesLoaded,
   devicesError
 } from './devices';
+
+export {
+  loadExchangeRates,
+  exchangeRatesLoading,
+  exchangeRatesLoaded,
+  exchangeRatesError
+} from './exchangeRates';
 
 export {
   loadGroup,
@@ -42,13 +41,14 @@ export {
 } from './groups';
 
 export {
-  loadMeasuresByAgent,
-  loadMeasuresByDevice,
-  loadMeasuresByGroup,
-  measuresLoading,
-  measuresLoaded,
-  measuresError
-} from './measures';
+  loadSamplesByAgent,
+  loadSamplesByDevice,
+  loadSamplesByGroup,
+  loadSamplesByUser,
+  samplesLoading,
+  samplesLoaded,
+  samplesError
+} from './samples';
 
 export {
   socketConnected,

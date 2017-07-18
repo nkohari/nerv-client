@@ -1,5 +1,13 @@
-export class AggregateGroup {
+import { Identifiable } from 'src/data';
 
+export class Sample implements Identifiable {
+
+  id: string;
+  time: Date;
+  groupid: string;
+  agentid: string;
+  deviceid: string;
+  symbol: string;
   hashrate: number;
   coins: number;
   load: number;
@@ -10,7 +18,13 @@ export class AggregateGroup {
   fanpercent: number;
   fanrpm: number;
 
-  constructor(data: Partial<AggregateGroup> = {}) {
+  constructor(data: Partial<Sample> = {}) {
+    this.id = data.id;
+    this.time = new Date(data.time);
+    this.groupid = data.groupid;
+    this.agentid = data.agentid;
+    this.deviceid = data.deviceid;
+    this.symbol = data.symbol;
     this.hashrate = data.hashrate;
     this.coins = data.coins;
     this.load = data.load;
@@ -24,6 +38,12 @@ export class AggregateGroup {
 
   toJSON() {
     return {
+      id: this.id,
+      time: this.time,
+      groupid: this.groupid,
+      agentid: this.agentid,
+      deviceid: this.deviceid,
+      symbol: this.symbol,
       hashrate: this.hashrate,
       coins: this.coins,
       load: this.load,

@@ -6,6 +6,12 @@ export function get(groupid: string, agentid: string, token: string): Promise<Ag
   ));
 }
 
+export function update(groupid: string, agentid: string, data: Partial<Agent>, token: string): Promise<Agent> {
+  return request.put(`/groups/${groupid}/agents/${agentid}`, { data, token }).then(result => (
+    new Agent(result.agent)
+  ));
+}
+
 export function listByUser(token: string): Promise<Agent[]> {
   return request.get('/agents', { token }).then(result => (
     result.agents.map(item => new Agent(item))

@@ -1,36 +1,64 @@
 import * as React from 'react';
-import { Sidebar, SidebarItem, Time } from 'src/components';
-import { Group, Agent, Device, Measure } from 'src/data';
+import { Spinner } from '@blueprintjs/core';
+import { Sidebar, SidebarBlock, SidebarItem, Time } from 'src/components';
+import { Group, Agent, Device, ExchangeRateCollection, Sample, User, connect } from 'src/data';
+import { format } from 'src/utils';
 
 interface GroupPageSidebarProps {
   group: Group;
   agents: Agent[];
   devices: Device[];
-  measures: Measure[];
+  samples: Sample[];
+  user: User;
+  exchangeRates: ExchangeRateCollection;
 }
 
 class GroupPageSidebar extends React.Component<GroupPageSidebarProps> {
 
-  render() {
-    const { group, agents, measures } = this.props;
+  static readPropsFromRedux = state => ({
+    user: state.auth.user,
+    exchangeRates: state.exchangeRates
+  })
 
-    const lastSeen: Date = measures.reduce((last, measure) => {
-      return (measure.time.valueOf() > last.valueOf()) ? measure.time : last;
-    }, new Date(0));
+  render() {
+    const { group, agents, samples, exchangeRates, user } = this.props;
+
+    const lastSample = samples.reduce((last, sample) => {
+      return (!last || sample.time.valueOf() > last.valueOf()) ? sample : last;
+    }, null);
+
+    if (!lastSample || exchangeRates.isLoading) {
+      return this.renderEmpty();
+    }
+
+    const rate = exchangeRates.for(lastSample.symbol, user.currency);
+    const coinsPerMonth = lastSample.coins * 24 * 30;
+
+    const hashrate = format.hashrate(lastSample.hashrate, { precision: 0 });
+    const coins = format.number(coinsPerMonth, { precision: 4 });
+    const revenue = format.currency(coinsPerMonth * rate.amount, user.currency);
 
     return (
-      <Sidebar title={group.name} iconName='build'>
-        <div className='sidebar-summary'>
-          <div className='big-number'>83MH/s</div>
-          from {agents.length} agents
-        </div>
+      <Sidebar title={group.name} subtitle={`Group ${group.id}`} iconName='build'>
+        <SidebarBlock text={hashrate} details={`from ${agents.length} agents`} />
+        <SidebarBlock text={coins} details={`${lastSample.symbol} per month`} />
+        <SidebarBlock text={revenue} details='revenue per month' />
         <SidebarItem title='Last Seen'>
-          <Time value={lastSeen} />
+          <Time value={lastSample.time} />
         </SidebarItem>
+      </Sidebar>
+    );
+  }
+
+  renderEmpty() {
+    const { group } = this.props;
+    return (
+      <Sidebar title={group.name} subtitle={`Group ${group.id}`} iconName='build'>
+        <Spinner />
       </Sidebar>
     );
   }
 
 }
 
-export default GroupPageSidebar;
+export default connect(GroupPageSidebar);

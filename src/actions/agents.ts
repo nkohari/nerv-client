@@ -45,6 +45,18 @@ export const loadAgentsByUser = () => (
   }
 );
 
+export const updateAgent = (groupid: string, agentid: string, data: Partial<Agent>) => (
+  (dispatch, getState) => {
+    const { auth } = getState();
+    API.agents.update(groupid, agentid, data, auth.token).then(agent => {
+      dispatch(agentsLoaded([agent]));
+    })
+    .catch(error => {
+      dispatch(agentsError(error));
+    });
+  }
+);
+
 export const agentsLoading = createAction('AGENTS_LOADING');
 export const agentsLoaded = createAction<Agent[]>('AGENTS_LOADED');
 export const agentsError = createAction<FetchError>('AGENTS_ERROR');

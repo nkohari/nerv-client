@@ -10,6 +10,10 @@ interface PostRequestConfig {
   data: any;
   token?: string;
 }
+interface PutRequestConfig {
+  data: any;
+  token?: string;
+}
 
 function get(path: string, config?: GetRequestConfig): Promise<any> {
   return axios({
@@ -29,6 +33,15 @@ function post(path: string, config?: PostRequestConfig): Promise<any> {
   }).then(response => response.data);
 }
 
+function put(path: string, config?: PutRequestConfig): Promise<any> {
+  return axios({
+    method: 'put',
+    url: getApiUrl(path),
+    headers: createHeaders(config.token),
+    data: config.data
+  }).then(response => response.data);
+}
+
 function createHeaders(token: string) {
   return {
     Accept: 'application/json',
@@ -39,5 +52,6 @@ function createHeaders(token: string) {
 
 export default {
   get,
-  post
+  post,
+  put
 };

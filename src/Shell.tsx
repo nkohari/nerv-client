@@ -1,8 +1,22 @@
 import * as React from 'react';
 import { Header, SocketManager } from 'src/components';
+import { Action, loadExchangeRates } from 'src/actions';
+import { connect } from 'src/data';
 import './Shell.styl';
 
-class Shell extends React.Component {
+interface ShellProps {
+  loadExchangeRates: Action;
+}
+
+class Shell extends React.Component<ShellProps> {
+
+  static connectedActions = {
+    loadExchangeRates
+  };
+
+  componentDidMount() {
+    this.props.loadExchangeRates();
+  }
 
   render() {
     const { children } = this.props;
@@ -17,4 +31,4 @@ class Shell extends React.Component {
 
 }
 
-export default Shell;
+export default connect(Shell);

@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { Page, Loading } from 'src/components';
-import { Action, loadAgent, loadGroup, loadDevicesByAgent, loadMeasuresByAgent } from 'src/actions';
-import { Agent, Device, Group, Measure, connect } from 'src/data';
+import { Action, loadAgent, loadGroup, loadDevicesByAgent, loadSamplesByAgent } from 'src/actions';
+import { Agent, Device, Group, Sample, connect } from 'src/data';
 import AgentPageSidebar from './AgentPageSidebar';
+import AgentPageContent from './AgentPageContent';
+import './AgentPage.styl';
 
 interface AgentPageProps {
   groupid: string;
@@ -10,11 +12,11 @@ interface AgentPageProps {
   agent: Agent;
   group: Group;
   devices: Device[];
-  measures: Measure[];
+  samples: Sample[];
   loadAgent: Action;
   loadGroup: Action;
   loadDevicesByAgent: Action;
-  loadMeasuresByAgent: Action;
+  loadSamplesByAgent: Action;
 }
 
 class AgentPage extends React.Component<AgentPageProps> {
@@ -23,7 +25,7 @@ class AgentPage extends React.Component<AgentPageProps> {
     loadAgent,
     loadGroup,
     loadDevicesByAgent,
-    loadMeasuresByAgent
+    loadSamplesByAgent
   };
 
   static readPropsFromRedux = (state, props) => {
@@ -34,7 +36,7 @@ class AgentPage extends React.Component<AgentPageProps> {
       group: state.groups.get(groupid),
       agent: state.agents.get(agentid),
       devices: state.devices.forAgent(agentid),
-      measures: state.measures.forAgent(agentid)
+      samples: state.samples.forAgent(agentid)
     };
   }
 
@@ -54,11 +56,11 @@ class AgentPage extends React.Component<AgentPageProps> {
     this.props.loadAgent(groupid, agentid);
     this.props.loadGroup(groupid);
     this.props.loadDevicesByAgent(groupid, agentid);
-    this.props.loadMeasuresByAgent(groupid, agentid);
+    this.props.loadSamplesByAgent(groupid, agentid);
   }
 
   render() {
-    const { agent, group, devices, measures } = this.props;
+    const { agent, group, devices, samples } = this.props;
 
     if (!agent || !group) {
       return <Loading />;
@@ -66,10 +68,8 @@ class AgentPage extends React.Component<AgentPageProps> {
 
     return (
       <Page className='agent-page'>
-        <AgentPageSidebar agent={agent} devices={devices} measures={measures} />
-        <div className='page-content'>
-          {devices.length} devices
-        </div>
+        <AgentPageSidebar agent={agent} devices={devices} samples={samples} />
+        <AgentPageContent agent={agent} devices={devices} samples={samples} />
       </Page>
     );
   }

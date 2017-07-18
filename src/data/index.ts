@@ -1,18 +1,20 @@
 // API
 import * as agentsApi from './api/agents';
-import * as aggregatesApi from './api/aggregates';
 import * as authApi from './api/auth';
 import * as devicesApi from './api/devices';
+import * as exchangeRateApi from './api/exchangeRates';
 import * as groupsApi from './api/groups';
 import * as measuresApi from './api/measures';
+import * as samplesApi from './api/samples';
 
 export const API = {
   agents: agentsApi,
-  aggregates: aggregatesApi,
   auth: authApi,
   devices: devicesApi,
+  exchangeRates: exchangeRateApi,
   groups: groupsApi,
-  measures: measuresApi
+  measures: measuresApi,
+  samples: samplesApi
 };
 
 // Framework
@@ -37,32 +39,40 @@ export { Group } from './models/Group';
 export { User } from './models/User';
 
 // Measures
-export { Aggregate } from './measures/Aggregate';
 export { Measure } from './measures/Measure';
+export { Sample } from './measures/Sample';
+
+// Metadata
+export { ExchangeRate } from './metadata/ExchangeRate';
+export { NetworkData } from './metadata/NetworkData';
 
 // Collections
 export { AgentCollection } from './collections/AgentCollection';
-export { AggregateCollection } from './collections/AggregateCollection';
 export { DeviceCollection } from './collections/DeviceCollection';
+export { ExchangeRateCollection } from './collections/ExchangeRateCollection';
 export { GroupCollection } from './collections/GroupCollection';
 export { MeasureCollection } from './collections/MeasureCollection';
+export { NetworkDataCollection } from './collections/NetworkDataCollection';
+export { SampleCollection } from './collections/SampleCollection';
 
 // Reducers
 import { default as agentsReducer } from './reducers/agents';
-import { default as aggregatesReducer } from './reducers/aggregates';
-import { default as devicesReducer } from './reducers/devices';
 import { default as authReducer } from './reducers/auth';
+import { default as devicesReducer } from './reducers/devices';
+import { default as exchangeRatesReducer } from './reducers/exchangeRates';
 import { default as groupsReducer } from './reducers/groups';
 import { default as measuresReducer } from './reducers/measures';
+import { default as samplesReducer } from './reducers/samples';
 import { default as socketReducer } from './reducers/socket';
 
 export const reducers = {
   agents: agentsReducer,
-  aggregates: aggregatesReducer,
-  devices: devicesReducer,
   auth: authReducer,
+  devices: devicesReducer,
+  exchangeRates: exchangeRatesReducer,
   groups: groupsReducer,
   measures: measuresReducer,
+  samples: samplesReducer,
   socket: socketReducer
 };
 

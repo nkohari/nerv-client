@@ -3,7 +3,8 @@ import { Icon } from 'src/components';
 import './Sidebar.styl';
 
 interface SidebarProps {
-  title: string;
+  title: React.ReactNode;
+  subtitle?: React.ReactNode;
   iconName?: string;
 }
 
@@ -17,11 +18,19 @@ class Sidebar extends React.Component<SidebarProps> {
       icon = <Icon name={iconName} size='large' />;
     }
 
+    let subtitle;
+    if (this.props.subtitle) {
+      subtitle = <div className='sidebar-subtitle'>{this.props.subtitle}</div>;
+    }
+
     return (
       <div className='sidebar'>
         <div className='sidebar-header'>
-          {icon}
-          {title}
+          <div className='sidebar-title'>
+            {icon}
+            {title}
+          </div>
+          {subtitle}
         </div>
         <div className='sidebar-content'>
           {children}

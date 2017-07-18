@@ -14,8 +14,8 @@ export class MeasureCollection extends Collection<Measure> {
     return this.filter(item => item.deviceid === deviceid);
   }
 
-  mostRecentForAgent(agentid: string): Measure {
-    return this.forAgent(agentid).reduce((winner, item) => {
+  mostRecentForDevice(deviceid: string): Measure {
+    return this.forDevice(deviceid).reduce((winner, item) => {
       return (!winner || item.time.valueOf() > winner.time.valueOf()) ? item : winner;
     }, null);
   }

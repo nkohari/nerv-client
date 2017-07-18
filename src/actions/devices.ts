@@ -45,6 +45,18 @@ export const loadDevicesByGroup = (groupid: string) => (
   }
 );
 
+export const updateDevice = (groupid: string, agentid: string, deviceid: string, data: Partial<Device>) => (
+  (dispatch, getState) => {
+    const { auth } = getState();
+    API.devices.update(groupid, agentid, deviceid, data, auth.token).then(device => {
+      dispatch(devicesLoaded([device]));
+    })
+    .catch(error => {
+      dispatch(devicesError(error));
+    });
+  }
+);
+
 export const devicesLoading = createAction('DEVICES_LOADING');
 export const devicesLoaded = createAction<Device[]>('DEVICES_LOADED');
 export const devicesError = createAction<FetchError>('DEVICES_ERROR');

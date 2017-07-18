@@ -24,7 +24,6 @@ const config = {
       {
         test: /\.(css|styl)$/,
         use: ExtractTextPlugin.extract({
-          disable: (process.env.NODE_ENV === 'development'),
           fallback: 'style-loader',
           use: [
             'css-loader',
