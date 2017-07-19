@@ -1,5 +1,3 @@
-export { Action } from 'react-redux';
-
 export {
   loadAgent,
   loadAgentsByGroup,

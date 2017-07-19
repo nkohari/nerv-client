@@ -14,7 +14,7 @@ const config: webpack.Configuration = {
     https: true,
     historyApiFallback: true,
     port: 8081,
-    public: 'mineboss.dev:8081',
+    public: 'nerv.dev:8081',
     cert: readFile('../config/certs/dev.cert.pem'),
     key: readFile('../config/certs/dev.key.pem')
   },

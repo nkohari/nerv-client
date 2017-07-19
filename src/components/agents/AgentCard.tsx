@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
-import { Agent, Device, Group, connect } from 'src/data';
+import { Agent, Device, Group, ReduxState, connect } from 'src/data';
 import { DeviceWidget, IndicatorLight } from 'src/components';
 import './AgentCard.styl';
 
@@ -20,7 +20,7 @@ const DUMMY_DATA = [
 
 class AgentCard extends React.Component<AgentCardProps> {
 
-  static readPropsFromRedux = (state, props) => ({
+  static readPropsFromRedux = (state: ReduxState, props: AgentCardProps) => ({
     devices: state.devices.forAgent(props.agent.id)
   })
 

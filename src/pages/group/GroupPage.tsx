@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Page, AgentCardList, Loading } from 'src/components';
-import { Action, loadGroup, loadAgentsByGroup, loadDevicesByGroup, loadSamplesByGroup } from 'src/actions';
-import { Group, Agent, Device, Sample, connect } from 'src/data';
+import { loadGroup, loadAgentsByGroup, loadDevicesByGroup, loadSamplesByGroup } from 'src/actions';
+import { Group, Agent, Device, Sample, ReduxState, connect } from 'src/data';
 import GroupPageSidebar from './GroupPageSidebar';
 
 interface GroupPageProps {
@@ -10,10 +10,10 @@ interface GroupPageProps {
   agents: Agent[];
   devices: Device[];
   samples: Sample[];
-  loadGroup: Action;
-  loadAgentsByGroup: Action;
-  loadDevicesByGroup: Action;
-  loadSamplesByGroup: Action;
+  loadGroup: typeof loadGroup;
+  loadAgentsByGroup: typeof loadAgentsByGroup;
+  loadDevicesByGroup: typeof loadDevicesByGroup;
+  loadSamplesByGroup: typeof loadSamplesByGroup;
 }
 
 class GroupPage extends React.Component<GroupPageProps> {
@@ -25,7 +25,7 @@ class GroupPage extends React.Component<GroupPageProps> {
     loadSamplesByGroup
   };
 
-  static readPropsFromRedux = (state, props) => {
+  static readPropsFromRedux = (state: ReduxState) => {
     const { groupid } = state.router.params;
     return {
       groupid,
@@ -51,7 +51,7 @@ class GroupPage extends React.Component<GroupPageProps> {
     this.props.loadGroup(groupid);
     this.props.loadAgentsByGroup(groupid);
     this.props.loadDevicesByGroup(groupid);
-    this.props.loadSamplesByGroup(groupid);
+    this.props.loadSamplesByGroup(groupid, '15 minutes'); // TODO
   }
 
   render() {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
 import { DeviceGauge } from 'src/components';
-import { Device, Measure, connect } from 'src/data';
+import { Device, Measure, ReduxState, connect } from 'src/data';
 import { format } from 'src/utils';
 import './DeviceCard.styl';
 
@@ -17,7 +17,7 @@ const COIN_IMAGES = {
 
 class DeviceCard extends React.Component<DeviceCardProps> {
 
-  static readPropsFromRedux = (state, props) => ({
+  static readPropsFromRedux = (state: ReduxState, props: DeviceCardProps) => ({
     lastMeasure: state.measures.mostRecentForDevice(props.device.id)
   })
 

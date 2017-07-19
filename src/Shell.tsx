@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Header, SocketManager } from 'src/components';
-import { Action, loadExchangeRates } from 'src/actions';
+import { loadExchangeRates } from 'src/actions';
 import { connect } from 'src/data';
 import './Shell.styl';
 
 interface ShellProps {
-  loadExchangeRates: Action;
+  loadExchangeRates: typeof loadExchangeRates;
 }
 
 class Shell extends React.Component<ShellProps> {

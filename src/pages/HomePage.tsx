@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Page, GroupCardList, Loading } from 'src/components';
-import { Action, loadAgentsByUser, loadGroupsByUser } from 'src/actions';
-import { Collection, Agent, Group, connect } from 'src/data';
+import { loadAgentsByUser, loadGroupsByUser } from 'src/actions';
+import { Collection, Agent, Group, ReduxState, connect } from 'src/data';
 
 interface HomePageProps {
   agents: Collection<Agent>;
   groups: Collection<Group>;
-  loadAgentsByUser: Action;
-  loadGroupsByUser: Action;
+  loadAgentsByUser: typeof loadAgentsByUser;
+  loadGroupsByUser: typeof loadGroupsByUser;
 }
 
 class HomePage extends React.Component<HomePageProps> {
@@ -17,7 +17,7 @@ class HomePage extends React.Component<HomePageProps> {
     loadGroupsByUser
   };
 
-  static readPropsFromRedux = state => ({
+  static readPropsFromRedux = (state: ReduxState) => ({
     agents: state.agents,
     groups: state.groups
   })

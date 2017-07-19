@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Agent, Group, connect } from 'src/data';
+import { Agent, Group, ReduxState, connect } from 'src/data';
 import './GroupCard.styl';
 
 interface GroupCardProps {
@@ -9,7 +9,7 @@ interface GroupCardProps {
 
 class GroupCard extends React.Component<GroupCardProps> {
 
-  static readPropsFromRedux = (state, props) => ({
+  static readPropsFromRedux = (state: ReduxState, props: GroupCardProps) => ({
     agents: state.agents.forGroup(props.group.id)
   })
 

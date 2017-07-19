@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'redux-little-router';
 import { Icon } from 'src/components';
-import { Agent, Group, connect } from 'src/data';
+import { Agent, Group, ReduxState, connect } from 'src/data';
 import './Breadcrumbs.styl';
 
 interface BreadcrumbsProps {
@@ -11,7 +11,7 @@ interface BreadcrumbsProps {
 
 class Breadcrumbs extends React.Component<BreadcrumbsProps> {
 
-  static readPropsFromRedux = (state, props) => {
+  static readPropsFromRedux = (state: ReduxState) => {
     const { groupid, agentid } = state.router.params;
     return {
       group: groupid ? state.groups.get(groupid) : null,
@@ -25,8 +25,8 @@ class Breadcrumbs extends React.Component<BreadcrumbsProps> {
     const items = [
       <li key='home'>
         <Link href='/' className='pt-breadcrumb'>
-          <Icon name='home' />
-          Mineboss
+          <Icon name='predictive-analysis' />
+          Nerv
         </Link>
       </li>
     ];

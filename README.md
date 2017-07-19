@@ -1,6 +1,4 @@
-# Mineboss Client
-
-<img src="http://i.imgur.com/U6zG4Bs.png" width="300" />
+# nerv-client
 
 ## Development
 
@@ -12,7 +10,7 @@ To start:
 3. `$ npm run dev`
 
 This will start `webpack-dev-server` on `http://localhost:8081`. By default it will communicate with
-the [Mineboss Server](http://github.com/nkohari/mineboss-server) at `http://localhost:3000`.
+the [nerv-server](http://github.com/nkohari/nerv-server) running at `http://localhost:3000`.
 
 ## Configuration
 

@@ -10,7 +10,7 @@ const env = {
 };
 
 export const entry = {
-  mineboss: [
+  nerv: [
     path.resolve(__dirname, '../src')
   ]
 };

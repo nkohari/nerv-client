@@ -1,22 +1,21 @@
 import * as React from 'react';
 import { replace, Fragment } from 'redux-little-router';
-import { Action } from 'src/actions';
-import { AuthContext, connect } from 'src/data';
+import { AuthContext, ReduxState, connect } from 'src/data';
 
-interface RestrictedFragment {
+interface RestrictedFragmentProps {
   auth: AuthContext;
   loginPath: string;
   redirectUrl: string;
-  replace: Action;
+  replace: typeof replace;
 }
 
-class RestrictedFragment extends React.Component<RestrictedFragment> {
+class RestrictedFragment extends React.Component<RestrictedFragmentProps> {
 
   static connectedActions = {
     replace
   };
 
-  static readPropsFromRedux = (state, props) => ({
+  static readPropsFromRedux = (state: ReduxState, props: RestrictedFragmentProps) => ({
     auth: state.auth,
     redirectUrl: (state.router.pathname !== props.loginPath) ? state.router.pathname : '/'
   })

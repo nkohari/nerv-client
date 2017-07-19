@@ -3,15 +3,15 @@ import Toaster from '../../services/Toaster';
 import { InputGroup } from '@blueprintjs/core';
 import { Link, push, replace } from 'redux-little-router';
 import { SubmitButton } from 'src/components';
-import { Action, userLoggedIn } from 'src/actions';
+import { userLoggedIn } from 'src/actions';
 import { API, AuthContext, connect } from 'src/data';
 
 interface LoginProps {
   auth: AuthContext;
   redirectUrl: string;
-  push: Action;
-  replace: Action;
-  userLoggedIn: Action;
+  push: typeof push;
+  replace: typeof replace;
+  userLoggedIn: typeof userLoggedIn;
 }
 
 interface LoginState {

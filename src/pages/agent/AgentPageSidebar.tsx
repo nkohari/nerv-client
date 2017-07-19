@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
-import { Action, updateAgent } from 'src/actions';
+import { updateAgent } from 'src/actions';
 import { Sidebar, SidebarBlock, SidebarItem, Time } from 'src/components';
-import { Agent, Device, ExchangeRateCollection, Sample, User, connect } from 'src/data';
+import { Agent, Device, ExchangeRateCollection, Sample, User, ReduxState, connect } from 'src/data';
 import { format } from 'src/utils';
 
 interface AgentPageSidebarProps {
@@ -11,7 +11,7 @@ interface AgentPageSidebarProps {
   samples: Sample[];
   user: User;
   exchangeRates: ExchangeRateCollection;
-  updateAgent: Action;
+  updateAgent: typeof updateAgent;
 }
 
 class AgentPageSidebar extends React.Component<AgentPageSidebarProps> {
@@ -20,7 +20,7 @@ class AgentPageSidebar extends React.Component<AgentPageSidebarProps> {
     updateAgent
   };
 
-  static readPropsFromRedux = state => ({
+  static readPropsFromRedux = (state: ReduxState) => ({
     user: state.auth.user,
     exchangeRates: state.exchangeRates
   })

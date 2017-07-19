@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Page, Loading } from 'src/components';
-import { Action, loadAgent, loadGroup, loadDevicesByAgent, loadSamplesByAgent } from 'src/actions';
-import { Agent, Device, Group, Sample, connect } from 'src/data';
+import { loadAgent, loadGroup, loadDevicesByAgent, loadSamplesByAgent } from 'src/actions';
+import { Agent, Device, Group, Sample, ReduxState, connect } from 'src/data';
 import AgentPageSidebar from './AgentPageSidebar';
 import AgentPageContent from './AgentPageContent';
 import './AgentPage.styl';
@@ -13,10 +13,10 @@ interface AgentPageProps {
   group: Group;
   devices: Device[];
   samples: Sample[];
-  loadAgent: Action;
-  loadGroup: Action;
-  loadDevicesByAgent: Action;
-  loadSamplesByAgent: Action;
+  loadAgent: typeof loadAgent;
+  loadGroup: typeof loadGroup;
+  loadDevicesByAgent: typeof loadDevicesByAgent;
+  loadSamplesByAgent: typeof loadSamplesByAgent;
 }
 
 class AgentPage extends React.Component<AgentPageProps> {
@@ -28,7 +28,7 @@ class AgentPage extends React.Component<AgentPageProps> {
     loadSamplesByAgent
   };
 
-  static readPropsFromRedux = (state, props) => {
+  static readPropsFromRedux = (state: ReduxState) => {
     const { groupid, agentid } = state.router.params;
     return {
       groupid,
@@ -56,7 +56,7 @@ class AgentPage extends React.Component<AgentPageProps> {
     this.props.loadAgent(groupid, agentid);
     this.props.loadGroup(groupid);
     this.props.loadDevicesByAgent(groupid, agentid);
-    this.props.loadSamplesByAgent(groupid, agentid);
+    this.props.loadSamplesByAgent(groupid, agentid, '15 minutes'); // TODO
   }
 
   render() {

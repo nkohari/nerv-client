@@ -3,7 +3,7 @@ const routes = {
   '/signup': { title: 'Signup' },
   '/:groupid/:agentid': { title: 'Agent' },
   '/:groupid': { title: 'Group' },
-  '/': { title: 'Mineboss' }
+  '/': { title: 'Nerv' }
 };
 
 export default routes;

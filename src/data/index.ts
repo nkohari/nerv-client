@@ -20,6 +20,7 @@ export const API = {
 // Framework
 export { AuthContext } from './framework/AuthContext';
 export { Collection } from './framework/Collection';
+export { Connector } from './framework/Connector';
 export { connect } from './framework/connect';
 export { createCollectionReducer } from './framework/createCollectionReducer';
 export { Identifiable } from './framework/Identifiable';
@@ -31,6 +32,7 @@ export { default as request } from './framework/request';
 export { SocketState } from './framework/SocketState';
 export { SocketStatus } from './framework/SocketStatus';
 export { SocketMessage } from './framework/SocketMessage';
+export { RouterState } from './framework/RouterState';
 
 // Models
 export { Agent } from './models/Agent';
@@ -75,6 +77,8 @@ export const reducers = {
   samples: samplesReducer,
   socket: socketReducer
 };
+
+export { ReduxState } from './ReduxState';
 
 // Store
 import { configureStoreForProduction } from './store/production';
