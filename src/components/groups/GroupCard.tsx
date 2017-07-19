@@ -1,17 +1,11 @@
 import * as React from 'react';
-import { Agent, Group, ReduxState, connect } from 'src/data';
+import { Agent, Group, connect } from 'src/data';
 import './GroupCard.styl';
 
-interface GroupCardProps {
-  group: Group;
-  agents: Agent[];
-}
+type GroupCardProps = { group: Group };
+type GroupCardConnectedProps = { agents: Agent[] };
 
-class GroupCard extends React.Component<GroupCardProps> {
-
-  static readPropsFromRedux = (state: ReduxState, props: GroupCardProps) => ({
-    agents: state.agents.forGroup(props.group.id)
-  })
+class GroupCard extends React.Component<GroupCardProps & GroupCardConnectedProps> {
 
   render() {
     const { group, agents } = this.props;
@@ -25,4 +19,8 @@ class GroupCard extends React.Component<GroupCardProps> {
 
 }
 
-export default connect(GroupCard);
+export default connect(GroupCard, {
+  readPropsFromRedux: (state, props: GroupCardProps) => ({
+    agents: state.agents.forGroup(props.group.id)
+  })
+});

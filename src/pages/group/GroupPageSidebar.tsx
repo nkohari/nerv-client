@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
 import { Sidebar, SidebarBlock, SidebarItem, Time } from 'src/components';
-import { Group, Agent, Device, ExchangeRateCollection, Sample, User, ReduxState, connect } from 'src/data';
+import { Group, Agent, Device, ExchangeRateCollection, Sample, User, connect } from 'src/data';
 import { format } from 'src/utils';
 
 interface GroupPageSidebarProps {
@@ -9,16 +9,14 @@ interface GroupPageSidebarProps {
   agents: Agent[];
   devices: Device[];
   samples: Sample[];
+}
+
+interface GroupPageSidebarConnectedProps {
   user: User;
   exchangeRates: ExchangeRateCollection;
 }
 
-class GroupPageSidebar extends React.Component<GroupPageSidebarProps> {
-
-  static readPropsFromRedux = (state: ReduxState) => ({
-    user: state.auth.user,
-    exchangeRates: state.exchangeRates
-  })
+class GroupPageSidebar extends React.Component<GroupPageSidebarProps & GroupPageSidebarConnectedProps> {
 
   render() {
     const { group, agents, samples, exchangeRates, user } = this.props;
@@ -61,4 +59,9 @@ class GroupPageSidebar extends React.Component<GroupPageSidebarProps> {
 
 }
 
-export default connect(GroupPageSidebar);
+export default connect(GroupPageSidebar, {
+  readPropsFromRedux: (state, props: GroupPageSidebarProps) => ({
+    user: state.auth.user,
+    exchangeRates: state.exchangeRates
+  })
+});

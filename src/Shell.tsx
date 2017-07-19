@@ -10,10 +10,6 @@ interface ShellProps {
 
 class Shell extends React.Component<ShellProps> {
 
-  static connectedActions = {
-    loadExchangeRates
-  };
-
   componentDidMount() {
     this.props.loadExchangeRates();
   }
@@ -31,4 +27,8 @@ class Shell extends React.Component<ShellProps> {
 
 }
 
-export default connect(Shell);
+export default connect(Shell, {
+  actions: {
+    loadExchangeRates
+  }
+});

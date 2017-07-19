@@ -24,16 +24,6 @@ interface SignupState {
 
 class Signup extends React.Component<SignupProps, SignupState> {
 
-  static connectedActions = {
-    push,
-    replace,
-    userLoggedIn
-  };
-
-  static readPropsFromRedux = (state) => ({
-    auth: state.auth
-  })
-
   usernameElement: HTMLInputElement;
 
   constructor(props) {
@@ -148,4 +138,13 @@ class Signup extends React.Component<SignupProps, SignupState> {
 
 }
 
-export default connect(Signup);
+export default connect(Signup, {
+  actions: {
+    push,
+    replace,
+    userLoggedIn
+  },
+  readPropsFromRedux: state => ({
+    auth: state.auth
+  })
+});

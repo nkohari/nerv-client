@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as NesClient from 'nes/client';
 import { socketConnected, socketDisconnected, socketError, modelEventReceived, measureEventReceived } from 'src/actions';
-import { AuthContext, SocketState, SocketStatus, ReduxState, connect } from 'src/data';
+import { AuthContext, SocketState, SocketStatus, connect } from 'src/data';
 
 interface SocketManagerProps {
   auth: AuthContext;
@@ -18,19 +18,6 @@ const getAuthHeaders = token => ({
 });
 
 class SocketManager extends React.Component<SocketManagerProps> {
-
-  static connectedActions = {
-    socketConnected,
-    socketDisconnected,
-    socketError,
-    modelEventReceived,
-    measureEventReceived
-  };
-
-  static readPropsFromRedux = (state: ReduxState) => ({
-    auth: state.auth,
-    socket: state.socket
-  })
 
   client: any;
 
@@ -131,4 +118,16 @@ class SocketManager extends React.Component<SocketManagerProps> {
 
 }
 
-export default connect(SocketManager);
+export default connect(SocketManager, {
+  actions: {
+    socketConnected,
+    socketDisconnected,
+    socketError,
+    modelEventReceived,
+    measureEventReceived
+  },
+  readPropsFromRedux: state => ({
+    auth: state.auth,
+    socket: state.socket
+  })
+});

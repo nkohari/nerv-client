@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Page, Loading } from 'src/components';
 import { loadAgent, loadGroup, loadDevicesByAgent, loadSamplesByAgent } from 'src/actions';
-import { Agent, Device, Group, Sample, ReduxState, connect } from 'src/data';
+import { Agent, Device, Group, Sample, connect } from 'src/data';
 import AgentPageSidebar from './AgentPageSidebar';
 import AgentPageContent from './AgentPageContent';
 import './AgentPage.styl';
 
-interface AgentPageProps {
+interface AgentPageConnectedProps {
   groupid: string;
   agentid: string;
   agent: Agent;
@@ -19,26 +19,7 @@ interface AgentPageProps {
   loadSamplesByAgent: typeof loadSamplesByAgent;
 }
 
-class AgentPage extends React.Component<AgentPageProps> {
-
-  static connectedActions = {
-    loadAgent,
-    loadGroup,
-    loadDevicesByAgent,
-    loadSamplesByAgent
-  };
-
-  static readPropsFromRedux = (state: ReduxState) => {
-    const { groupid, agentid } = state.router.params;
-    return {
-      groupid,
-      agentid,
-      group: state.groups.get(groupid),
-      agent: state.agents.get(agentid),
-      devices: state.devices.forAgent(agentid),
-      samples: state.samples.forAgent(agentid)
-    };
-  }
+class AgentPage extends React.Component<AgentPageConnectedProps> {
 
   componentDidMount() {
     const { groupid, agentid } = this.props;
@@ -76,4 +57,22 @@ class AgentPage extends React.Component<AgentPageProps> {
 
 }
 
-export default connect(AgentPage);
+export default connect(AgentPage, {
+  actions: {
+    loadAgent,
+    loadGroup,
+    loadDevicesByAgent,
+    loadSamplesByAgent
+  },
+  readPropsFromRedux: state => {
+    const { groupid, agentid } = state.router.params;
+    return {
+      groupid,
+      agentid,
+      group: state.groups.get(groupid),
+      agent: state.agents.get(agentid),
+      devices: state.devices.forAgent(agentid),
+      samples: state.samples.forAgent(agentid)
+    };
+  }
+});

@@ -22,17 +22,6 @@ interface LoginState {
 
 class Login extends React.Component<LoginProps, LoginState> {
 
-  static connectedActions = {
-    push,
-    replace,
-    userLoggedIn
-  };
-
-  static readPropsFromRedux = (state) => ({
-    auth: state.auth,
-    redirectUrl: state.router.query.r || '/'
-  })
-
   usernameElement: HTMLInputElement;
 
   constructor(props) {
@@ -124,4 +113,14 @@ class Login extends React.Component<LoginProps, LoginState> {
 
 }
 
-export default connect(Login);
+export default connect(Login, {
+  actions: {
+    push,
+    replace,
+    userLoggedIn
+  },
+  readPropsFromRedux: state => ({
+    auth: state.auth,
+    redirectUrl: state.router.query.r || '/'
+  })
+});

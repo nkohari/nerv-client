@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
 import { DeviceGauge } from 'src/components';
-import { Device, Measure, ReduxState, connect } from 'src/data';
+import { Device, Measure, connect } from 'src/data';
 import { format } from 'src/utils';
 import './DeviceCard.styl';
 
 interface DeviceCardProps {
   device: Device;
+}
+
+interface DeviceCardConnectedProps {
   lastMeasure: Measure;
 }
 
@@ -15,11 +18,7 @@ const COIN_IMAGES = {
   ETH: require('assets/images/coins/ETH.svg')
 };
 
-class DeviceCard extends React.Component<DeviceCardProps> {
-
-  static readPropsFromRedux = (state: ReduxState, props: DeviceCardProps) => ({
-    lastMeasure: state.measures.mostRecentForDevice(props.device.id)
-  })
+class DeviceCard extends React.Component<DeviceCardProps & DeviceCardConnectedProps> {
 
   render() {
     const { device, lastMeasure } = this.props;
@@ -81,4 +80,8 @@ class DeviceCard extends React.Component<DeviceCardProps> {
 
 }
 
-export default connect(DeviceCard);
+export default connect(DeviceCard, {
+  readPropsFromRedux: (state, props: DeviceCardProps) => ({
+    lastMeasure: state.measures.mostRecentForDevice(props.device.id)
+  })
+});

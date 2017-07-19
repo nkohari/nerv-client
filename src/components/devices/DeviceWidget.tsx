@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Agent, Device, Group } from 'src/data';
+import { Device } from 'src/data';
 import EtherIcon from 'assets/images/coins/ETH.svg';
 import PowerIcon from 'assets/images/power.svg';
 import FanIcon from 'assets/images/fan.svg';
@@ -7,8 +7,6 @@ import TemperatureIcon from 'assets/images/temp.svg';
 import './DeviceWidget.styl';
 
 interface DeviceWidgetProps {
-  group: Group;
-  agent: Agent;
   device: Device;
 }
 

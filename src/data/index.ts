@@ -20,7 +20,6 @@ export const API = {
 // Framework
 export { AuthContext } from './framework/AuthContext';
 export { Collection } from './framework/Collection';
-export { Connector } from './framework/Connector';
 export { connect } from './framework/connect';
 export { createCollectionReducer } from './framework/createCollectionReducer';
 export { Identifiable } from './framework/Identifiable';

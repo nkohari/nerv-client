@@ -1,26 +1,16 @@
 import * as React from 'react';
 import { Page, GroupCardList, Loading } from 'src/components';
 import { loadAgentsByUser, loadGroupsByUser } from 'src/actions';
-import { Collection, Agent, Group, ReduxState, connect } from 'src/data';
+import { AgentCollection, GroupCollection, connect } from 'src/data';
 
-interface HomePageProps {
-  agents: Collection<Agent>;
-  groups: Collection<Group>;
+interface HomePageConnectedProps {
+  agents: AgentCollection;
+  groups: GroupCollection;
   loadAgentsByUser: typeof loadAgentsByUser;
   loadGroupsByUser: typeof loadGroupsByUser;
 }
 
-class HomePage extends React.Component<HomePageProps> {
-
-  static connectedActions = {
-    loadAgentsByUser,
-    loadGroupsByUser
-  };
-
-  static readPropsFromRedux = (state: ReduxState) => ({
-    agents: state.agents,
-    groups: state.groups
-  })
+class HomePage extends React.Component<HomePageConnectedProps> {
 
   componentDidMount() {
     this.props.loadAgentsByUser();
@@ -45,4 +35,13 @@ class HomePage extends React.Component<HomePageProps> {
 
 }
 
-export default connect(HomePage);
+export default connect(HomePage, {
+  actions: {
+    loadAgentsByUser,
+    loadGroupsByUser
+  },
+  readPropsFromRedux: state => ({
+    agents: state.agents,
+    groups: state.groups
+  })
+});

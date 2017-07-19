@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
-import { Agent, Device, Group, ReduxState, connect } from 'src/data';
+import { Agent, Device, connect } from 'src/data';
 import { DeviceWidget, IndicatorLight } from 'src/components';
 import './AgentCard.styl';
 
 interface AgentCardProps {
-  group: Group;
   agent: Agent;
+}
+
+interface AgentCardConnectedProps {
   devices: Device[];
 }
 
@@ -18,18 +20,14 @@ const DUMMY_DATA = [
   84, 61, 38, 39, 32
 ];
 
-class AgentCard extends React.Component<AgentCardProps> {
-
-  static readPropsFromRedux = (state: ReduxState, props: AgentCardProps) => ({
-    devices: state.devices.forAgent(props.agent.id)
-  })
+class AgentCard extends React.Component<AgentCardProps & AgentCardConnectedProps> {
 
   render() {
-    const { group, agent, devices } = this.props;
+    const { agent, devices } = this.props;
 
     const items = devices.map(device => (
       <li key={device.id} className='agent-card-device'>
-        <DeviceWidget group={group} agent={agent} device={device} />
+        <DeviceWidget device={device} />
       </li>
     ));
 
@@ -53,4 +51,8 @@ class AgentCard extends React.Component<AgentCardProps> {
 
 }
 
-export default connect(AgentCard);
+export default connect(AgentCard, {
+  readPropsFromRedux: (state, props: AgentCardProps) => ({
+    devices: state.devices.forAgent(props.agent.id)
+  })
+});

@@ -2,28 +2,22 @@ import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
 import { updateAgent } from 'src/actions';
 import { Sidebar, SidebarBlock, SidebarItem, Time } from 'src/components';
-import { Agent, Device, ExchangeRateCollection, Sample, User, ReduxState, connect } from 'src/data';
+import { Agent, Device, ExchangeRateCollection, Sample, User, connect } from 'src/data';
 import { format } from 'src/utils';
 
 interface AgentPageSidebarProps {
   agent: Agent;
   devices: Device[];
   samples: Sample[];
+}
+
+interface AgentPageSidebarConnectedProps {
   user: User;
   exchangeRates: ExchangeRateCollection;
   updateAgent: typeof updateAgent;
 }
 
-class AgentPageSidebar extends React.Component<AgentPageSidebarProps> {
-
-  static connectedActions = {
-    updateAgent
-  };
-
-  static readPropsFromRedux = (state: ReduxState) => ({
-    user: state.auth.user,
-    exchangeRates: state.exchangeRates
-  })
+class AgentPageSidebar extends React.Component<AgentPageSidebarProps & AgentPageSidebarConnectedProps> {
 
   onNameChanged = name => {
     const { agent } = this.props;
@@ -71,4 +65,12 @@ class AgentPageSidebar extends React.Component<AgentPageSidebarProps> {
 
 }
 
-export default connect(AgentPageSidebar);
+export default connect(AgentPageSidebar, {
+  actions: {
+    updateAgent
+  },
+  readPropsFromRedux: (state, props: AgentPageSidebarProps) => ({
+    user: state.auth.user,
+    exchangeRates: state.exchangeRates
+  })
+});

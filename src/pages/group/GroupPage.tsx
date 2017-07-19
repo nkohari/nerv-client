@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Page, AgentCardList, Loading } from 'src/components';
 import { loadGroup, loadAgentsByGroup, loadDevicesByGroup, loadSamplesByGroup } from 'src/actions';
-import { Group, Agent, Device, Sample, ReduxState, connect } from 'src/data';
+import { Group, Agent, Device, Sample, connect } from 'src/data';
 import GroupPageSidebar from './GroupPageSidebar';
 
-interface GroupPageProps {
+interface GroupPageConnectedProps {
   groupid: string;
   group: Group;
   agents: Agent[];
@@ -16,25 +16,7 @@ interface GroupPageProps {
   loadSamplesByGroup: typeof loadSamplesByGroup;
 }
 
-class GroupPage extends React.Component<GroupPageProps> {
-
-  static connectedActions = {
-    loadGroup,
-    loadAgentsByGroup,
-    loadDevicesByGroup,
-    loadSamplesByGroup
-  };
-
-  static readPropsFromRedux = (state: ReduxState) => {
-    const { groupid } = state.router.params;
-    return {
-      groupid,
-      group: state.groups.get(groupid),
-      agents: state.agents.forGroup(groupid),
-      devices: state.devices.forGroup(groupid),
-      samples: state.samples.forGroup(groupid)
-    };
-  }
+class GroupPage extends React.Component<GroupPageConnectedProps> {
 
   componentDidMount() {
     this.loadData(this.props.groupid);
@@ -73,4 +55,21 @@ class GroupPage extends React.Component<GroupPageProps> {
 
 }
 
-export default connect(GroupPage);
+export default connect(GroupPage, {
+  actions: {
+    loadGroup,
+    loadAgentsByGroup,
+    loadDevicesByGroup,
+    loadSamplesByGroup
+  },
+  readPropsFromRedux: state => {
+    const { groupid } = state.router.params;
+    return {
+      groupid,
+      group: state.groups.get(groupid),
+      agents: state.agents.forGroup(groupid),
+      devices: state.devices.forGroup(groupid),
+      samples: state.samples.forGroup(groupid)
+    };
+  }
+});

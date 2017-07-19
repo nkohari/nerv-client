@@ -3,7 +3,7 @@ import { push } from 'redux-little-router';
 import { Button } from '@blueprintjs/core';
 import { Breadcrumbs, DebugDialog, SocketIndicator } from 'src/components';
 import { userLoggedOut } from 'src/actions';
-import { AuthContext, SocketState, ReduxState, connect } from 'src/data';
+import { AuthContext, SocketState, connect } from 'src/data';
 import './Header.styl';
 
 interface HeaderProps {
@@ -18,16 +18,6 @@ interface HeaderState {
 }
 
 class Header extends React.Component<HeaderProps, HeaderState> {
-
-  static connectedActions = {
-    push,
-    userLoggedOut
-  };
-
-  static readPropsFromRedux = (state: ReduxState) => ({
-    auth: state.auth,
-    socket: state.socket
-  })
 
   constructor(props) {
     super(props);
@@ -67,4 +57,13 @@ class Header extends React.Component<HeaderProps, HeaderState> {
 
 }
 
-export default connect(Header);
+export default connect(Header, {
+  actions: {
+    push,
+    userLoggedOut
+  },
+  readPropsFromRedux: (state, props) => ({
+    auth: state.auth,
+    socket: state.socket
+  })
+});
