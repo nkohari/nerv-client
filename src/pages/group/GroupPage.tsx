@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Page, AgentCardList, Loading } from 'src/components';
+import { Page, Loading } from 'src/components';
 import { loadGroup, loadAgentsByGroup, loadDevicesByGroup, loadSamplesByGroup } from 'src/actions';
 import { Group, Agent, Device, Sample, connect } from 'src/data';
 import GroupPageSidebar from './GroupPageSidebar';
+import GroupPageContent from './GroupPageContent';
 
 interface GroupPageConnectedProps {
   groupid: string;
@@ -46,9 +47,7 @@ class GroupPage extends React.Component<GroupPageConnectedProps> {
     return (
       <Page className='group-page'>
         <GroupPageSidebar group={group} agents={agents} devices={devices} samples={samples} />
-        <div className='page-content'>
-          <AgentCardList agents={agents} />
-        </div>
+        <GroupPageContent group={group} agents={agents} />
       </Page>
     );
   }

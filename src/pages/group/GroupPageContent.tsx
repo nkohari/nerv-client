@@ -1,24 +1,28 @@
 import * as React from 'react';
 import { Button, NonIdealState } from '@blueprintjs/core';
-import { PageContent, PageControls, DeviceCardList, Chart, ChartFieldSelector, ChartPeriodSelector } from 'src/components';
-import { Agent, Device, Sample } from 'src/data';
+import { PageContent, PageControls, AgentCardList, Chart, ChartFieldSelector, ChartPeriodSelector } from 'src/components';
+import { Agent, Group, Sample } from 'src/data';
 
-interface AgentPageContentProps {
-  agent: Agent;
-  devices: Device[];
-  samples: Sample[];
+interface GroupPageContentProps {
+  group: Group;
+  agents: Agent[];
 }
 
-interface AgentPageContentState {
+interface GroupPageContentState {
+  samples: Sample[];
   field: string;
   period: string;
 }
 
-class AgentPageContent extends React.Component<AgentPageContentProps, AgentPageContentState> {
+class GroupPageContent extends React.Component<GroupPageContentProps, GroupPageContentState> {
 
   constructor(props) {
     super(props);
-    this.state = { field: 'hashrate', period: '1 hour' };
+    this.state = {
+      field: 'hashrate',
+      period: '1 hour',
+      samples: []
+    };
   }
 
   onFieldSelected = field => {
@@ -29,10 +33,10 @@ class AgentPageContent extends React.Component<AgentPageContentProps, AgentPageC
   }
 
   render() {
-    const { devices, samples } = this.props;
-    const { field, period } = this.state;
+    const { agents } = this.props;
+    const { field, period, samples } = this.state;
 
-    if (devices.length === 0) {
+    if (agents.length === 0) {
       return this.renderEmpty();
     }
 
@@ -53,18 +57,18 @@ class AgentPageContent extends React.Component<AgentPageContentProps, AgentPageC
     return (
       <PageContent className='agent-page-content' controls={controls}>
         <Chart samples={samples} field={field} />
-        <DeviceCardList devices={devices} />
+        <AgentCardList agents={agents} />
       </PageContent>
     );
   }
 
   renderEmpty() {
     return (
-      <PageContent className='agent-page-content'>
+      <PageContent className='group-page-content'>
         <NonIdealState
-          visual='help'
-          title='No Devices'
-          description='This agent has no devices. Please run the agent.'
+          visual='widget'
+          title='No agents registered'
+          description='This group has no agents registered to it. Please run the agent application on your machine.'
         />
       </PageContent>
     );
@@ -72,4 +76,4 @@ class AgentPageContent extends React.Component<AgentPageContentProps, AgentPageC
 
 }
 
-export default AgentPageContent;
+export default GroupPageContent;

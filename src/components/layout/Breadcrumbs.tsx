@@ -1,23 +1,24 @@
 import * as React from 'react';
 import { Link } from 'redux-little-router';
 import { Icon } from 'src/components';
-import { Agent, Group, connect } from 'src/data';
+import { Group, Agent, Device, connect } from 'src/data';
 import './Breadcrumbs.styl';
 
-interface BreadcrumbsProps {
+interface BreadcrumbsConnectedProps {
   group: Group;
   agent: Agent;
+  device: Device;
 }
 
-class Breadcrumbs extends React.Component<BreadcrumbsProps> {
+class Breadcrumbs extends React.Component<BreadcrumbsConnectedProps> {
 
   render() {
-    const { group, agent } = this.props;
+    const { group, agent, device } = this.props;
 
     const items = [
       <li key='home'>
         <Link href='/' className='pt-breadcrumb'>
-          <Icon name='predictive-analysis' />
+          <Icon name='predictive-analysis' size='large' />
           Nerv
         </Link>
       </li>
@@ -32,17 +33,28 @@ class Breadcrumbs extends React.Component<BreadcrumbsProps> {
           </Link>
         </li>
       );
+    }
 
-      if (agent) {
-        items.push(
-          <li key='agent'>
-            <Link href={`/${group.id}/${agent.id}`} className='pt-breadcrumb'>
-              <Icon name='desktop' />
-              {agent.name}
-            </Link>
-          </li>
-        );
-      }
+    if (group && agent) {
+      items.push(
+        <li key='agent'>
+          <Link href={`/${group.id}/${agent.id}`} className='pt-breadcrumb'>
+            <Icon name='desktop' />
+            {agent.name}
+          </Link>
+        </li>
+      );
+    }
+
+    if (group && agent && device) {
+      items.push(
+        <li key='device'>
+          <Link href={`/${group.id}/${agent.id}/${device.id}`} className='pt-breadcrumb'>
+            <Icon name='cog' />
+            {device.name}
+          </Link>
+        </li>
+      );
     }
 
     return (
@@ -56,10 +68,11 @@ class Breadcrumbs extends React.Component<BreadcrumbsProps> {
 
 export default connect(Breadcrumbs, {
   readPropsFromRedux: state => {
-    const { groupid, agentid } = state.router.params;
+    const { groupid, agentid, deviceid } = state.router.params;
     return {
       group: groupid ? state.groups.get(groupid) : null,
-      agent: agentid ? state.agents.get(agentid) : null
+      agent: agentid ? state.agents.get(agentid) : null,
+      device: deviceid ? state.devices.get(deviceid) : null
     };
   }
 });

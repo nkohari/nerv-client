@@ -133,7 +133,7 @@
     "no-unnecessary-semicolons": true,
     "object-literal-key-quotes": [true, "as-needed"],
     "one-line": [true, "check-open-brace", "check-catch", "check-else", "check-whitespace"],
-    "quotemark": [true, "single"],
+    "quotemark": [true, "single", "avoid-escape"],
     "semicolon": [true, "always"],
     "trailing-comma": [true, {"singleline": "never", "multiline": "never"}],
     "typedef-whitespace": [

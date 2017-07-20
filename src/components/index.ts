@@ -3,8 +3,8 @@ export { default as AgentCardList } from './agents/AgentCardList';
 
 export { default as DeviceIcon } from './devices/DeviceIcon';
 export { default as DeviceCard } from './devices/DeviceCard';
+export { default as DeviceCardList } from './devices/DeviceCardList';
 export { default as DeviceGauge } from './devices/DeviceGauge';
-export { default as DeviceWidget } from './devices/DeviceWidget';
 
 export { default as GroupCard } from './groups/GroupCard';
 export { default as GroupCardList } from './groups/GroupCardList';

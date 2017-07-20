@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Fragment } from 'redux-little-router';
-import { HomePage, GroupPage, AgentPage, Login, Signup } from 'src/pages';
+import { HomePage, GroupPage, AgentPage, DevicePage, Login, Signup } from 'src/pages';
 import { RestrictedFragment } from 'src/components';
 import Shell from './Shell';
 
@@ -17,6 +17,9 @@ class App extends React.Component {
         </Fragment>
         <RestrictedFragment forRoute='/' loginPath='/login'>
           <Shell>
+            <Fragment forRoute='/:groupid/:agentid/:deviceid'>
+              <DevicePage />
+            </Fragment>
             <Fragment forRoute='/:groupid/:agentid'>
               <AgentPage />
             </Fragment>
