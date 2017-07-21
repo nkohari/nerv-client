@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Page, Loading } from 'src/components';
-import { loadGroup, loadAgentsByGroup, loadDevicesByGroup, loadSamplesByGroup } from 'src/actions';
-import { Group, Agent, Device, Sample, connect } from 'src/data';
+import { loadGroup, loadAgentsByGroup, loadDevicesByGroup } from 'src/actions';
+import { Group, Agent, Device, connect } from 'src/data';
 import GroupPageSidebar from './GroupPageSidebar';
 import GroupPageContent from './GroupPageContent';
 
@@ -10,11 +10,9 @@ interface GroupPageConnectedProps {
   group: Group;
   agents: Agent[];
   devices: Device[];
-  samples: Sample[];
   loadGroup: typeof loadGroup;
   loadAgentsByGroup: typeof loadAgentsByGroup;
   loadDevicesByGroup: typeof loadDevicesByGroup;
-  loadSamplesByGroup: typeof loadSamplesByGroup;
 }
 
 class GroupPage extends React.Component<GroupPageConnectedProps> {
@@ -34,11 +32,10 @@ class GroupPage extends React.Component<GroupPageConnectedProps> {
     this.props.loadGroup(groupid);
     this.props.loadAgentsByGroup(groupid);
     this.props.loadDevicesByGroup(groupid);
-    this.props.loadSamplesByGroup(groupid, '15 minutes'); // TODO
   }
 
   render() {
-    const { group, agents, devices, samples } = this.props;
+    const { group, agents } = this.props;
 
     if (!group) {
       return <Loading />;
@@ -46,7 +43,7 @@ class GroupPage extends React.Component<GroupPageConnectedProps> {
 
     return (
       <Page className='group-page'>
-        <GroupPageSidebar group={group} agents={agents} devices={devices} samples={samples} />
+        <GroupPageSidebar group={group} />
         <GroupPageContent group={group} agents={agents} />
       </Page>
     );
@@ -58,8 +55,7 @@ export default connect(GroupPage, {
   actions: {
     loadGroup,
     loadAgentsByGroup,
-    loadDevicesByGroup,
-    loadSamplesByGroup
+    loadDevicesByGroup
   },
   readPropsFromRedux: state => {
     const { groupid } = state.router.params;
@@ -67,8 +63,7 @@ export default connect(GroupPage, {
       groupid,
       group: state.groups.get(groupid),
       agents: state.agents.forGroup(groupid),
-      devices: state.devices.forGroup(groupid),
-      samples: state.samples.forGroup(groupid)
+      devices: state.devices.forGroup(groupid)
     };
   }
 });

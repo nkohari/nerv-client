@@ -1,58 +1,24 @@
 import * as React from 'react';
-import { Spinner } from '@blueprintjs/core';
-import { Sidebar, SidebarBlock, SidebarItem, Time } from 'src/components';
-import { Group, Agent, Device, ExchangeRateCollection, Sample, User, connect } from 'src/data';
-import { format } from 'src/utils';
+import { updateGroup } from 'src/actions';
+import { Sidebar } from 'src/components';
+import { Group, ExchangeRateCollection, User, connect } from 'src/data';
 
 interface GroupPageSidebarProps {
   group: Group;
-  agents: Agent[];
-  devices: Device[];
-  samples: Sample[];
 }
 
 interface GroupPageSidebarConnectedProps {
   user: User;
   exchangeRates: ExchangeRateCollection;
+  updateGroup: typeof updateGroup;
 }
 
 class GroupPageSidebar extends React.Component<GroupPageSidebarProps & GroupPageSidebarConnectedProps> {
 
   render() {
-    const { group, agents, samples, exchangeRates, user } = this.props;
-
-    const lastSample = samples.reduce((last, sample) => {
-      return (!last || sample.time.valueOf() > last.valueOf()) ? sample : last;
-    }, null);
-
-    if (!lastSample || exchangeRates.isLoading) {
-      return this.renderEmpty();
-    }
-
-    const rate = exchangeRates.for(lastSample.symbol, user.currency);
-    const coinsPerMonth = lastSample.coins * 24 * 30;
-
-    const hashrate = format.hashrate(lastSample.hashrate, { precision: 0 });
-    const coins = format.number(coinsPerMonth, { precision: 4 });
-    const revenue = format.currency(coinsPerMonth * rate.amount, user.currency);
-
-    return (
-      <Sidebar title={group.name} subtitle={`Group ${group.id}`} iconName='build'>
-        <SidebarBlock text={hashrate} details={`from ${agents.length} agents`} />
-        <SidebarBlock text={coins} details={`${lastSample.symbol} per month`} />
-        <SidebarBlock text={revenue} details='revenue per month' />
-        <SidebarItem title='Last Seen'>
-          <Time value={lastSample.time} />
-        </SidebarItem>
-      </Sidebar>
-    );
-  }
-
-  renderEmpty() {
     const { group } = this.props;
     return (
-      <Sidebar title={group.name} subtitle={`Group ${group.id}`} iconName='build'>
-        <Spinner />
+      <Sidebar title={group.name} subtitle={`Group ${group.id}`} iconName='desktop'>
       </Sidebar>
     );
   }
@@ -60,6 +26,9 @@ class GroupPageSidebar extends React.Component<GroupPageSidebarProps & GroupPage
 }
 
 export default connect(GroupPageSidebar, {
+  actions: {
+    updateGroup
+  },
   readPropsFromRedux: (state, props: GroupPageSidebarProps) => ({
     user: state.auth.user,
     exchangeRates: state.exchangeRates

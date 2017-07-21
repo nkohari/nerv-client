@@ -31,6 +31,18 @@ export const loadGroupsByUser = () => (
   }
 );
 
+export const updateGroup = (groupid: string, data: Partial<Group>) => (
+  (dispatch, getState) => {
+    const { auth } = getState();
+    API.groups.update(groupid, data, auth.token).then(device => {
+      dispatch(groupsLoaded([device]));
+    })
+    .catch(error => {
+      dispatch(groupsError(error));
+    });
+  }
+);
+
 export const groupsLoading = createAction('GROUPS_LOADING');
 export const groupsLoaded = createAction<Group[]>('GROUPS_LOADED');
 export const groupsError = createAction<FetchError>('GROUPS_ERROR');

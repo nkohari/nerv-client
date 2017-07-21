@@ -7,7 +7,7 @@ interface ReduxConnector<TDeclaredProps, TConnectedProps, TConnectedActions> {
   readPropsFromRedux?: (state: ReduxState, props: TDeclaredProps) => TConnectedProps;
 }
 
-export function connect<TDeclaredProps, TConnectedProps, TConnectedActions>(
+export function connect<TDeclaredProps, TConnectedProps = {}, TConnectedActions = {}>(
   component: React.ComponentClass<TDeclaredProps & TConnectedProps & TConnectedActions>,
   connector: ReduxConnector<TDeclaredProps, TConnectedProps, TConnectedActions>
 ): React.ComponentClass<TDeclaredProps> {

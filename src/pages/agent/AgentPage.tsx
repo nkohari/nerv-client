@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Page, Loading } from 'src/components';
-import { loadAgent, loadGroup, loadDevicesByAgent, loadSamplesByAgent } from 'src/actions';
-import { Agent, Device, Group, Sample, connect } from 'src/data';
+import { loadAgent, loadGroup, loadDevicesByAgent } from 'src/actions';
+import { Agent, Device, Group, connect } from 'src/data';
 import AgentPageSidebar from './AgentPageSidebar';
 import AgentPageContent from './AgentPageContent';
 import './AgentPage.styl';
@@ -12,11 +12,9 @@ interface AgentPageConnectedProps {
   agent: Agent;
   group: Group;
   devices: Device[];
-  samples: Sample[];
   loadAgent: typeof loadAgent;
   loadGroup: typeof loadGroup;
   loadDevicesByAgent: typeof loadDevicesByAgent;
-  loadSamplesByAgent: typeof loadSamplesByAgent;
 }
 
 class AgentPage extends React.Component<AgentPageConnectedProps> {
@@ -37,11 +35,10 @@ class AgentPage extends React.Component<AgentPageConnectedProps> {
     this.props.loadAgent(groupid, agentid);
     this.props.loadGroup(groupid);
     this.props.loadDevicesByAgent(groupid, agentid);
-    this.props.loadSamplesByAgent(groupid, agentid, '15 minutes'); // TODO
   }
 
   render() {
-    const { agent, group, devices, samples } = this.props;
+    const { agent, group, devices } = this.props;
 
     if (!agent || !group) {
       return <Loading />;
@@ -49,8 +46,8 @@ class AgentPage extends React.Component<AgentPageConnectedProps> {
 
     return (
       <Page className='agent-page'>
-        <AgentPageSidebar agent={agent} devices={devices} samples={samples} />
-        <AgentPageContent agent={agent} devices={devices} samples={samples} />
+        <AgentPageSidebar agent={agent} devices={devices} />
+        <AgentPageContent agent={agent} devices={devices} />
       </Page>
     );
   }
@@ -61,8 +58,7 @@ export default connect(AgentPage, {
   actions: {
     loadAgent,
     loadGroup,
-    loadDevicesByAgent,
-    loadSamplesByAgent
+    loadDevicesByAgent
   },
   readPropsFromRedux: state => {
     const { groupid, agentid } = state.router.params;
@@ -71,8 +67,7 @@ export default connect(AgentPage, {
       agentid,
       group: state.groups.get(groupid),
       agent: state.agents.get(agentid),
-      devices: state.devices.forAgent(agentid),
-      samples: state.samples.forAgent(agentid)
+      devices: state.devices.forAgent(agentid)
     };
   }
 });

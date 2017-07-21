@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { Button, NonIdealState } from '@blueprintjs/core';
-import { PageContent, PageControls, DeviceCardList, Chart, ChartFieldSelector, ChartPeriodSelector } from 'src/components';
-import { Agent, Device, Sample } from 'src/data';
+import { NonIdealState } from '@blueprintjs/core';
+import { PageContent, Chart, DeviceTable } from 'src/components';
+import { Agent, Device } from 'src/data';
 
 interface AgentPageContentProps {
   agent: Agent;
   devices: Device[];
-  samples: Sample[];
 }
 
 interface AgentPageContentState {
@@ -21,39 +20,17 @@ class AgentPageContent extends React.Component<AgentPageContentProps, AgentPageC
     this.state = { field: 'hashrate', period: '1 hour' };
   }
 
-  onFieldSelected = field => {
-    this.setState({ field });
-  }
-  onPeriodSelected = period => {
-    this.setState({ period });
-  }
-
   render() {
-    const { devices, samples } = this.props;
-    const { field, period } = this.state;
+    const { agent, devices } = this.props;
 
     if (devices.length === 0) {
       return this.renderEmpty();
     }
 
-    const controls = (
-      <PageControls>
-        <div className='pt-navbar-group pt-align-left'>
-          <div className='pt-button-group'>
-            <ChartFieldSelector value={field} onChange={this.onFieldSelected} />
-            <ChartPeriodSelector value={period} onChange={this.onPeriodSelected} />
-          </div>
-        </div>
-        <div className='pt-navbar-group pt-align-right'>
-          <Button iconName='refresh' />
-        </div>
-      </PageControls>
-    );
-
     return (
-      <PageContent className='agent-page-content' controls={controls}>
-        <Chart samples={samples} field={field} />
-        <DeviceCardList devices={devices} />
+      <PageContent className='agent-page-content'>
+        <Chart />
+        <DeviceTable agent={agent} devices={devices} />
       </PageContent>
     );
   }

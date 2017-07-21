@@ -1,17 +1,23 @@
 interface HashrateFormattingOptions {
+  default?: string;
   locale?: string;
   precision?: number;
   suffix?: boolean;
 }
 
 const defaults: HashrateFormattingOptions = {
+  default: '-',
   locale: window.navigator.language,
   precision: 2,
   suffix: true
 };
 
 export function hashrate(value: number, options: HashrateFormattingOptions = {}) {
-  const config = { ...defaults, ...options };
+  const config: HashrateFormattingOptions = { ...defaults, ...options };
+
+  if (value === undefined || value === null) {
+    return config.default;
+  }
 
   let scaled;
   let suffix;

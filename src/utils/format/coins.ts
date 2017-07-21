@@ -1,48 +1,54 @@
 type Period = 'year' | 'month' | 'week' | 'day' | 'hour' | 'minute';
 
 interface CoinsFormattingOptions {
+  default?: string;
   locale?: string;
+  period?: Period;
   precision?: number;
   suffix?: boolean;
-  period?: Period;
 }
 
-const defaults = {
+const defaults: CoinsFormattingOptions = {
+  default: '-',
   locale: window.navigator.language,
+  period: 'minute',
   precision: 2,
-  suffix: true,
-  period: 'minute'
+  suffix: true
 };
 
-export function coins(cpm: number, symbol: string, options: CoinsFormattingOptions = {}) {
-  const config = { ...defaults, ...options };
+export function coins(value: number, symbol: string, options: CoinsFormattingOptions = {}) {
+  const config: CoinsFormattingOptions = { ...defaults, ...options };
+
+  if (value === undefined || value === null) {
+    return config.default;
+  }
 
   let scaled;
   let suffix;
 
   switch (config.period) {
     case 'year':
-      scaled = cpm * 60 * 24 * 365;
+      scaled = value * 60 * 24 * 365;
       suffix = `${symbol}/y`;
       break;
     case 'month':
-      scaled = cpm * 60 * 24 * 30;
+      scaled = value * 60 * 24 * 30;
       suffix = `${symbol}/m`;
       break;
     case 'week':
-      scaled = cpm * 60 * 24 * 7;
+      scaled = value * 60 * 24 * 7;
       suffix = `${symbol}/w`;
       break;
     case 'day':
-      scaled = cpm * 60 * 24;
+      scaled = value * 60 * 24;
       suffix = `${symbol}/d`;
       break;
     case 'hour':
-      scaled = cpm * 60;
+      scaled = value * 60;
       suffix = `${symbol}/h`;
       break;
     case 'minute':
-      scaled = cpm;
+      scaled = value;
       suffix = `${symbol}/m`;
       break;
     default:

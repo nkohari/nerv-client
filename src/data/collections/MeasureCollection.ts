@@ -20,4 +20,14 @@ export class MeasureCollection extends Collection<Measure> {
     }, null);
   }
 
+  mostRecentForAgentByDevice(agentid: string): { [deviceid: string]: Measure } {
+    return this.forAgent(agentid).reduce((winners, item) => {
+      const winner = winners[item.deviceid];
+      if (!winner || item.time.valueOf() > winner.time.valueOf()) {
+        winners[item.deviceid] = item;
+      }
+      return winners;
+    }, {});
+  }
+
 }

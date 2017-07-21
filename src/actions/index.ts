@@ -33,6 +33,7 @@ export {
 export {
   loadGroup,
   loadGroupsByUser,
+  updateGroup,
   groupsLoading,
   groupsLoaded,
   groupsError
