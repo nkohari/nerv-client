@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { replace, Fragment } from 'redux-little-router';
-import { AuthContext, connect } from 'src/data';
+import { Credentials, connect } from 'src/data';
 
 interface RestrictedFragmentProps {
   forRoute: string;
@@ -8,7 +8,7 @@ interface RestrictedFragmentProps {
 }
 
 interface RestrictedFragmentConnectedProps {
-  auth: AuthContext;
+  auth: Credentials;
   redirectUrl: string;
   replace: typeof replace;
 }

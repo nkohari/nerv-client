@@ -1,6 +1,6 @@
 import {
   AgentCollection,
-  AuthContext,
+  Credentials,
   DeviceCollection,
   ExchangeRateCollection,
   GroupCollection,
@@ -12,7 +12,7 @@ import {
 
 export interface ReduxState {
   agents: AgentCollection;
-  auth: AuthContext;
+  auth: Credentials;
   devices: DeviceCollection;
   exchangeRates: ExchangeRateCollection;
   groups: GroupCollection;

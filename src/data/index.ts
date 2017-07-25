@@ -1,51 +1,29 @@
-// API
-import * as agentsApi from './api/agents';
-import * as authApi from './api/auth';
-import * as devicesApi from './api/devices';
-import * as exchangeRateApi from './api/exchangeRates';
-import * as groupsApi from './api/groups';
-import * as measuresApi from './api/measures';
-import * as samplesApi from './api/samples';
-
-export const API = {
-  agents: agentsApi,
-  auth: authApi,
-  devices: devicesApi,
-  exchangeRates: exchangeRateApi,
-  groups: groupsApi,
-  measures: measuresApi,
-  samples: samplesApi
-};
-
 // Framework
-export { AuthContext } from './framework/AuthContext';
 export { Collection } from './framework/Collection';
 export { connect } from './framework/connect';
+export { createApiClient } from './framework/createApiClient';
 export { createCollectionReducer } from './framework/createCollectionReducer';
-export { Identifiable } from './framework/Identifiable';
 export { MeasureEvent } from './framework/MeasureEvent';
 export { ModelEvent } from './framework/ModelEvent';
 export { merge, highestVersionWins, lastWriteWins } from './framework/merge';
-export { Model } from './framework/Model';
-export { default as request } from './framework/request';
 export { SocketState } from './framework/SocketState';
 export { SocketStatus } from './framework/SocketStatus';
 export { SocketMessage } from './framework/SocketMessage';
 export { RouterState } from './framework/RouterState';
 
-// Models
-export { Agent } from './models/Agent';
-export { Device } from './models/Device';
-export { Group } from './models/Group';
-export { User } from './models/User';
-
-// Measures
-export { Measure } from './measures/Measure';
-export { Sample } from './measures/Sample';
-
-// Metadata
-export { ExchangeRate } from './metadata/ExchangeRate';
-export { NetworkData } from './metadata/NetworkData';
+export {
+  Agent,
+  Credentials,
+  Device,
+  ExchangeRate,
+  Group,
+  Identifiable,
+  Measure,
+  Model,
+  NetworkData,
+  Sample,
+  User
+} from 'nerv-api';
 
 // Collections
 export { AgentCollection } from './collections/AgentCollection';

@@ -1,13 +1,13 @@
 import { Action, handleActions } from 'redux-actions';
-import { AuthContext } from 'src/data';
+import { Credentials } from 'src/data';
 
-const defaultState: AuthContext = {
+const defaultState: Credentials = {
   token: null,
   user: null
 };
 
-const authReducer = handleActions<AuthContext>({
-  USER_LOGGED_IN: (state, action: Action<AuthContext>) => ({
+const authReducer = handleActions<Credentials>({
+  USER_LOGGED_IN: (state, action: Action<Credentials>) => ({
     ...state,
     token: action.payload.token,
     user: action.payload.user

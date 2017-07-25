@@ -1,4 +1,4 @@
-import { Identifiable } from './Identifiable';
+import { Identifiable } from 'src/data';
 
 type PredicateFunction<T> = (value: T, index?: number, array?: T[]) => boolean;
 type CompareFunction<T> = (a: T, b: T) => number;

@@ -4,10 +4,10 @@ import { InputGroup } from '@blueprintjs/core';
 import { Link, push, replace } from 'redux-little-router';
 import { SubmitButton } from 'src/components';
 import { userLoggedIn } from 'src/actions';
-import { API, AuthContext, connect } from 'src/data';
+import { createApiClient, Credentials, connect } from 'src/data';
 
 interface SignupProps {
-  auth: AuthContext;
+  auth: Credentials;
   push: typeof push;
   replace: typeof replace;
   userLoggedIn: typeof userLoggedIn;
@@ -52,7 +52,7 @@ class Signup extends React.Component<SignupProps, SignupState> {
 
     this.setState({ submitting: true });
 
-    API.auth.createUser({ username, password, email, agentid: null }) // TODO: Allow agent claim during signup
+    createApiClient().auth.createUser({ username, password, email, agentid: null }) // TODO: Allow agent claim during signup
     .then(result => {
       this.setState({ submitting: false });
       this.props.userLoggedIn({ token: result.token, user: result.user });

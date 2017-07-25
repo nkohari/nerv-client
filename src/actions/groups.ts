@@ -1,13 +1,12 @@
 import { createAction } from 'redux-actions';
-import { API, Group } from 'src/data';
+import { createApiClient, Group } from 'src/data';
 
 export const loadGroup = (groupid: string) => (
   (dispatch, getState) => {
     const { auth, groups } = getState();
     if (!groups.has(groupid)) {
       dispatch(groupsLoading());
-      API.groups.get(groupid, auth.token)
-      .then(group => {
+      createApiClient(auth).groups.get(groupid).then(group => {
         dispatch(groupsLoaded([group]));
       })
       .catch(error => {
@@ -21,8 +20,7 @@ export const loadGroupsByUser = () => (
   (dispatch, getState) => {
     const { auth } = getState();
     dispatch(groupsLoading());
-    API.groups.listByUser(auth.token)
-    .then(groups => {
+    createApiClient(auth).groups.list().then(groups => {
       dispatch(groupsLoaded(groups));
     })
     .catch(error => {
@@ -34,7 +32,7 @@ export const loadGroupsByUser = () => (
 export const updateGroup = (groupid: string, data: Partial<Group>) => (
   (dispatch, getState) => {
     const { auth } = getState();
-    API.groups.update(groupid, data, auth.token).then(device => {
+    createApiClient(auth).groups.update(groupid, data).then(device => {
       dispatch(groupsLoaded([device]));
     })
     .catch(error => {

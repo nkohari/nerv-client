@@ -2417,9 +2417,15 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
+"nerv-api@github:nkohari/nerv-api":
+  version "0.1.0"
+  resolved "git+ssh://git@github.com/nkohari/nerv-api.git#a897028aa4861fa0e56521aee1da1bbb7ccea514"
+  dependencies:
+    axios "^0.16.2"
+
 "nerv-tslint-rules@github:nkohari/nerv-tslint-rules":
   version "0.1.0"
-  resolved "git+ssh://git@github.com/nkohari/nerv-tslint-rules.git#ba15b4ca91be2bc9c26e15dfc4c92eae23111857"
+  resolved "git+ssh://git@github.com/nkohari/nerv-tslint-rules.git#f99ff2953fe728c3048504bc47311da7549121b7"
   dependencies:
     tslint "^5.5.0"
     tslint-microsoft-contrib "^5.0.1"

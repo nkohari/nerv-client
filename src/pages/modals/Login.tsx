@@ -4,10 +4,10 @@ import { InputGroup } from '@blueprintjs/core';
 import { Link, push, replace } from 'redux-little-router';
 import { SubmitButton } from 'src/components';
 import { userLoggedIn } from 'src/actions';
-import { API, AuthContext, connect } from 'src/data';
+import { createApiClient, Credentials, connect } from 'src/data';
 
 interface LoginProps {
-  auth: AuthContext;
+  auth: Credentials;
   redirectUrl: string;
   push: typeof push;
   replace: typeof replace;
@@ -47,7 +47,7 @@ class Login extends React.Component<LoginProps, LoginState> {
 
     this.setState({ submitting: true });
 
-    API.auth.login({ username, password })
+    createApiClient().auth.login({ username, password })
     .then(result => {
       this.setState({ submitting: false });
       this.props.userLoggedIn({ token: result.token, user: result.user });

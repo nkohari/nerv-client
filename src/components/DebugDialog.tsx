@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Button, Dialog, Intent } from '@blueprintjs/core';
-import { AuthContext } from 'src/data';
+import { Credentials } from 'src/data';
 
 interface DebugDialogProps {
-  auth: AuthContext;
+  auth: Credentials;
   isOpen: boolean;
   onDialogClosed: (event) => void;
 }

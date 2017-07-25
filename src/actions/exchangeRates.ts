@@ -1,11 +1,11 @@
 import { createAction } from 'redux-actions';
-import { API, ExchangeRate } from 'src/data';
+import { createApiClient, ExchangeRate } from 'src/data';
 
 export const loadExchangeRates = () => (
   (dispatch, getState) => {
     const { auth } = getState();
     dispatch(exchangeRatesLoading());
-    API.exchangeRates.listByCurrency(auth.user.currency, auth.token).then(exchangeRates => {
+    createApiClient(auth).exchangeRates.listByCurrency(auth.user.currency).then(exchangeRates => {
       dispatch(exchangeRatesLoaded(exchangeRates));
     })
     .catch(error => {

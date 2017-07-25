@@ -1,11 +1,11 @@
 import { createAction } from 'redux-actions';
-import { API, Sample } from 'src/data';
+import { createApiClient, Sample } from 'src/data';
 
 export const loadSamplesByDevice = (groupid: string, agentid: string, deviceid: string, period: string) => (
   (dispatch, getState) => {
     const { auth } = getState();
     dispatch(samplesLoading());
-    API.samples.listByDevice(groupid, agentid, deviceid, period, auth.token).then(samples => {
+    createApiClient(auth).samples.listByDevice(groupid, agentid, deviceid, period).then(samples => {
       dispatch(samplesLoaded(samples));
     })
     .catch(error => {
@@ -18,7 +18,7 @@ export const loadSamplesByAgent = (groupid: string, agentid: string, period: str
   (dispatch, getState) => {
     const { auth } = getState();
     dispatch(samplesLoading());
-    API.samples.listByAgent(groupid, agentid, period, auth.token).then(samples => {
+    createApiClient(auth).samples.listByAgent(groupid, agentid, period).then(samples => {
       dispatch(samplesLoaded(samples));
     })
     .catch(error => {
@@ -31,7 +31,7 @@ export const loadSamplesByGroup = (groupid: string, period: string) => (
   (dispatch, getState) => {
     const { auth } = getState();
     dispatch(samplesLoading());
-    API.samples.listByGroup(groupid, period, auth.token).then(samples => {
+    createApiClient(auth).samples.listByGroup(groupid, period).then(samples => {
       dispatch(samplesLoaded(samples));
     })
     .catch(error => {
@@ -44,7 +44,7 @@ export const loadSamplesByUser = (period: string) => (
   (dispatch, getState) => {
     const { auth } = getState();
     dispatch(samplesLoading());
-    API.samples.listByUser(period, auth.token).then(samples => {
+    createApiClient(auth).samples.list(period).then(samples => {
       dispatch(samplesLoaded(samples));
     })
     .catch(error => {

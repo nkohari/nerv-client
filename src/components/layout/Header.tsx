@@ -3,11 +3,11 @@ import { push } from 'redux-little-router';
 import { Button } from '@blueprintjs/core';
 import { Breadcrumbs, DebugDialog, SocketIndicator } from 'src/components';
 import { userLoggedOut } from 'src/actions';
-import { AuthContext, SocketState, connect } from 'src/data';
+import { Credentials, SocketState, connect } from 'src/data';
 import './Header.styl';
 
 interface HeaderProps {
-  auth: AuthContext;
+  auth: Credentials;
   socket: SocketState;
   push: typeof push;
   userLoggedOut: typeof userLoggedOut;
