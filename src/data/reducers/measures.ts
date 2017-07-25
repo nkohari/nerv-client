@@ -14,11 +14,6 @@ const measuresReducer = handleActions<MeasureCollection>({
     isLoading: false,
     items: merge(state.items, action.payload)
   }),
-  MEASURES_ERROR: (state, action: Action<FetchError>) => new MeasureCollection({
-    ...state,
-    isLoading: false,
-    error: action.payload
-  }),
   MEASURE_EVENT_RECEIVED: (state, action: Action<MeasureEvent>) => new MeasureCollection({
     ...state,
     items: merge(state.items, action.payload.measures.map(datum => new Measure(datum)))

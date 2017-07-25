@@ -3,6 +3,7 @@ export { Collection } from './framework/Collection';
 export { connect } from './framework/connect';
 export { createApiClient } from './framework/createApiClient';
 export { createCollectionReducer } from './framework/createCollectionReducer';
+export { FetchError } from './framework/FetchError';
 export { MeasureEvent } from './framework/MeasureEvent';
 export { ModelEvent } from './framework/ModelEvent';
 export { merge, highestVersionWins, lastWriteWins } from './framework/merge';
@@ -17,7 +18,7 @@ export {
   Device,
   ExchangeRate,
   Group,
-  Identifiable,
+  HasIdentifier,
   Measure,
   Model,
   NetworkData,

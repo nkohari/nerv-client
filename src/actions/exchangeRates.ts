@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import { createApiClient, ExchangeRate } from 'src/data';
+import { Toaster } from 'src/services';
 
 export const loadExchangeRates = () => (
   (dispatch, getState) => {
@@ -9,11 +10,10 @@ export const loadExchangeRates = () => (
       dispatch(exchangeRatesLoaded(exchangeRates));
     })
     .catch(error => {
-      dispatch(exchangeRatesError(error));
+      Toaster.error(error);
     });
   }
 );
 
 export const exchangeRatesLoading = createAction('EXCHANGE_RATES_LOADING');
 export const exchangeRatesLoaded = createAction<ExchangeRate[]>('EXCHANGE_RATES_LOADED');
-export const exchangeRatesError = createAction<FetchError>('EXCHANGE_RATES_ERROR');

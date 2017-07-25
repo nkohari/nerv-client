@@ -25,11 +25,6 @@ export function createCollectionReducer<T extends Model>(modelClass: ModelClass<
       isLoading: false,
       items: merge(state.items, action.payload, highestVersionWins)
     }),
-    [`${actionPrefix}_ERROR`]: (state, action: Action<FetchError>) => new collectionClass({
-      ...state,
-      isLoading: false,
-      error: action.payload
-    }),
     MODEL_EVENT_RECEIVED: (state, action: Action<ModelEvent>) => {
       const event = action.payload;
       if (event.type !== modelClass.name) {

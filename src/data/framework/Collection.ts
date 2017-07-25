@@ -1,18 +1,16 @@
-import { Identifiable } from 'src/data';
+import { HasIdentifier } from 'src/data';
 
 type PredicateFunction<T> = (value: T, index?: number, array?: T[]) => boolean;
 type CompareFunction<T> = (a: T, b: T) => number;
 
-export class Collection<T extends Identifiable> {
+export class Collection<T extends HasIdentifier> {
 
   items: T[];
   isLoading: boolean;
-  error: Error;
 
   constructor(data: Partial<Collection<T>> = {}) {
     this.items = data.items || [];
     this.isLoading = data.isLoading || false;
-    this.error = data.error || null;
   }
 
   get(id: string): T {

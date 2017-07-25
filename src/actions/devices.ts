@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import { createApiClient, Device } from 'src/data';
+import { Toaster } from 'src/services';
 
 export const loadDevice = (groupid: string, agentid: string, deviceid: string) => (
   (dispatch, getState) => {
@@ -10,7 +11,7 @@ export const loadDevice = (groupid: string, agentid: string, deviceid: string) =
         dispatch(devicesLoaded([device]));
       })
       .catch(error => {
-        dispatch(devicesError(error));
+        Toaster.error(error);
       });
     }
   }
@@ -24,7 +25,7 @@ export const loadDevicesByAgent = (groupid: string, agentid: string) => (
       dispatch(devicesLoaded(devices));
     })
     .catch(error => {
-      dispatch(devicesError(error));
+      Toaster.error(error);
     });
   }
 );
@@ -37,7 +38,7 @@ export const loadDevicesByGroup = (groupid: string) => (
       dispatch(devicesLoaded(devices));
     })
     .catch(error => {
-      dispatch(devicesError(error));
+      Toaster.error(error);
     });
   }
 );
@@ -49,11 +50,10 @@ export const updateDevice = (groupid: string, agentid: string, deviceid: string,
       dispatch(devicesLoaded([device]));
     })
     .catch(error => {
-      dispatch(devicesError(error));
+      Toaster.error(error);
     });
   }
 );
 
 export const devicesLoading = createAction('DEVICES_LOADING');
 export const devicesLoaded = createAction<Device[]>('DEVICES_LOADED');
-export const devicesError = createAction<FetchError>('DEVICES_ERROR');

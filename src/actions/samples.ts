@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import { createApiClient, Sample } from 'src/data';
+import { Toaster } from 'src/services';
 
 export const loadSamplesByDevice = (groupid: string, agentid: string, deviceid: string, period: string) => (
   (dispatch, getState) => {
@@ -9,7 +10,7 @@ export const loadSamplesByDevice = (groupid: string, agentid: string, deviceid: 
       dispatch(samplesLoaded(samples));
     })
     .catch(error => {
-      dispatch(samplesError(error));
+      Toaster.error(error);
     });
   }
 );
@@ -22,7 +23,7 @@ export const loadSamplesByAgent = (groupid: string, agentid: string, period: str
       dispatch(samplesLoaded(samples));
     })
     .catch(error => {
-      dispatch(samplesError(error));
+      Toaster.error(error);
     });
   }
 );
@@ -35,7 +36,7 @@ export const loadSamplesByGroup = (groupid: string, period: string) => (
       dispatch(samplesLoaded(samples));
     })
     .catch(error => {
-      dispatch(samplesError(error));
+      Toaster.error(error);
     });
   }
 );
@@ -48,11 +49,10 @@ export const loadSamplesByUser = (period: string) => (
       dispatch(samplesLoaded(samples));
     })
     .catch(error => {
-      dispatch(samplesError(error));
+      Toaster.error(error);
     });
   }
 );
 
 export const samplesLoading = createAction('SAMPLES_LOADING');
 export const samplesLoaded = createAction<Sample[]>('SAMPLES_LOADED');
-export const samplesError = createAction<FetchError>('SAMPLES_ERROR');

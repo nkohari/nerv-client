@@ -1,8 +1,4 @@
-import { Model } from 'src/data';
-
-interface HasIdentifier {
-  id: string;
-}
+import { HasIdentifier, Model } from 'src/data';
 
 type Comparator<T> = (a: T, b: T) => boolean;
 

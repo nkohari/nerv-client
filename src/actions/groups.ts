@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import { createApiClient, Group } from 'src/data';
+import { Toaster } from 'src/services';
 
 export const loadGroup = (groupid: string) => (
   (dispatch, getState) => {
@@ -10,7 +11,7 @@ export const loadGroup = (groupid: string) => (
         dispatch(groupsLoaded([group]));
       })
       .catch(error => {
-        dispatch(groupsError(error));
+        Toaster.error(error);
       });
     }
   }
@@ -24,7 +25,7 @@ export const loadGroupsByUser = () => (
       dispatch(groupsLoaded(groups));
     })
     .catch(error => {
-      dispatch(groupsError(error));
+      Toaster.error(error);
     });
   }
 );
@@ -36,11 +37,10 @@ export const updateGroup = (groupid: string, data: Partial<Group>) => (
       dispatch(groupsLoaded([device]));
     })
     .catch(error => {
-      dispatch(groupsError(error));
+      Toaster.error(error);
     });
   }
 );
 
 export const groupsLoading = createAction('GROUPS_LOADING');
 export const groupsLoaded = createAction<Group[]>('GROUPS_LOADED');
-export const groupsError = createAction<FetchError>('GROUPS_ERROR');

@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import { Agent, createApiClient } from 'src/data';
+import { Toaster } from 'src/services';
 
 export const loadAgent = (groupid: string, agentid: string) => (
   (dispatch, getState) => {
@@ -10,7 +11,7 @@ export const loadAgent = (groupid: string, agentid: string) => (
         dispatch(agentsLoaded([agent]));
       })
       .catch(error => {
-        dispatch(agentsError(error));
+        Toaster.error(error);
       });
     }
   }
@@ -24,7 +25,7 @@ export const loadAgentsByGroup = (groupid: string) => (
       dispatch(agentsLoaded(agents));
     })
     .catch(error => {
-      dispatch(agentsError(error));
+      Toaster.error(error);
     });
   }
 );
@@ -37,7 +38,7 @@ export const loadAgentsByUser = () => (
       dispatch(agentsLoaded(agents));
     })
     .catch(error => {
-      dispatch(agentsError(error));
+      Toaster.error(error);
     });
   }
 );
@@ -49,11 +50,10 @@ export const updateAgent = (groupid: string, agentid: string, data: Partial<Agen
       dispatch(agentsLoaded([agent]));
     })
     .catch(error => {
-      dispatch(agentsError(error));
+      Toaster.error(error);
     });
   }
 );
 
 export const agentsLoading = createAction('AGENTS_LOADING');
 export const agentsLoaded = createAction<Agent[]>('AGENTS_LOADED');
-export const agentsError = createAction<FetchError>('AGENTS_ERROR');

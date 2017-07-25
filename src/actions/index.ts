@@ -4,8 +4,7 @@ export {
   loadAgentsByUser,
   updateAgent,
   agentsLoading,
-  agentsLoaded,
-  agentsError
+  agentsLoaded
 } from './agents';
 
 export {
@@ -19,15 +18,13 @@ export {
   loadDevicesByGroup,
   updateDevice,
   devicesLoading,
-  devicesLoaded,
-  devicesError
+  devicesLoaded
 } from './devices';
 
 export {
   loadExchangeRates,
   exchangeRatesLoading,
-  exchangeRatesLoaded,
-  exchangeRatesError
+  exchangeRatesLoaded
 } from './exchangeRates';
 
 export {
@@ -35,8 +32,7 @@ export {
   loadGroupsByUser,
   updateGroup,
   groupsLoading,
-  groupsLoaded,
-  groupsError
+  groupsLoaded
 } from './groups';
 
 export {
@@ -45,8 +41,7 @@ export {
   loadSamplesByGroup,
   loadSamplesByUser,
   samplesLoading,
-  samplesLoaded,
-  samplesError
+  samplesLoaded
 } from './samples';
 
 export {

@@ -62,7 +62,7 @@ class SocketManager extends React.Component<SocketManagerProps> {
       auth: getAuthHeaders(token),
       delay: 1000,
       timeout: 5000
-    }
+    };
     this.client.connect(options, err => {
       if (err) {
         this.props.socketError(err);

@@ -13,11 +13,6 @@ const exchangeRatesReducer = handleActions<ExchangeRateCollection>({
     ...state,
     isLoading: false,
     items: merge(state.items, action.payload)
-  }),
-  EXCHANGE_RATES_ERROR: (state, action: Action<FetchError>) => new ExchangeRateCollection({
-    ...state,
-    isLoading: false,
-    error: action.payload
   })
 },
 defaultState);

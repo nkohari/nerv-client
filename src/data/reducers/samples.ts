@@ -13,11 +13,6 @@ const samplesReducer = handleActions<SampleCollection>({
     ...state,
     isLoading: false,
     items: merge(state.items, action.payload)
-  }),
-  SAMPLES_ERROR: (state, action: Action<FetchError>) => new SampleCollection({
-    ...state,
-    isLoading: false,
-    error: action.payload
   })
 },
 defaultState);
