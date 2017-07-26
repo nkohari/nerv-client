@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Agent, Group, connect } from 'src/data';
+import { AgentCollection, Group, connect } from 'src/data';
 import './GroupCard.styl';
 
 type GroupCardProps = { group: Group };
-type GroupCardConnectedProps = { agents: Agent[] };
+type GroupCardConnectedProps = { agents: AgentCollection };
 
 class GroupCard extends React.Component<GroupCardProps & GroupCardConnectedProps> {
 

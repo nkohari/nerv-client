@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Page, Loading } from 'src/components';
 import { loadAgent, loadGroup, loadDevicesByAgent } from 'src/actions';
-import { Agent, Device, Group, connect } from 'src/data';
+import { Agent, DeviceCollection, Group, connect } from 'src/data';
 import AgentPageSidebar from './AgentPageSidebar';
 import AgentPageContent from './AgentPageContent';
 import './AgentPage.styl';
@@ -11,7 +11,7 @@ interface AgentPageConnectedProps {
   agentid: string;
   agent: Agent;
   group: Group;
-  devices: Device[];
+  devices: DeviceCollection;
   loadAgent: typeof loadAgent;
   loadGroup: typeof loadGroup;
   loadDevicesByAgent: typeof loadDevicesByAgent;

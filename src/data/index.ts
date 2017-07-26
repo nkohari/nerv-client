@@ -1,12 +1,10 @@
 // Framework
-export { Collection } from './framework/Collection';
 export { connect } from './framework/connect';
 export { createApiClient } from './framework/createApiClient';
 export { createCollectionReducer } from './framework/createCollectionReducer';
 export { FetchError } from './framework/FetchError';
 export { MeasureEvent } from './framework/MeasureEvent';
 export { ModelEvent } from './framework/ModelEvent';
-export { merge, highestVersionWins, lastWriteWins } from './framework/merge';
 export { SocketState } from './framework/SocketState';
 export { SocketStatus } from './framework/SocketStatus';
 export { SocketMessage } from './framework/SocketMessage';
@@ -23,17 +21,18 @@ export {
   Model,
   NetworkData,
   Sample,
-  User
+  User,
+  Collection,
+  AgentCollection,
+  DeviceCollection,
+  ExchangeRateCollection,
+  GroupCollection,
+  MeasureCollection,
+  NetworkDataCollection,
+  SampleCollection,
+  lastWriteWins,
+  highestVersionWins
 } from 'nerv-api';
-
-// Collections
-export { AgentCollection } from './collections/AgentCollection';
-export { DeviceCollection } from './collections/DeviceCollection';
-export { ExchangeRateCollection } from './collections/ExchangeRateCollection';
-export { GroupCollection } from './collections/GroupCollection';
-export { MeasureCollection } from './collections/MeasureCollection';
-export { NetworkDataCollection } from './collections/NetworkDataCollection';
-export { SampleCollection } from './collections/SampleCollection';
 
 // Reducers
 import { default as agentsReducer } from './reducers/agents';

@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { Page, Loading } from 'src/components';
 import { loadGroup, loadAgentsByGroup, loadDevicesByGroup } from 'src/actions';
-import { Group, Agent, Device, connect } from 'src/data';
+import { Group, AgentCollection, DeviceCollection, connect } from 'src/data';
 import GroupPageSidebar from './GroupPageSidebar';
 import GroupPageContent from './GroupPageContent';
 
 interface GroupPageConnectedProps {
   groupid: string;
   group: Group;
-  agents: Agent[];
-  devices: Device[];
+  agents: AgentCollection;
+  devices: DeviceCollection;
   loadGroup: typeof loadGroup;
   loadAgentsByGroup: typeof loadAgentsByGroup;
   loadDevicesByGroup: typeof loadDevicesByGroup;

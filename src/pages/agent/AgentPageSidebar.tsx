@@ -2,11 +2,11 @@ import * as React from 'react';
 import { Spinner } from '@blueprintjs/core';
 import { updateAgent } from 'src/actions';
 import { Sidebar } from 'src/components';
-import { Agent, Device, ExchangeRateCollection, User, connect } from 'src/data';
+import { Agent, DeviceCollection, ExchangeRateCollection, User, connect } from 'src/data';
 
 interface AgentPageSidebarProps {
   agent: Agent;
-  devices: Device[];
+  devices: DeviceCollection;
 }
 
 interface AgentPageSidebarConnectedProps {

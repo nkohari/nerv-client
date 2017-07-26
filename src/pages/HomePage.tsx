@@ -27,7 +27,7 @@ class HomePage extends React.Component<HomePageConnectedProps> {
     return (
       <Page className='home-page'>
         <div className='page-content'>
-          <GroupCardList groups={groups.all()} />
+          <GroupCardList groups={groups} />
         </div>
       </Page>
     );

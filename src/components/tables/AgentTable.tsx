@@ -2,12 +2,12 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 import { push } from 'redux-little-router';
 import { AutoSizer, Table, Column } from 'react-virtualized';
-import { Agent, Group, connect } from 'src/data';
+import { Agent, AgentCollection, Group, connect } from 'src/data';
 import './AgentTable.styl';
 
 interface AgentTableDeclaredProps {
   group: Group;
-  agents: Agent[];
+  agents: AgentCollection;
 }
 
 interface AgentTableConnectedProps {
@@ -26,7 +26,7 @@ class AgentTable extends React.Component<AgentTableDeclaredProps & AgentTableCon
   render() {
     const { agents } = this.props;
 
-    const getRowData = params => agents[params.index];
+    const getRowData = params => agents.at(params.index);
 
     return (
       <div className='agent-table'>

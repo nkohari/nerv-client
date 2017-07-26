@@ -2,14 +2,14 @@ import * as React from 'react';
 import * as classNames from 'classnames';
 import { push } from 'redux-little-router';
 import { AutoSizer, Table, Column } from 'react-virtualized';
-import { Agent, Device, Measure, connect } from 'src/data';
+import { Agent, Device, DeviceCollection, Measure, connect } from 'src/data';
 import { cells } from 'src/components/tables/renderers';
 import { RowParams } from 'src/components/tables/framework';
 import './DeviceTable.styl';
 
 interface DeviceTableDeclaredProps {
   agent: Agent;
-  devices: Device[];
+  devices: DeviceCollection;
 }
 
 interface DeviceTableConnectedProps {
@@ -29,7 +29,7 @@ class DeviceTable extends React.Component<DeviceTableDeclaredProps & DeviceTable
   render() {
     const { devices, measures } = this.props;
 
-    const getRowData = params => devices[params.index];
+    const getRowData = params => devices.at(params.index);
     const getKind = (params: RowParams<Device>) => `${params.rowData.vendor} ${params.rowData.model}`;
     const getMeasure = (name) => (
       (params: RowParams<Device>) =>

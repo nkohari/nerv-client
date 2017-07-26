@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { NonIdealState } from '@blueprintjs/core';
 import { PageContent, AgentTable, Chart } from 'src/components';
-import { Agent, Group } from 'src/data';
+import { AgentCollection, Group } from 'src/data';
 
 interface GroupPageContentProps {
   group: Group;
-  agents: Agent[];
+  agents: AgentCollection;
 }
 
 class GroupPageContent extends React.Component<GroupPageContentProps> {

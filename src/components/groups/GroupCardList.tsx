@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Link } from 'redux-little-router';
 import { GroupCard } from 'src/components';
-import { Group } from 'src/data';
+import { GroupCollection } from 'src/data';
 import './GroupCardList.styl';
 
 interface GroupCardListProps {
-  groups: Group[];
+  groups: GroupCollection;
 }
 
 class GroupCardList extends React.Component<GroupCardListProps> {

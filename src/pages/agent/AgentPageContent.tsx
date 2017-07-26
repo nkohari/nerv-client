@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { NonIdealState } from '@blueprintjs/core';
 import { PageContent, Chart, DeviceTable } from 'src/components';
-import { Agent, Device } from 'src/data';
+import { Agent, DeviceCollection } from 'src/data';
 
 interface AgentPageContentProps {
   agent: Agent;
-  devices: Device[];
+  devices: DeviceCollection;
 }
 
 interface AgentPageContentState {
